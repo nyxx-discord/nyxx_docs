@@ -1,3 +1,8 @@
+---
+title: ReadME.md
+author: HarryET
+timestamp: 2021-08-26
+---
 # [Nyxx](https://github.com/nyxx-discord/nyxx) Documentation
 
 Documentation and guides for the [Nyxx](https://github.com/nyxx-discord/nyxx) discord api library

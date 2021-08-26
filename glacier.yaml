@@ -1,0 +1,6 @@
+# Glacier Config
+name: "Nyxx Documentation"
+source_directory: "./src"
+destination_directory: "./dist"
+base_directory: "./base"
+description: "The Nyxx documentation."
