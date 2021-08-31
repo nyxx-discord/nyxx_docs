@@ -4,9 +4,9 @@ const prismStyle = document.createElement('link');
 prismStyle.rel = 'stylesheet'
 
 if(dark) {
-    prismStyle.href = './code-themes/dark.css';
+    prismStyle.href = 'https://cdn.l7ssha.xyz/atom-one-dark.css';
 } else {
-    prismStyle.href = './code-themes/light.css';
+    prismStyle.href = 'https://cdn.l7ssha.xyz/atom-one-light.css';
 }
 
 document.head.appendChild(prismStyle);
