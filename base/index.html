@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='out.css'>
+    <script defer src="base.js"></script>
+    
+    <link rel="stylesheet"href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/a11y-dark.min.css">
+    <script defer src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    
+    <title>Testing Glacier &amp; Styling</title>
+</head>
+<body>
+  <div class='titlebar'>
+    <h4>Testing Glacier &amp; Styling</h4>
+  </div>
+  <div class='body'>
+    <div class='sidebar'>
+      <div class='entries'>
+          <h5></h5>
+            <a href='src\index.html'>ReadME.md</a>
+            <a href='src\testing.html'>Testing Glacier &amp; Styling</a>
+      </div>
+      <div class='icon'>
+        <h4>Testing Glacier &amp; Styling</h4>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+    </div>
+    <div class='body'>
+      <h1 id="heading-1">Heading 1</h1>
+<h2 id="heading-2">Heading 2</h2>
+<h3 id="heading-3">Heading 3</h3>
+<h4 id="heading-4">Heading 4</h4>
+<p>Here is some text!</p><hr/>
+<h1 id="code">Code?</h1>
+<pre><code class="language-dart">void main() {
+    print("Hey Code!")
+}
+</code></pre>
+<pre><code class="language-js">const nacl = require('tweetnacl');
+
+// Your public key can be found on your application in the Developer Portal
+const PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY';
+
+const signature = req.get('X-Signature-Ed25519');
+const timestamp = req.get('X-Signature-Timestamp');
+const body = req.rawBody; // rawBody is expected to be a string, not raw bytes
+
+const isVerified = nacl.sign.detached.verify(
+  Buffer.from(timestamp + body),
+  Buffer.from(signature, 'hex'),
+  Buffer.from(PUBLIC_KEY, 'hex')
+);
+
+if (!isVerified) {
+  return res.status(401).end('invalid request signature');
+}
+ 
+</code></pre>
+<pre><code class="language-py">from nacl.signing import VerifyKey
+from nacl.exceptions import BadSignatureError
+
+# Your public key can be found on your application in the Developer Portal
+PUBLIC_KEY = 'APPLICATION_PUBLIC_KEY'
+
+verify_key = VerifyKey(bytes.fromhex(PUBLIC_KEY))
+
+signature = request.headers["X-Signature-Ed25519"]
+timestamp = request.headers["X-Signature-Timestamp"]
+body = request.data.decode("utf-8")
+
+try:
+    verify_key.verify(f'{timestamp}{body}'.encode(), bytes.fromhex(signature))
+except BadSignatureError:
+    abort(401, 'invalid request signature')
+</code></pre>
+<h1 id="misc-tests">Misc Tests</h1>
+<p><strong>Underline</strong>
+<strong>Bold</strong>
+<del>Strike through</del></p>
+<ul>
+<li>
+<p>List 1</p>
+</li>
+<li>
+<p>List 2</p>
+</li>
+<li>
+<p>List 3</p>
+</li>
+<li>
+<p>[ ] Check 1</p>
+</li>
+<li>
+<p>[ ] Check 2</p>
+</li>
+<li>
+<p>[ ] Check 3</p>
+</li>
+</ul>
+
+    </div>
+  </div>
+</body>
+</html>

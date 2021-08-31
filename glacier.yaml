@@ -4,3 +4,12 @@ source_directory: "./src"
 destination_directory: "./dist"
 base_directory: "./base"
 description: "The Nyxx documentation."
+
+destination_files:
+  include:
+    - "/code-themes/light.css"
+    - "/code-themes/dark.css"
+  exclude:
+    - "/postcss.config.js"
+    - "/tailwind.config.js"
+    - "/index.html"

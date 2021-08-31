@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='base.css'>
+    <link rel='stylesheet' href='out.css'>
     <script defer src="base.js"></script>
     
     <link rel="stylesheet"href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/a11y-dark.min.css">
@@ -13,16 +13,29 @@
     <title>{{title}}</title>
 </head>
 <body>
-  <div class='sidebar'>
-    {{# sidebar_entries}}
-      <h5>{{category}}</h5>
-      {{# entries}}
-        <p>➡ <a href='{{url}}'>{{name}}</a></p>
-      {{/ entries}}
-    {{/ sidebar_entries}}
+  <div class='titlebar'>
+    <h4>{{title}}</h4>
   </div>
   <div class='body'>
-    {{{body}}}
+    <div class='sidebar'>
+      <div class='entries'>
+        {{# sidebar_entries}}
+          <h5>{{category}}</h5>
+          {{# entries}}
+            <a href='{{url}}'>{{name}}</a>
+          {{/ entries}}
+        {{/ sidebar_entries}}
+      </div>
+      <div class='icon'>
+        <h4>{{title}}</h4>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </div>
+    </div>
+    <div class='body'>
+      {{{body}}}
+    </div>
   </div>
 </body>
 </html>
