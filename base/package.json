@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "GPL-3.0-only",
   "scripts": {
-    "build:css": "tailwind -i style.pcss -o out.css --minify --postcss --jit",
-    "watch:css": "tailwind -i style.pcss -o out.css --minify --watch --postcss --jit"
+    "build:css": "tailwind -i style.pcss -o generated_styles.css --minify --postcss --jit",
+    "watch:css": "tailwind -i style.pcss -o generated_styles.css --minify --watch --postcss --jit"
   },
   "devDependencies": {
     "autoprefixer": "^10.3.3",
