@@ -1,7 +1,7 @@
 const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 const prismStyle = document.createElement('link');
-prismStyle.rel = 'stylesheet'
+prismStyle.rel = 'stylesheet';
 
 if(dark) {
     prismStyle.href = 'https://cdn.l7ssha.xyz/atom-one-dark.css';
