@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  docs-nyxx:
-    name: Deploy nyxx package docs
+  docs-deploy:
+    name: Deploy docs to webpage
     runs-on: ubuntu-latest
     steps:
       - name: Cache
