@@ -1,5 +1,5 @@
 ---
-title: Index
+title: nyxx library docs
 author: HarryET
 timestamp: 2021-08-26
 ---
