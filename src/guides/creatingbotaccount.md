@@ -1,5 +1,5 @@
 ---
-title: Creating a Bot Account
+title: creating a bot account
 author: One-Nub
 timestamp: 2021-09-22
 category: guides
@@ -30,3 +30,8 @@ Now that we've gotten this far, it's probably important that we invite the bot t
 - Then scroll down to the OAuth2 URL Generator and select the **bot** checkbox.
 - Scroll down some more so you can see the Bot Permissions page. This is where you get to select which permissions your bot has when it joins a server. For basic usage, select the **View Channels and Send Messages** permissions, and then scroll up to the generated URL and click the **Copy** button on the right. 
 - Finally, head to that URL in your browser and add your bot!
+
+### Making your bot public (or private)
+- Head to the **Bot** tab found in the left menu on your bot's application page.
+- Under the **Authorization Flow** section, find the **Public Bot** toggle.
+- To make your bot public so anyone can add it to their server, change the toggle to the right (so it's blurple); and do the inverse to make it private so only you can add the bot to servers.
