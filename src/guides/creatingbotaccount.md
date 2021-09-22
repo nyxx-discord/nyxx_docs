@@ -27,8 +27,8 @@ _WARNING: Do NOT share or publish this token anywhere publically. If you do, any
 Now that we've gotten this far, it's probably important that we invite the bot to your server to actually test commands in!
 
 - First, head to the **OAuth2** tab found in the left menu on your bot's application page.
-- Then scroll down to the OAuth2 URL Generator and select the **bot** checkbox.
-- Scroll down some more so you can see the Bot Permissions page. This is where you get to select which permissions your bot has when it joins a server. For basic usage, select the **View Channels and Send Messages** permissions, and then scroll up to the generated URL and click the **Copy** button on the right. 
+- Then scroll down to the OAuth2 URL Generator and select the **bot** checkbox under the **scopes** section.
+- Scroll down some more so you can see the **Bot Permissions** section. This is where you get to select which permissions your bot has when it joins a server. For basic usage, select the **View Channels and Send Messages** permissions, and then scroll up to the generated URL and click the **Copy** button on the right.
 - Finally, head to that URL in your browser and add your bot!
 
 ### Making your bot public (or private)
@@ -37,7 +37,7 @@ Now that we've gotten this far, it's probably important that we invite the bot t
 - To make your bot public so anyone can add it to their server, change the toggle to the right (so it's blurple); and do the inverse to make it private so only you can add the bot to servers.
 
 ### Privileged Gateway Intents
-Gateway intents make it so your bot can only recieve specific intents to lower the processing power necessary for the bot. Some of these intents are limited since they can contain potentially more sensitive data. 
+Gateway intents make it so your bot can only recieve specific intents to lower the processing power necessary for the bot. Some of these intents are limited since they can contain potentially more sensitive data.
 
 These include:
 - **Presence Intent**: This toggle will enable you to recieve events when someone's presence or info is updated. This includes their status, username changes, avatar changes, as well as other similar info.
@@ -45,5 +45,5 @@ These include:
 
 To toggle these intents:
 - Head to the **Bot** tab found in the left menu on your bot's application page.
-- Find the **Privileged Gateway Intents** section 
+- Find the **Privileged Gateway Intents** section
 - Toggle the intents as necessary by your bot.
