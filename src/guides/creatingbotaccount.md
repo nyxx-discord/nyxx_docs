@@ -35,3 +35,15 @@ Now that we've gotten this far, it's probably important that we invite the bot t
 - Head to the **Bot** tab found in the left menu on your bot's application page.
 - Under the **Authorization Flow** section, find the **Public Bot** toggle.
 - To make your bot public so anyone can add it to their server, change the toggle to the right (so it's blurple); and do the inverse to make it private so only you can add the bot to servers.
+
+### Privileged Gateway Intents
+Gateway intents make it so your bot can only recieve specific intents to lower the processing power necessary for the bot. Some of these intents are limited since they can contain potentially more sensitive data. 
+
+These include:
+- **Presence Intent**: This toggle will enable you to recieve events when someone's presence or info is updated. This includes their status, username changes, avatar changes, as well as other similar info.
+- **Server Members Intent**: This toggle will enable you to recieve events when guild members join and leave the server, when members are updated, who was added to and removed from a thread, and the ability to list guild members
+
+To toggle these intents:
+- Head to the **Bot** tab found in the left menu on your bot's application page.
+- Find the **Privileged Gateway Intents** section 
+- Toggle the intents as necessary by your bot.
