@@ -41,9 +41,9 @@ Gateway intents make it so your bot can only recieve specific intents to lower t
 
 These include:
 - **Presence Intent**: This toggle will enable you to recieve events when someone's presence or info is updated. This includes their status, username changes, avatar changes, as well as other similar info.
-- **Server Members Intent**: This toggle will enable you to recieve events when guild members join and leave the server, when members are updated, who was added to and removed from a thread, and the ability to list guild members
+- **Server Members Intent**: This toggle will enable you to recieve events when guild members join and leave the server, when members are updated, who was added to and removed from a thread, and the ability to list guild members.
 
 To toggle these intents:
 - Head to the **Bot** tab found in the left menu on your bot's application page.
-- Find the **Privileged Gateway Intents** section
-- Toggle the intents as necessary by your bot.
+- Find the **Privileged Gateway Intents** section.
+- Toggle the intents as necessary for your bot.
