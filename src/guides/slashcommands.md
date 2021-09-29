@@ -62,7 +62,7 @@ To register `ping` command that responds with pong we can do something like that
 final singleCommand = SlashCommandBuilder("ping", "Simple command that responds with `pong`", [])
   ..registerHandler((event) async {
     // Handler accepts a function with parameter of SlashCommandInteraction which contains
-    // all of the stuff need to respond to interaction.
+    // all of the stuff needed to respond to interaction.
     // From there you have two routes: ack and then respond later or respond immediately without ack.
     // Sending ack will display indicator that bot is thinking and from there you will have 15 mins to respond to
     // that interaction.
@@ -72,7 +72,7 @@ final singleCommand = SlashCommandBuilder("ping", "Simple command that responds 
 
 We specified name of command as `ping` and provided short description so user would now what commands does. We also invoked
 `registerHandler` method that registers internal callback that command could be responded by bot. In that case we only
-response with MessageBuilder with content of `Pong!`.
+respond with MessageBuilder with content of `Pong!`.
 
 #### Subcommands
 
@@ -119,7 +119,7 @@ of said interface:
  - `ManualCommandSync` - which has only true/false switch if commands should be synced
  - `LockFileCommandSync` - creates lock file of registered command and syncs only if any of significant properties is changed
 
-Default is `ManualCommandSync` and by default it is syncing command on each bot startup. So if you already registered you commands
+Default is `ManualCommandSync` and by default it is syncing command on each bot startup. So if you already registered your commands
 and you won't make any further changes to its props then you can pass `ManualCommandSync` instance with false and commands
 won't be synced with discord to avoid API abuse.
 

@@ -63,7 +63,7 @@ Changed 14 dependencies!
 
 ### First code
 
-With basic setup done and working we can now start coding our bot, but let's start with something easy.
+With basic working, we can now start coding our bot, but let's start with something easy.
 This is simple bot which replies to `!ping` with `pong`.
 ```dart
 void main() {
