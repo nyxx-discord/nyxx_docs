@@ -8,6 +8,8 @@ category: guides
 Gateway intents were introduced so bot developers could choose what event they want to receive. If you don't want
 to receive certain event you could just omit its intent and they won't be sent to your bot.
 
+> More on intents: [https://discord.com/developers/docs/topics/gateway#gateway-intents](https://discord.com/developers/docs/topics/gateway#gateway-intents)
+
 ### Specifying intents
 
 Since `nyxx 2.x` passing intents is required in Nyxx constructor. You can pass precalculated int value or you can pass
