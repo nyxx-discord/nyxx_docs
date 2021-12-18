@@ -93,7 +93,7 @@ logic more easily.
 IInteractions.create(WebsocketInteractionBackend(bot));
 ```
 
-Currently, only websocket backend is available (`WebsocketInteractionBackend`). In the future backend for HTTP interactions will be added.
+Currently, only the websocket backend is available (`WebsocketInteractionBackend`). In the future a backend for HTTP interactions will be added.
 
 #### Improved autocomplete handling
 
