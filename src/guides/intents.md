@@ -22,7 +22,7 @@ constant values from `GatewayIntents` class combined with a binary OR (`|`):
 For example, the following code would only recieve guild message or private message events,
 
 ```dart
-final bot = Nyxx("TOKEN", GatewayIntents.guildMessages | GatewayIntents.directMessages);
+final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.guildMessages | GatewayIntents.directMessages);
 ```
 
 </br>

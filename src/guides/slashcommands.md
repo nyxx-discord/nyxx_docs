@@ -16,8 +16,8 @@ Before registering any commands you have to instantiate new instance of the `Int
 Nyxx that provides slash command and message components functionality. 
 
 ```dart
-final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
-final interactions = Interactions(bot);
+final bot = Nyxx.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
+final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 ```
 
 </br>

@@ -15,13 +15,13 @@ Before you use message components you have to instantiate new instance of the `I
 Nyxx that provides slash command and message components functionality:
 
 ```dart
-final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
-final interactions = Interactions(bot);
+final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
+final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 ```
 
 </br>
 
-The `Interactions` class contains all method and utils needed to send and manage messages with components.
+The `Interactions` class contains all the methods and utils needed to send and manage messages with components.
 
 </br>
 
@@ -35,7 +35,7 @@ Components (buttons and select menus at the moment) can be created on any messag
 
 Components can be created using the `ComponentMessageBuilder` class from the `nyxx_interactions` package. It extends the basic
 `MessageBuilder` from the `nyxx` package with an additional `addComponentRow` method which allows adding component rows and
-components toa  message.
+components to a message.
 
 The following example shows how to create a message with buttons and select menus. These can be sent with any message
 sent by the bot, including webhooks (provided the bot application also owns the webhook):
@@ -108,8 +108,8 @@ Future<void> multiselectHandlerHandler(MultiselectInteractionEvent event) async 
 }
 
 void main() {
-  final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
-  Interactions(bot)
+  final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
+  IInteractions.create(WebsocketInteractionBackend(bot))
     ..registerSlashCommand(singleCommand) // Register created before slash command
     ..registerButtonHandler("thisisid", buttonHandler) // register handler for button with id: thisisid
     ..registerMultiselectHandler("customId", multiselectHandlerHandler) // register handler for multiselect with id: customId

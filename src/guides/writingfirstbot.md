@@ -32,7 +32,7 @@ environment:
   sdk: '>=2.14.2 <3.0.0'
 
 dependencies:
-  nyxx: ^2.0.0
+  nyxx: ^3.0.0
   
 dev_dependencies:
   lints: ^1.0.0
@@ -51,7 +51,7 @@ Resolving dependencies...
 + http_parser 4.0.0
 + logging 1.0.2
 + meta 1.7.0
-+ nyxx 2.0.0-rc.15
++ nyxx 3.0.0
 + path 1.8.0
 + pedantic 1.11.1
 + source_span 1.8.1
@@ -69,7 +69,7 @@ With everything set up, we can now start coding our bot, but let's start with so
 This is simple bot which replies to `!ping` with `pong`.
 ```dart
 void main() {
-  final bot = Nyxx("TOKEN", GatewayIntents.allUnprivileged);
+  final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
 
   bot.onMessageReceived.listen((event) {
     if (event.message.content == "!ping") {
@@ -84,7 +84,7 @@ void main() {
 Let's explain what each line does:
 
 ```dart
-final bot = Nyxx("TOKEN", GatewayIntents.allUnprivileged);
+final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
 ```
 Here we are creating and starting a new client with your token and desired gateway intents.
 In this case the bot will request all intents except privileged ones.

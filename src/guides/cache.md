@@ -20,7 +20,7 @@ class CacheOptions {
   CachePolicyLocation memberCachePolicyLocation = CachePolicyLocation();
 
   /// Defines which members are preserved in cache
-  CachePolicy<Member> memberCachePolicy = MemberCachePolicy.def;
+  CachePolicy<IMember> memberCachePolicy = MemberCachePolicy.def;
 
   /// Defines where channel entities are preserved cache. Defaults to [CachePolicyLocation] with additional objectConstructor set to true
   CachePolicyLocation channelCachePolicyLocation = CachePolicyLocation()..objectConstructor = true;
@@ -30,6 +30,13 @@ class CacheOptions {
 
   /// Defines in which places user can be cached
   CachePolicyLocation userCachePolicyLocation = CachePolicyLocation();
+
+  /// Defines in which locations members will be cached
+  CachePolicyLocation messageCachePolicyLocation = CachePolicyLocation();
+
+  /// Defines which members are preserved in cache
+  CachePolicy<IMessage> messageCachePolicy = MessageCachePolicy.def;
+}
 }
 ```
 
@@ -61,7 +68,7 @@ Future<void> main() async {
           ..http = true
     );
   
-  final bot = Nyxx("token", 10, cacheOptions: cacheOptions);
+  final bot = NyxxFactory.createNyxxWebsocket("token", 10, cacheOptions: cacheOptions);
 }
 ```
 
@@ -91,6 +98,6 @@ Future<void> main() async {
   final cacheOptions = CacheOptions()
     ..memberCachePolicy = CachePolicy<Member>((member) => member.roles.isNotEmpty);
   
-  final bot = Nyxx("token", 10, cacheOptions: cacheOptions);
+  final bot = NyxxFactory.createNyxxWebsocket("token", 10, cacheOptions: cacheOptions);
 }
 ```
