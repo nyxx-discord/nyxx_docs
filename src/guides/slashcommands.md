@@ -1,34 +1,43 @@
 ---
-title: slash commands
+title: Slash commands
 author: l7ssha
 timestamp: 2021-09-21
-category: guides
+category: Guides
 ---
 
-Slash commands is a new way of interacting with bots via chat using registered commands within discord API.
-Such commands provide visual feedback in UI and are more tied to platform than classic text based command.
+Slash commands are a new way of interacting with bots via chat using commands registered on the Discord API.
+Such commands provide visual feedback in the UI and are more tied to the platform than classic text based commands.
+
+</br>
 
 ### Interactions extension
 
-Before registering any commands you have to instantiate new instance of `Interactions` class, which is extension for
-nyxx that provides slash command and message components functionality. 
+Before registering any commands you have to instantiate new instance of the `Interactions` class, which is an extension for
+Nyxx that provides slash command and message components functionality. 
 
 ```dart
 final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
 final interactions = Interactions(bot);
 ```
 
-Interactions class contains all method and utils needed to register and handle slash commands.
+</br>
+
+The `Interactions` class contains all the methods and utils needed to register and handle slash commands.
+
+</br>
 
 ### Registering commands
 
-nyxx provides easy to use interface for registering commands in api and internal handler to privide functionality
-to command. Command can be registered in API and added internally that bot can respond to them via web socket.
+Nyxx provides an easy to use interface for registering commands to the Discord API and internal handlers to provide functionality to a command. Commands can be registered on the API and added internally so that the bot can respond to them via websocket.
 
-To register an command use `registerSlashCommand` method which takes instance of `SlashCommandBuilder` class.
-`SlashCommandBuilder` provides all info needed for framework and API how to handle given slash command.
+</brs>
 
-`SlashCommandBuilder` allows to build command with such properties:
+To register an command use the `registerSlashCommand` method which takes instance of the `SlashCommandBuilder` class.
+`SlashCommandBuilder` provides all the information needed for the framework and API about how to handle a given slash command.
+
+</br>
+
+`SlashCommandBuilder` allows you to build commands with the following properties:
 ```dart
 /// Command name to be shown to the user in the Slash Command UI
 final String name;
@@ -53,7 +62,9 @@ List<ICommandPermissionBuilder>? permissions;
 SlashCommandType type;
 ```
 
-To register `ping` command that responds with pong we can do something like that:
+</br>
+
+This example registers a `ping` command that responds with `"pong"`:
 ```dart
 // Creates instance of slash command builder with name, description and sub options.
 // Its used to synchronise commands with discord and also to be able to respond to them.
@@ -70,21 +81,24 @@ final singleCommand = SlashCommandBuilder("ping", "Simple command that responds 
   });
 ```
 
-We specified name of command as `ping` and provided short description so user would now what commands does. We also invoked
-`registerHandler` method that registers internal callback that command could be responded by bot. In that case we only
-respond with MessageBuilder with content of `Pong!`.
+</br>
+
+We specified the name of the command as `ping` and provided a short description so that the user would now what the command does. We also invoked the `registerHandler` method that registers an internal callback so that the command could be responded to by the bot. In that case we only respond with a `MessageBuilder` with a content of `Pong!`.
+
+</br>
 
 #### Subcommands
 
-Subcommands are handler by adding instances of `CommandOptionBuilder` to `SlashCommandBuilder` via `options` parameter
-in the constructor. In discord API subcommands are just options in base command and there it is handled the same way.
+Subcommands are handled by adding instances of `CommandOptionBuilder` to `SlashCommandBuilder` via the `options` parameter
+in the constructor. In the Discord API, subcommands are just options in a base command and are handled in the same way.
 
-`CommandOptionBuilder` has `registerHandler` which allows you to register callback that will be invoked when client
-receives and interaction, just like base slash command.
+`CommandOptionBuilder` has a `registerHandler` method which allows you to register callback that will be invoked when client receives an interaction, just like the base slash command.
 
-> Note that `registerHandler` cannot be executed on `CommandOptionBuilder` that has other type than `CommandOptionType.subcommand`
+> Note that `registerHandler` cannot be executed on `CommandOptionBuilder` that has a type other than `CommandOptionType.subcommand`.
 
-So if we want to have command named `game` and few different games as subcommands to that command we can do something like that:
+</br>
+
+For example, if we want to have a command named `game` and few different games as subcommands:
 ```dart
 // If you want your command to have subcommand you don't need to register handler
 // for main handler because only sub commands will be invokable.
@@ -104,51 +118,51 @@ final subCommandFlipGame = CommandOptionBuilder(CommandOptionType.subCommand, "c
   });
 ```
 
+</br>
+
 ### Syncing commands
 
-Registered commands needs to be synced with discords API. After calling `Interactions#syncOnReady` framework 
-will perform bulk override of registered command which means that new commands will be added, existing will be updated,
-and commands that are missing will be erased from the API. Global commands have ~1h long caching span, so they will 
-be available after approx. 1 hour and guild command are available instantly.
+Registered commands need to be synced with Discord's API. After calling `Interactions#syncOnReady`, the `nyxx_interactions` framework will perform a  bulk override of registered command which means that new commands will be added, existing commands will be updated, and commands that are missing will be erased from the API. Global commands have ~1h long caching span, so they will be available after approx. 1 hour and guild commands are available instantly.
 
-#### sync types inside nyxx
+</br>
 
-Nyxx provides interface to customise syncing logic. There is `ICommandsSync` interface that implementation could be 
-passed to `syncOnReady` to provide custom behavior on when to sync the commands. There are two built in implementations
-of said interface: 
- - `ManualCommandSync` - which has only true/false switch if commands should be synced
- - `LockFileCommandSync` - creates lock file of registered command and syncs only if any of significant properties is changed
+#### Sync types inside nyxx
 
-Default is `ManualCommandSync` and by default it is syncing command on each bot startup. So if you already registered your commands
-and you won't make any further changes to its props then you can pass `ManualCommandSync` instance with false and commands
-won't be synced with discord to avoid API abuse.
+Nyxx provides an interface to customise syncing logic. Classes implementing `ICommandsSync` can be passed to `Interactions#syncOnReady` to customise how syncing behaves. `nyxx_interactions` provides two options by default:
+ - `ManualCommandSync`: A `true`/`false` switch indicating whether commands should be synced;
+ - `LockFileCommandSync`: Creates a lock file storing registered commands and only sync if significant changes have been made.
+
+The default is `ManualCommandSync` and by default commands sync on each bot startup, so if you already registered your commands and you won't make any further changes to their properties you can pass `ManualCommandSync` instance with `false` and commands won't be synced with Discord to avoid API abuse.
+
+</br>
 
 ### Responding to commands
 
-Initial response to slash command could be either response or acknowledge. Initial response must be sent within 3 seconds
-from time that interaction is received otherwise it will fail in the UI. After acknowledging you can respond within 15 mins.
+The initial response to a slash command interaction can either be a response or an acknowledgement. The initial response must be sent within 3 seconds or the commands will be marked as failed in the user's UI, but after acknowledging you can respond for up to 15 minutes.
 
-So to properly handle the interaction from code perspective you have to respond or acknowledge in 3 seconds and then respond in 15 mins.
+
+So, to properly handle the interaction from a code perspective you have to respond or acknowledge in 3 seconds and then respond in 15 mins:
 
 ```dart
 ..registerHandler((event) async {
-  await event.acknowledge(); // After that you have 15 mins to event.respond
+  await event.acknowledge(); // After that you have 15 mins to call event.respond
 
   await event.respond(MessageBuilder.content("Respond"));
 });
 ```
 
-#### ephemeral
+</br>
 
-Message could sent as ephemeral which means that message can be hidden for user that invoked the command in public chat,
-like `Clyde` in discord client. 
+#### Ephemeral responses
 
-`acknowledge` and `respond` have `hidden` optional parameter which allows to specify if command should be hidden or not.
+Messages can sent as ephemeral responses which means that the message will only be visible for the user that invoked the command in public chat, like `Clyde` in the Discord client. 
+
+`acknowledge` and `respond` have an optional parameter `hidden` which allows to specify if the response should be ephermal or not:
 
 ```dart
 ..registerHandler((event) async {
   await event.acknowledge(); // After that you have 15 mins to event.respond
 
-  await event.respond(MessageBuilder.content("Respond"));
+  await event.respond(MessageBuilder.content("Respond"), hidden: true);
 });
 ```

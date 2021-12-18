@@ -4,13 +4,13 @@ author: HarryET
 timestamp: 2021-08-26
 ---
 
-# [nyxx](https://github.com/nyxx-discord/nyxx) Documentation
+# [Nyxx](https://github.com/nyxx-discord/nyxx) documentation
 
-Documentation and guides for the [nyxx](https://github.com/nyxx-discord/nyxx) discord api library
+Documentation and guides for the [nyxx](https://github.com/nyxx-discord/nyxx) Discord api library.
 
 ## Info
 
-This repo contains documentation and guide to help people with learning dart and creating discord bots with Nyxx. Many subjects are cover such as:
+This repo contains documentation and guides to help people with learning dart and creating Discord bots with Nyxx. Many subjects are covered such as:
 - How to create a bot account
 - Setting up a basic hello world project
 - Picking your message intents
