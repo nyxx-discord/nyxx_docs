@@ -18,7 +18,7 @@ and its components.
 
 #### `INyxxFactory` and `connect` in INyxx
 
-  Since this release only way to spawn a new instance of nyxx is via `NyxxFactory` via `createNyxxWebsocket` which creates
+  Since this release the only way to spawn a new instance of nyxx is via `NyxxFactory`'s method `createNyxxWebsocket` which creates
   new instance of `INyxxWebsocket` which is comparable to old `Nyxx`. The `createNyxxRest` method creates a new instance of nyxx that won't
   connect to websocket and will operate in REST only mode.
 
