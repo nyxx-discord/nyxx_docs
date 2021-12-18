@@ -1,5 +1,5 @@
 ---
-title: migration to nyxx 3.x
+title: migration to nyxx_* 3.x
 author: l7ssha
 timestamp: 2021-12-17
 category: migration
