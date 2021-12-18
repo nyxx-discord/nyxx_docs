@@ -1,5 +1,5 @@
 ---
-title: Writing your first bot
+title: writing your first bot
 author: l7ssha
 timestamp: 2021-09-20
 category: guides

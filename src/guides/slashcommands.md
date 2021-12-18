@@ -1,5 +1,5 @@
 ---
-title: Slash commands
+title: slash commands
 author: l7ssha
 timestamp: 2021-09-21
 category: guides

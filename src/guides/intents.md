@@ -1,5 +1,5 @@
 ---
-title: Intents
+title: intents
 author: l7ssha
 timestamp: 2021-09-21
 category: guides

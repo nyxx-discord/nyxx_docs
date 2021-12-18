@@ -1,5 +1,5 @@
 ---
-title: Message components
+title: message components
 author: HarryET
 timestamp: 2021-09-22
 category: guides

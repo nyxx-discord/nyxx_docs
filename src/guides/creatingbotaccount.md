@@ -1,5 +1,5 @@
 ---
-title: Creating a bot account
+title: creating a bot account
 author: One-Nub
 timestamp: 2021-09-22
 category: guides
