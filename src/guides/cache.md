@@ -5,11 +5,13 @@ timestamp: 2021-09-21
 category: guides
 ---
 
-Cache in nyxx is managed automatically with internal wrappers around existing Dart features. Nyxx features 
-[`Cache<T, S>`](https://nyxx.l7ssha.xyz/dartdocs/nyxx/nyxx/Cache-class.html) interface which is base class for all cache types used in library. 
-But like any other aspect of nyxx cache handling can be altered to fit your needs.
+Caching in nyxx is managed automatically with internal wrappers around existing Dart features. Nyxx features a 
+[`Cache<T, S>`](https://nyxx.l7ssha.xyz/dartdocs/nyxx/nyxx/Cache-class.html) interface which is the base class for all caches used in the library. 
+Like any other aspect of nyxx, cache handling can be altered to fit your needs.
 
-You can pass `CacheOptions` implementation to Nyxx constructor to alter cache behavior across whole bot
+</br>
+
+You can pass an instance of `CacheOptions` when creating your `Nyxx` instance to alter caching behavior across the whole bot:
 
 ```dart
 /// Options for configuring cache. Allows to specify where and which entities should be cached and preserved in cache
@@ -18,7 +20,7 @@ class CacheOptions {
   CachePolicyLocation memberCachePolicyLocation = CachePolicyLocation();
 
   /// Defines which members are preserved in cache
-  CachePolicy<Member> memberCachePolicy = MemberCachePolicy.def;
+  CachePolicy<IMember> memberCachePolicy = MemberCachePolicy.def;
 
   /// Defines where channel entities are preserved cache. Defaults to [CachePolicyLocation] with additional objectConstructor set to true
   CachePolicyLocation channelCachePolicyLocation = CachePolicyLocation()..objectConstructor = true;
@@ -28,22 +30,35 @@ class CacheOptions {
 
   /// Defines in which places user can be cached
   CachePolicyLocation userCachePolicyLocation = CachePolicyLocation();
+
+  /// Defines in which locations members will be cached
+  CachePolicyLocation messageCachePolicyLocation = CachePolicyLocation();
+
+  /// Defines which members are preserved in cache
+  CachePolicy<IMessage> messageCachePolicy = MessageCachePolicy.def;
+}
 }
 ```
 
-For now there are few things you can do:
- 1. alter where objects are added to cache (like from event, http...)
- 2. which objects are add to cache (by specifying predicate to choose which object is good and whih is not)
+</br>
+
+For now there are a few things you can do:
+ 1. Alter when objects are added to cache (from websocket events or HTTPS requests);
+ 2. Control which objects are added to cache (by specifying a predicate to choose which objects to cache)
+
+</br>
  
 #### CachePolicyLocation
 
-So this setting allows to specify where object are added to cache. You have few options there:
- - event (objects are added from events)
- - objectConstructor (object are added from other object's constructors - like member from message payload)
- - http (objects are added from http requests)
- - other (any other place that cannot be categorized under options above)
+This setting allows to specify when object are added to the cache:
+ - `event`: Objects are cached from websocket events;
+ - `objectConstructor`: Objects are cached from other object's constructors, for example `Member` objects from message payloads;
+ - `http`: Objects are added from HTTP API requests;
+ - `other`: All other times an object could be cached.
 
-So as an example how to cache members only from event and http you could do something like that:
+</br>
+
+As an example, this code would only cache `Member` objects from websocket events and http API requests:
 ```dart
 Future<void> main() async {
   final cacheOptions = CacheOptions()
@@ -53,16 +68,17 @@ Future<void> main() async {
           ..http = true
     );
   
-  final bot = Nyxx("token", 10, cacheOptions: cacheOptions);
+  final bot = NyxxFactory.createNyxxWebsocket("token", 10, cacheOptions: cacheOptions);
 }
 ```
 
-#### MemberCachePolicy
+</br>
 
-Other option to restrict cache is to specify `CachePolicy` which is class that wraps callback which will be executed
-when trying to cache certain object.
+#### CachePolicy
 
-`CachePolicy` can be freely composed with provided base methods or extended by end developer:
+Another option to restrict caching is to specify a `CachePolicy` which is a class that wraps a callback executed when trying to cache objects.
+
+`CachePolicy` can be freely composed with provided base methods or extended by the end developer:
 ```dart
 /// Convenience method to concatenate other policy
 CachePolicy<T> or(CachePolicy<T> other);
@@ -74,12 +90,14 @@ CachePolicy<T> and(CachePolicy<T> other);
 static CachePolicy<S> any<S extends SnowflakeEntity>(List<CachePolicy<S>> policies);
 ```
 
-So if you want only cache members who have role you can do something like that:
+</br>
+
+For example, this code would only cache `Member` objects who have roles:
 ```dart
 Future<void> main() async {
   final cacheOptions = CacheOptions()
     ..memberCachePolicy = CachePolicy<Member>((member) => member.roles.isNotEmpty);
   
-  final bot = Nyxx("token", 10, cacheOptions: cacheOptions);
+  final bot = NyxxFactory.createNyxxWebsocket("token", 10, cacheOptions: cacheOptions);
 }
 ```
