@@ -77,7 +77,7 @@ REST API calls will be accessible.
 
 #### IInteractions
 
-Similarly to main nyxx library to nyxx_interactions you have to use `IInteractions.create` method because constructor is hidden from public API.
+Similarly to main nyxx library to nyxx_interactions you have to use `IInteractions.create` method because the constructor is hidden from the public API.
 `create` function also accepts instance of `InteractionBackend` instead of `INyxx` instance due to upcoming HTTP interactions support.
 This allows us to create additional backends for interactions or to alter existing ones for wider compatibility and extensibility.
 
