@@ -53,7 +53,7 @@ and its components.
   FutureOr<void> onBotStart(INyxx nyxx, Logger logger) async {}
   FutureOr<void> onBotStop(INyxx nyxx, Logger logger) async {}
   ```
-  Future version of nyxx will add more hooks and ways of extending nyxx functionality.
+  Future version of nyxx will add more hooks and ways of extending the functionality of nyxx.
 
 #### Improved cache
 
