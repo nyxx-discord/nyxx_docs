@@ -8,8 +8,10 @@ category: guides
 `3.0.0` includes some big changes which are breaking to most of the code from previous version.
 This guide is going to be broken into parts for each library.
 
-Biggest change for each library are new entities model which incorporates interfaces for each class provided by library.
-Interfaces are now exposed instead of concrete implementations of class which allows easier extending, mocking and replacing nyxx
+> Biggest change for each library are new entities model which incorporates interfaces for each class provided by library.
+
+The biggest change for all libraries is new entities model - concrete implementation and internal logic is hidden behind interfaces 
+and only said interfaces are accessible by end user of library. This allows easier extending, mocking and replacing nyxx
 and its components.
 
 ## nyxx
@@ -26,15 +28,15 @@ and its components.
 #### `Interface-based entity model`
 
   Concrete implementations of classes are now hidden and interfaces are exposed.
-  Here, nothing should particularly change but keep in mind you are now receiving not `User` but `IUser` which represents
-  user entity, but it's completely transparent on what it can do but hides how its achieved. It allows us to modify underlying
+  Here, nothing should particularly change but keep in mind that you are now receiving not `User` but `IUser` which represents
+  the user entity, but it's completely transparent on what it can do but hides internal implementation. It allows us to modify underlying
   logic more easily.
 
 #### `Plugin system`
 
   This version ships with first iteration of plugin system which allows creating small and lightweight addons for library.
   Functionality which was previously default is now moved to 3 plugins that are provided by default and developer needs to
-  specify what plugin he wants to use. Plugins provided by default are:
+  specify what plugin they want to use. Plugins provided by default are:
    - `CliIntegration`
    - `IgnoreExceptions`
    - `Logging`
@@ -60,8 +62,8 @@ and its components.
 
 #### Using nyxx in REST only mode
 
-  Its now possible to use nyxx in REST only mode using `INyxxRest` instance. nyxx won't connect to network and will be able
-  to only send requests via REST.
+It's now possible to use nyxx in REST only mode using `INyxxRest` instance - nyxx won't connect to gateway and only
+REST API calls will be accessible.
 
 #### Other changes
 
@@ -77,13 +79,13 @@ and its components.
 
 Similarly to main nyxx library to nyxx_interactions you have to use `IInteractions.create` method because constructor is hidden from public API.
 `create` function also accepts instance of `InteractionBackend` instead of `INyxx` instance due to upcoming HTTP interactions support.
-This allows us creating additional backends for interactions or altering existing ones for wider compatibility and extensibility.
+This allows us to create additional backends for interactions or to alter existing ones for wider compatibility and extensibility.
 
 #### `Interface-based entity model`
 
 Concrete implementations of classes are now hidden and interfaces are exposed.
-Here, nothing should particularly change but keep in mind you are now receiving not `User` but `IUser` which represents
-user entity, but it's completely transparent on what it can do but hides how its achieved. It allows us to modify underlying
+Here, nothing should particularly change but keep in mind that you are now receiving not `User` but `IUser` which represents
+the user entity, but it's completely transparent on what it can do but hides internal implementation. It allows us to modify underlying
 logic more easily.
 
 ```dart
@@ -100,7 +102,7 @@ autocomplete handler per command option instead of globally per given option nam
 creating autocomplete command options to simplify code.
 
 #### Other changes
-- Fixed various bugs with registering commands and its permissions.
+- Fixed various bugs with registering commands and their permissions.
 - Add ability to remove guild commands from given guild completely. Previously this behavior was not possible.
 
 ## nyxx_commander
@@ -113,15 +115,15 @@ constructor is hidden from public API.
 #### `Interface-based entity model`
 
 Concrete implementations of classes are now hidden and interfaces are exposed.
-Here, nothing should particularly change but keep in mind you are now receiving not `User` but `IUser` which represents
-user entity, but it's completely transparent on what it can do but hides how its achieved. It allows us to modify underlying
+Here, nothing should particularly change but keep in mind that you are now receiving not `User` but `IUser` which represents
+the user entity, but it's completely transparent on what it can do but hides internal implementation. It allows us to modify underlying
 logic more easily.
 
 #### Other changes
 - Fixed bugs with invalid behavior of registering commands
 
 ## nyxx_extensions
-- Use minified version of emojis endpoint. Fixes #1
+- Use minified version of emojis endpoint
 - `filterEmojiDefinitions` from `emoji` library now returns `Stream<EmojiDefinition>`
 - Export library for each file (part of `Interface-based entity model` for whole library stack)
 
@@ -130,8 +132,8 @@ logic more easily.
 #### `Interface-based entity model`
 
 Concrete implementations of classes are now hidden and interfaces are exposed.
-Here, nothing should particularly change but keep in mind you are now receiving not `User` but `IUser` which represents
-user entity, but it's completely transparent on what it can do but hides how its achieved. It allows us to modify underlying
+Here, nothing should particularly change but keep in mind that you are now receiving not `User` but `IUser` which represents
+the user entity, but it's completely transparent on what it can do but hides internal implementation. It allows us to modify underlying
 logic more easily.
 
 External and internal API hadn't changed since previous version.
