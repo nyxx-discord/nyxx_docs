@@ -7,27 +7,39 @@ category: guides
 
 Message components allow for interactivity between a message sent by a bot and the user receiving it. You can add buttons, links, select menus & multiselects.
 
+</br>
+
 ### Interactions extension
 
-Before you use message components you have to instantiate new instance of `Interactions` class, which is extension for
-nyxx that provides slash command and message components functionality.
+Before you use message components you have to instantiate new instance of the `Interactions` class, which is an extension for nyxx that provides slash command and message components functionality:
 
 ```dart
-final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
-final interactions = Interactions(bot);
+final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
+final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 ```
 
-Interactions class contains all method and utils needed to send and manage messages with components.
+</br>
 
-### Components (buttons, select menus)
+The `Interactions` class contains all the methods and utils needed to send and manage messages with components.
 
-Components (buttons and select menus at the moment) can be created in any message but button events can be listened only from `Interactions` object.
+</br>
+
+### Components (buttons and select menus)
+
+Components (buttons and select menus at the moment) can be created on any message but button events can be listened only from the `Interactions` object.
+
+</br>
 
 #### Adding components to message
 
-Components can be created using `ComponentMessageBuilder` from `nyxx_interactions` package. It extends basic
-MessageBuilder from main package with additional `addComponentRow` method which allows adding component rows and
-components to message.
+Components can be created using the `ComponentMessageBuilder` class from the `nyxx_interactions` package. It extends the basic
+`MessageBuilder` from the `nyxx` package with an additional `addComponentRow` method which allows adding component rows and
+components to a message.
+
+The following example shows how to create a message with buttons and select menus. These can be sent with any message
+sent by the bot, including webhooks (provided the bot application also owns the webhook):
+
+</br>
 
 ```dart
 final singleCommand = SlashCommandBuilder("help", "This is example help command", [])
@@ -59,14 +71,13 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
   });
 ```
 
-Above example shows how to create message with buttons and select menus with slash command. But message builder with components
-can be sent with regular message or even webhook (webhook needs to be owned by application tho).
+</br>
 
 #### Listening to component events
 
-If your custom id doesn't hold specific data you can use `Interactions.registerButtonHandler` or `Interactions.registerMultiselectHandler`
-to listen for specific events. In case if your custom id for component hold for example state data you can listen to
-`Interactions.onMultiselectEvent` or `Interactions.onButtonEvent` events and then match element by yourself.
+If your custom id doesn't hold specific data, you can use `Interactions.registerButtonHandler` or `Interactions.registerMultiselectHandler`
+to listen for specific events. If your custom id for the component holds, for example, state data you can listen to
+`Interactions.onMultiselectEvent` or `Interactions.onButtonEvent` events and then handle the interaction yourself.
 
 ```dart
 // To handle button interaction you need need function that accepts
@@ -96,8 +107,8 @@ Future<void> multiselectHandlerHandler(MultiselectInteractionEvent event) async 
 }
 
 void main() {
-  final bot = Nyxx("<TOKEN>", GatewayIntents.allUnprivileged);
-  Interactions(bot)
+  final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
+  IInteractions.create(WebsocketInteractionBackend(bot))
     ..registerSlashCommand(singleCommand) // Register created before slash command
     ..registerButtonHandler("thisisid", buttonHandler) // register handler for button with id: thisisid
     ..registerMultiselectHandler("customId", multiselectHandlerHandler) // register handler for multiselect with id: customId

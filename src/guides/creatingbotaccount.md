@@ -6,7 +6,7 @@ category: guides
 ---
 
 ### Creating a bot account
-To get started with Nyxx, you'll need a Discord bot account!
+To get started with nyxx, you'll need a Discord bot account!
 
 - Head to the [Discord developers](https://discord.com/developers) site.
 You'll be prompted to login if you aren't already.
@@ -20,7 +20,7 @@ You'll be prompted to login if you aren't already.
 _WARNING: Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your bot account to perform any bot actions - such as banning users and leaving guilds._
 
 - Once your bot account is made, on that same **Bot** tab, there will be a section labeled **Token**.
-- For utilizing the token within Nyxx, press the **Copy** button and paste it into your code where the token is stored, or any other place you may store it. ![Copy bot token button](assets/copy_bot_token.png)
+- For utilizing the token within nyxx, press the **Copy** button and paste it into your code where the token is stored, or any other place you may store it. ![Copy bot token button](assets/copy_bot_token.png)
 - In the event you share your token, be sure to press the **Regenerate** button so the old token can't be used anymore.
 
 ### Inviting your bot to a server
@@ -28,7 +28,7 @@ Now that we've gotten this far, it's probably important that we invite the bot t
 
 - First, head to the **OAuth2** tab found in the left menu on your bot's application page.
 - Then scroll down to the OAuth2 URL Generator and select the **bot** checkbox under the **scopes** section. If you wish to use slash commands as well, check the **application.commands** scope. ![OAuth2 Scopes with bot and application.commands checked](assets/select_bot_scopes.png)
-- Scroll down some more so you can see the **Bot Permissions** section. This is where you get to select which permissions your bot has when it joins a server. For basic usage, select the **View Channels and Send Messages** permissions, and then scroll up to the generated URL and click the **Copy** button on the right. ![Bot permissions with send messages and view channels checked](select_bot_permissions.png)
+- Scroll down some more so you can see the **Bot Permissions** section. This is where you get to select which permissions your bot has when it joins a server. For basic usage, select the **View Channels and Send Messages** permissions, and then scroll up to the generated URL and click the **Copy** button on the right. ![Bot permissions with send messages and view channels checked](assets/select_bot_permissions.png)
 - Finally, head to that URL in your browser and add your bot!
 
 ### Making your bot public (or private)
