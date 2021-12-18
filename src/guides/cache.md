@@ -2,12 +2,12 @@
 title: Cache
 author: l7ssha
 timestamp: 2021-09-21
-category: Guides
+category: guides
 ---
 
-Caching in Nyxx is managed automatically with internal wrappers around existing Dart features. Nyxx features a 
+Caching in nyxx is managed automatically with internal wrappers around existing Dart features. Nyxx features a 
 [`Cache<T, S>`](https://nyxx.l7ssha.xyz/dartdocs/nyxx/nyxx/Cache-class.html) interface which is the base class for all caches used in the library. 
-Like any other aspect of Nyxx, cache handling can be altered to fit your needs.
+Like any other aspect of nyxx, cache handling can be altered to fit your needs.
 
 </br>
 

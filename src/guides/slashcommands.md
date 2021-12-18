@@ -2,7 +2,7 @@
 title: Slash commands
 author: l7ssha
 timestamp: 2021-09-21
-category: Guides
+category: guides
 ---
 
 Slash commands are a new way of interacting with bots via chat using commands registered on the Discord API.
@@ -13,7 +13,7 @@ Such commands provide visual feedback in the UI and are more tied to the platfor
 ### Interactions extension
 
 Before registering any commands you have to instantiate new instance of the `Interactions` class, which is an extension for
-Nyxx that provides slash command and message components functionality. 
+nyxx that provides slash command and message components functionality. 
 
 ```dart
 final bot = Nyxx.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);

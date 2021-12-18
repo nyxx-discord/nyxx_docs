@@ -2,7 +2,7 @@
 title: Intents
 author: l7ssha
 timestamp: 2021-09-21
-category: Guides
+category: guides
 ---
 
 Gateway intents were introduced so bot developers could choose which events they want to receive. If you don't want
@@ -14,7 +14,7 @@ to receive certain events you can just omit its intent and they won't be sent to
 
 ### Specifying intents
 
-Since `nyxx` 2.x passing intents is required in Nyxx constructor. You can pass the int value or you can pass
+Since `nyxx` 2.x passing intents is required in nyxx constructor. You can pass the int value or you can pass
 constant values from `GatewayIntents` class combined with a binary OR (`|`):
 
 </br>

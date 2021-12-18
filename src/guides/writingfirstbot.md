@@ -2,7 +2,7 @@
 title: Writing your first bot
 author: l7ssha
 timestamp: 2021-09-20
-category: Guides
+category: guides
 ---
 
 ### Creating project
@@ -21,7 +21,7 @@ This command will create few files that are needed to start a project. There wil
 
 </br>
 
-To add Nyxx to your project, run `dart pub add nyxx`. Your `pubspec.yaml` file should then look similar to this:
+To add nyxx to your project, run `dart pub add nyxx`. Your `pubspec.yaml` file should then look similar to this:
 ```yaml
 name: test
 description: A simple command-line application.

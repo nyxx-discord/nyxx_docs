@@ -2,7 +2,7 @@
 title: Message components
 author: HarryET
 timestamp: 2021-09-22
-category: Guides
+category: guides
 ---
 
 Message components allow for interactivity between a message sent by a bot and the user receiving it. You can add buttons, links, select menus & multiselects.
@@ -11,8 +11,7 @@ Message components allow for interactivity between a message sent by a bot and t
 
 ### Interactions extension
 
-Before you use message components you have to instantiate new instance of the `Interactions` class, which is an extension for
-Nyxx that provides slash command and message components functionality:
+Before you use message components you have to instantiate new instance of the `Interactions` class, which is an extension for nyxx that provides slash command and message components functionality:
 
 ```dart
 final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);

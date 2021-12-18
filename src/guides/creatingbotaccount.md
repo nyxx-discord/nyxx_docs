@@ -2,11 +2,11 @@
 title: Creating a bot account
 author: One-Nub
 timestamp: 2021-09-22
-category: Guides
+category: guides
 ---
 
 ### Creating a bot account
-To get started with Nyxx, you'll need a Discord bot account!
+To get started with nyxx, you'll need a Discord bot account!
 
 - Head to the [Discord developers](https://discord.com/developers) site.
 You'll be prompted to login if you aren't already.
@@ -20,7 +20,7 @@ You'll be prompted to login if you aren't already.
 _WARNING: Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your bot account to perform any bot actions - such as banning users and leaving guilds._
 
 - Once your bot account is made, on that same **Bot** tab, there will be a section labeled **Token**.
-- For utilizing the token within Nyxx, press the **Copy** button and paste it into your code where the token is stored, or any other place you may store it. ![Copy bot token button](assets/copy_bot_token.png)
+- For utilizing the token within nyxx, press the **Copy** button and paste it into your code where the token is stored, or any other place you may store it. ![Copy bot token button](assets/copy_bot_token.png)
 - In the event you share your token, be sure to press the **Regenerate** button so the old token can't be used anymore.
 
 ### Inviting your bot to a server
