@@ -24,12 +24,12 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
 
           editUrl:
-            "https://github.com/nyxx-discord/nyxx_docs/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/nyxx-discord/nyxx_docs/tree/main/",
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            "https://github.com/nyxx-discord/nyxx_docs/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/nyxx-discord/nyxx_docs/tree/main/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
