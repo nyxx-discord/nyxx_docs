@@ -106,7 +106,12 @@ export function PingCommandSlash({
     <DiscordOptionsContext.Provider value={options}>
       <DiscordMessages lightTheme={light}>
         <DiscordMessage profile="mycoolbot">
-          <DiscordInteraction slot="interactions" ephemeral={!!ephemeral} command={true} profile="l7ssha">
+          <DiscordInteraction
+            slot="interactions"
+            ephemeral={!!ephemeral}
+            command={true}
+            profile="l7ssha"
+          >
             {commandContent}
           </DiscordInteraction>
           <DiscordMarkdown>{content}</DiscordMarkdown>
