@@ -44,7 +44,7 @@ Now that we've gotten this far, it's probably important that we invite the bot t
 
 - Head to the **Bot** tab found in the left menu on your bot's application page.
 - Under the **Authorization Flow** section, find the **Public Bot** toggle. ![Public bot toggle button](../../static/img/tutorial/make_bot_public.png)
-- To make your bot public so anyone can add it to their server, change the toggle to the right (so it's blurple); and do the inverse to make it private so only you can add the bot to servers. By default you bot should be public.
+- To make your bot public so anyone can add it to their server, change the toggle to the right (so it's blurple); and do the inverse to make it private so only you can add the bot to servers. By default your bot should be public.
 
 ### Privileged Gateway Intents
 
