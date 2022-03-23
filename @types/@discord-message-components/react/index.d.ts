@@ -51,7 +51,7 @@ declare module "@discord-message-components/react" {
   interface DiscordButtonProps extends PropsWithSlots {
     disabled?: boolean;
     image?: string;
-    type?: string;
+    type?: 'link' | 'success' | 'danger' | 'primary' | 'secondary';
     url?: string;
   }
 
