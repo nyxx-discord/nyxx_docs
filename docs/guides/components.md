@@ -58,8 +58,8 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
     // Adding selects is as easy as adding buttons. Use MultiselectBuilder with custom id
     // and list of multiselect options.
     final componentRow = ComponentRowBuilder()
-      ..addComponent(ButtonBuilder("This is button label", "thisisid", ComponentStyle.success))
-      ..addComponent(ButtonBuilder("This is another button", "thisisid2", ComponentStyle.success))
+      ..addComponent(ButtonBuilder("This is button label", "thisisid", ButtonStyle.success))
+      ..addComponent(ButtonBuilder("This is another button", "thisisid2", ButtonStyle.success))
       ..addComponent(MultiselectBuilder("customId", [
         MultiselectOptionBuilder("example option 1", "option1"),
         MultiselectOptionBuilder("example option 2", "option2"),
