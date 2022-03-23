@@ -11,7 +11,6 @@ import {
 } from "@discord-message-components/react";
 import "@discord-message-components/react/styles";
 import useIsBrowser from "@docusaurus/useIsBrowser";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 const options: _DiscordDefaultOptions = {
   ...DiscordDefaultOptions,
