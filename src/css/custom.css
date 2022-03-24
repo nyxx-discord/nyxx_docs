@@ -9,7 +9,7 @@
   --ifm-code-font-size: 95%;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --ifm-color-primary: #25c2a0;
   --ifm-color-primary-dark: #21af90;
   --ifm-color-primary-darker: #1fa588;
@@ -26,6 +26,109 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-[data-theme='dark'] .docusaurus-highlight-code-line {
+[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.discord-multiselect {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+  background-color: #2f3136;
+  color: #72767d;
+  max-width: 400px;
+  margin-right: 16px;
+  padding: 8px;
+  -webkit-transition: border 0.2s ease;
+  transition: border 0.2s ease;
+  border: 1px solid #202225;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.discord-multiselect:hover {
+  border-color: #040405;
+}
+
+.discord-multiselect.discord-light-theme:hover {
+  border-color: #b9bbbe;
+}
+
+.discord-multiselect.discord-light-theme {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  color: #747f8d;
+}
+
+.discord-multiselect.discord-light-theme .discord-multiselect-option {
+  color: #060607;
+}
+
+.discord-multiselect-options {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: 0.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  text-indent: 0;
+  min-height: 0;
+  min-width: 0;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  position: relative;
+  width: 100%;
+}
+
+.discord-multiselect-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  color: #fff;
+}
+
+.discord-multiselect.discord-multiselect-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.discord-multiselect .discord-multiselect-option:hover {
+  background-color: #292b2f;
+}
+
+.discord-multiselect.discord-light-theme .discord-multiselect-option:hover {
+  background-color: #ebedef;
+}
+
+.discord-text {
+  width: 100%;
+  display: flex;
+  text-align: right;
+}
+.discord-placeholder {
+  width: 100%;
+  display: flex;
+  text-align: right;
+  align-items: center;
+}
+
+.outbound-chevron-icon.rotate {
+  transform: rotate(180deg);
+}
+
+.outbound-chevron-icon svg path {
+  fill: #dcddde;
+}
+
+.discord-multiselect.discord-light-theme .outbound-chevron-icon svg path {
+  fill: #2e3338;
 }
