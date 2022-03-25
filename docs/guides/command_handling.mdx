@@ -6,6 +6,8 @@ category: guides
 sidebar_position: 7
 ---
 
+import { BaseCommand } from '@site/src/components/Discord/components';
+
 # Command handling
 
 Command handling is, by definition, a way to handle commands in multiple files.
@@ -194,6 +196,8 @@ Discord. Executing it should make the bot send `pong!` to the channel the comman
 in.
 You can also send a text message starting with `!ping` and  you should see a similar result.
 
+Here's an example:
+<BaseCommand commandContent="!ping" isCommand={true} author="rapougnac">pong!</BaseCommand>
 
 
 [1]: https://github.com/nyxx-discord/nyxx_commands

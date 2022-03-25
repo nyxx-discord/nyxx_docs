@@ -5,6 +5,7 @@ import {
   DiscordDefaultOptions,
   DiscordInteraction,
   DiscordMarkdown,
+  DiscordMention,
   DiscordMessage,
   DiscordMessages,
   DiscordOptionsContext,
@@ -27,6 +28,11 @@ const options: _DiscordDefaultOptions = {
       avatar: "red",
       roleColor: "rgb(235, 69, 158)",
       bot: true,
+    },
+    rapougnac: {
+      author: "Rapougnac",
+      avatar: "https://github.com/Rapougnac.png",
+      roleColor: "#f35959",
     },
   },
 };
@@ -72,7 +78,8 @@ export default function Component({
           <DiscordButtons>
             {buttonsContent &&
               buttonsContent.map((buttonContent, index) => (
-                <DiscordButton disabled={disabled && disabled[index]}
+                <DiscordButton
+                  disabled={disabled && disabled[index]}
                   key={index}
                   type={buttonTypes && (buttonTypes[index] as any)}
                   url={urls && urls[index]}
@@ -81,6 +88,73 @@ export default function Component({
                 </DiscordButton>
               ))}
           </DiscordButtons>
+        </DiscordMessage>
+      </DiscordMessages>
+    </DiscordOptionsContext.Provider>
+  );
+}
+
+export function BaseCommand({
+  lightTheme,
+  ephemeral,
+  commandContent,
+  children,
+  author,
+  isCommand = false,
+  disabled = [],
+  buttonTypes = [],
+  buttonsContent,
+  urls,
+}: {
+  lightTheme?: boolean;
+  ephemeral?: boolean;
+  commandContent?: string;
+  buttonsContent?: string[];
+  buttonTypes?: DiscordButtonProps["type"][];
+  urls?: string[];
+  disabled: boolean[];
+  isCommand?: boolean;
+  author?: string;
+  children: React.ReactNode;
+}) {
+  const browser = useIsBrowser();
+  lightTheme ??= browser ? localStorage.getItem("theme") === "light" : false;
+  const [light, setLight] = React.useState(lightTheme);
+  useInterval(() => {
+    setLight(browser ? localStorage.getItem("theme") === "light" : false);
+  });
+  return (
+    <DiscordOptionsContext.Provider value={options}>
+      <DiscordMessages lightTheme={light}>
+        {!isCommand && (
+          <DiscordMessage profile={author}>{commandContent}</DiscordMessage>
+        )}
+        <DiscordMessage profile="mycoolbot">
+          {children ||
+            isCommand && (
+              <DiscordInteraction
+                slot="interactions"
+                ephemeral={!!ephemeral}
+                command={true}
+                profile={author}
+              >
+                {commandContent}
+              </DiscordInteraction>
+            ) &&
+            buttonsContent && (
+              <DiscordButtons>
+                {buttonsContent.map((buttonContent, index) => (
+                  <DiscordButton
+                    disabled={disabled && disabled[index]}
+                    key={index}
+                    type={buttonTypes && (buttonTypes[index] as any)}
+                    url={urls && urls[index]}
+                  >
+                    {buttonContent}
+                  </DiscordButton>
+                ))}
+              </DiscordButtons>
+            )}
         </DiscordMessage>
       </DiscordMessages>
     </DiscordOptionsContext.Provider>
