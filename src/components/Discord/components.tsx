@@ -27,9 +27,15 @@ interface ComponentProps {
   disabled: boolean[];
 }
 
+/**
+ * Options for the `BaseCommand` component.
+ */
 interface BaseCommandProps
   extends PropsWithChildren<Omit<ComponentProps, 'content'>> {
   author?: string;
+  /**
+   * Whether the command is a slash command (Yeah, I know.. very explicit)
+   */
   isCommand?: boolean;
 }
 
