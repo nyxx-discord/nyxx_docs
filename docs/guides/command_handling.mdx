@@ -1,0 +1,199 @@
+---
+title: Command handling
+author: Rapougnac
+timestamp: 2022-03-25
+category: guides
+sidebar_position: 7
+---
+
+# Command handling
+
+Command handling is, by definition, a way to handle commands in multiple files.
+Because by creating a lot of commands, your code in your main file will start to get really big and have a if/else if/switch hell.
+
+Unlike many other languages, Dart does **not** have a way to dynamically — only known at runtime — import files.
+But don't worry, there's still a way to handle properly your commands, slash commands and legacy commands.
+[`nyxx_commands`][1] is a library that can handle commands for you.
+
+## Creation of client
+
+Let's setup a basic example, first, we need to create our client.
+```dart
+//highlight-next-line
+import 'package:nyxx/nyxx.dart';
+
+void main() {
+  //highlight-start
+  // nyxx_commands doesn't support INyxxRest yet, so we need to use INyxxWebsocket.
+  final client = NyxxFactory.createNyxxWebsocket(
+    '<TOKEN>',
+    GatewayIntents.allUnprivileged | GatewayIntents.guildMembers,
+  )..connect();
+  //highlight-end
+}
+```
+Now, by convenience, we register the basic plugins.
+These aren't required for [`nyxx_commands`][1] to work
+```dart
+import 'package:nyxx/nyxx.dart';
+
+void main() {
+  // nyxx_commands doesn't support INyxxRest yet, so we need to use INyxxWebsocket.
+  final client = NyxxFactory.createNyxxWebsocket(
+    '<TOKEN>',
+    GatewayIntents.allUnprivileged | GatewayIntents.guildMembers,
+  );
+
+  //highlight-start
+  client
+    ..registerPlugin(Logging())
+    ..registerPlugin(CliIntegration())
+    ..registerPlugin(IgnoreExceptions());
+  //highlight-end
+}
+```
+
+## Creating our `CommandsPlugin`
+
+Ok, so now, we have client ready to be used, but we didn't used [`nyxx_commands`][1] after all. So let's get into it.
+```dart
+import 'package:nyxx/nyxx.dart';
+//highlight-next-line
+import 'package:nyxx_commands/nyxx_commands.dart';
+
+void main() {
+  // nyxx_commands doesn't support INyxxRest yet, so we need to use INyxxWebsocket.
+  final client = NyxxFactory.createNyxxWebsocket(
+    '<TOKEN>',
+    GatewayIntents.allUnprivileged | GatewayIntents.guildMembers,
+  );
+
+  client
+    ..registerPlugin(Logging())
+    ..registerPlugin(CliIntegration())
+    ..registerPlugin(IgnoreExceptions());
+
+  //highlight-start
+  // Next, we need to create our plugin. The plugin class used for nyxx_commands is `CommandsPlugin`
+  // and we need to store it in a variable to be able to access it for registering commands and
+  // converters.
+
+  CommandsPlugin commands = CommandsPlugin(
+    // The `prefix` parameter determines what prefix nyxx_commands will use for text commands.
+    //
+    // It isn't a simple string but a function that takes a single argument, an `IMessage`, and
+    // returns a `String` indicating what prefix to use for that message. This allows you to have
+    // different prefixes for different messages, for example you might want the bot to not require
+    // a prefix when in direct messages. In that case, you might provide a function like this:
+    // ```dart
+    // prefix: (message) {
+    //   if (message.startsWith('!')) {
+    //     return '!';
+    //   } else if (message.guild == null) {
+    //     return '';
+    //   }
+    // }
+    //```
+    //
+    // In this case, we always return `!` meaning that the prefix for all messages will be `!`.
+    prefix: (message) => '!',
+
+    // The `guild` parameter determines what guild slash commands will be registered to by default.
+    //
+    // This is useful for testing since registering slash commands globally can take up to an hour,
+    // whereas registering commands for a single guild is instantaneous.
+    //
+    // If you aren't testing or want your commands to be registered globally, either omit this
+    // parameter or set it to `null`.
+    guild: Snowflake(Platform.environment['GUILD']!),
+
+    // The `options` parameter allows you to specify additional configuration options for the
+    // plugin.
+    //
+    // Generally you can just omit this parameter and use the defaults, but if you want to allow for
+    // a specific behaviour you can include this parameter to change the default settings.
+    //
+    // In this case, we set the option `logErrors` to `true`, meaning errors that occur in commands
+    // will be sent to the logger. If you have also added the `Logging` plugin to your client, these
+    // will then be printed to your console.
+    // `true` is actually the default for this option and was included here for the sake of example.
+    options: CommandsOptions(
+      logErrors: true,
+    ),
+  );
+
+  // Next, we add the commands plugin to our client:
+  client.registerPlugin(commands);
+
+
+  // Finally, we tell the client to connect to Discord:
+  client.connect();
+  //highlight-end
+}
+```
+
+## Registering  a command
+
+To register a command, we must first create an instance of the `Command` class.
+This class represents a single command, slash command or not, and once added to the bot will
+automatically be ready to use.
+
+For our first command, let's create the famous `ping` command that'll reply with `pong`.
+
+The first parameter is the command name.
+Command names must obey certain rules, if they don't an error will be thrown.
+Generally, using lower case letters dashes (`-`) instead of spaces or undersoces will avoid any problems.
+<br />
+The second parameter is the command description.
+In traditional command frameworks, command descriptions aren't required. However, Discord
+requires that all slash commands have a description, so it is needed in nyxx_commands. 
+<br />
+The third parameter is the function that will be executed when the command is ran.
+
+The first parameter to this function must be a `Context`. 
+
+A `Context` allows you to access various information about how the command was run: the user that executed it, the guild it was ran in and a few other useful pieces of information.
+`Context` also has a couple of methods that make it easier to respond to commands.
+Since a ping command doesn't have any other arguments, we don't add any other parameters to the function.
+
+```dart
+// Finally, we tell the client to connect to Discord:
+client.connect();
+
+//highlight-start
+ChatCommand ping = ChatCommand(
+  'ping',
+  'Checks if the bot\'s online',
+  (IContext context) {
+    // For a ping command, all we need to do is respond with `pong`.
+    // To do that, we can use the `Context`'s `respond` method which responds to the command with
+    // a message.
+    context.respond(MessageBuilder.content('pong!'));
+  },
+);
+//highlight-end
+```
+
+### Adding a command to the `CommandsPlugin`
+
+Once we've created our command, we need to add it to our bot.
+
+The commands on a bot can be represented with a parent-child tree that looks like this:
+
+```
+client
+┗━ ping
+```
+
+```dart
+commands.addCommand(ping);
+```
+
+At this point, if you run this file, you should see a slash command named "ping" appear in
+Discord. Executing it should make the bot send `pong!` to the channel the command was executed
+in.
+You can also send a text message starting with `!ping` and  you should see a similar result.
+
+
+
+[1]: https://github.com/nyxx-discord/nyxx_commands
