@@ -266,7 +266,7 @@ ChatGroup throwGroup = ChatGroup(
     ChatCommand(
       'coin',
       'Throw a coin',
-      (ChatContext context) {
+      (IChatContext context) {
         bool heads = Random().nextBool();
 
         context.respond(
@@ -284,17 +284,19 @@ There's another way to add a command to a group. It's by using the [`ChatGroup`]
 Like so:
 
 ```dart
+//highlight-start
 throwGroup.addCommand(
   ChatCommand(
     'die',
     'Throw a die',
-    (ChatContext context) {
+    (IChatContext context) {
       int number = Random().nexInt(6) + 1;
 
       context.respond(MessageBuilder.content('The die landed on the $number!'));
     }
   ),
 );
+//highlight-end
 
 // Finally, just like the `ping` command, we need to add our command group to the bot:
 //highlight-next-line
@@ -309,10 +311,10 @@ You can also send a text message starting with `!throw coin` or `!throw die` to 
 commands. See examples below.
 
 Message commands:
-<BaseCommand author="abitofevrything" commandContent="!throw coin">
+<BaseCommand reply={true} author="abitofevrything" commandContent="!throw coin">
   The coin landed on its head!
 </BaseCommand>
-<BaseCommand author="abitofevrything" commandContent="!throw die">
+<BaseCommand reply={true} author="abitofevrything" commandContent="!throw die">
   The die landed on the 4 number!
 </BaseCommand>
 
@@ -327,6 +329,17 @@ Slash commands:
   The die landed on the 2 number!
 </BaseCommand>
 
+If you don't want to be mentionned, you can use the [`mention`] option in the [`MessageChatContext`]'s [`respond`]
+Like so:
+```dart
+//highlight-next-line
+context.respond('The die landed on the $number number!', mention: false);
+```
+And it should be like this:
+<BaseCommand reply={true} mention={false} commandContent="!throw die" author="abitofevrything">
+The die landed on the 3 number!
+</BaseCommand>
+
 [`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands/tree/main
 [`chatcommand`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/commands/chat_command.dart#L259
 [`chatgroup`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/commands/chat_command.dart#L191
@@ -334,3 +347,6 @@ Slash commands:
 [`execute`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/commands/chat_command.dart#L303
 [`children`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/commands/chat_command.dart#L215
 [`addcommand`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/commands/chat_command.dart#L75
+[`MessageChatContext`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/context/chat_context.dart#L54
+[`respond`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/context/chat_context.dart#L54
+[`mention`]: https://github.com/nyxx-discord/nyxx_commands/blob/main/lib/src/context/chat_context.dart#L55
