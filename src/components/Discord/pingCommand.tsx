@@ -46,7 +46,7 @@ interface PingCommandSlashProps extends Omit<PingCommandProps, 'prefix'> {
 
 export default function ({ lightTheme, prefix = '!' }: PingCommandProps) {
   const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
+  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
     setLight(browser ? localStorage.getItem('theme') === 'light' : false);
@@ -55,7 +55,7 @@ export default function ({ lightTheme, prefix = '!' }: PingCommandProps) {
     <DiscordOptionsContext.Provider value={options}>
       <DiscordMessages lightTheme={light}>
         <DiscordMessage profile="l7ssha">{prefix}ping</DiscordMessage>
-        <DiscordMessage profile="mycoolbot">Poong!</DiscordMessage>
+        <DiscordMessage profile="mycoolbot">Pong!</DiscordMessage>
       </DiscordMessages>
     </DiscordOptionsContext.Provider>
   );
@@ -67,7 +67,7 @@ export function PingCommandReplied({
   lightTheme,
 }: PingCommandRepliedProps) {
   const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
+  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
     setLight(browser ? localStorage.getItem('theme') === 'light' : false);
@@ -82,7 +82,7 @@ export function PingCommandReplied({
               {prefix}ping
             </DiscordInteraction>
           </div>
-          <DiscordMarkdown highlight={!!ping}>Poong!</DiscordMarkdown>
+          <DiscordMarkdown highlight={!!ping}>Pong!</DiscordMarkdown>
         </DiscordMessage>
       </DiscordMessages>
     </DiscordOptionsContext.Provider>
