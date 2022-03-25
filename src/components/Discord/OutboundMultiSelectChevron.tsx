@@ -1,8 +1,8 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement } from 'react';
 
 export default function ({ rotate }: { rotate?: boolean }): ReactElement {
   return (
-    <span className={`outbound-chevron-icon ${!!rotate ? "rotate" : ""}`}>
+    <span className={`outbound-chevron-icon ${!!rotate ? 'rotate' : ''}`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"

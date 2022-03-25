@@ -1,6 +1,6 @@
-import { PropsWithSlots } from "@discord-message-components/react";
-import React, { ReactElement } from "react";
-import OutboundMultiSelectChevron from "./OutboundMultiSelectChevron";
+import { PropsWithSlots } from '@discord-message-components/react';
+import React, { ReactElement } from 'react';
+import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
 
 // import './style.module.css';
 
@@ -16,9 +16,9 @@ export default function DiscordMultiSelect({
   lightTheme,
   disabled,
 }: DiscordMultiSelectProps) {
-  let classes = "discord-multiselect";
-  if (lightTheme) classes += " discord-light-theme";
-  if (disabled) classes += " discord-multiselect-disabled";
+  let classes = 'discord-multiselect';
+  if (lightTheme) classes += ' discord-light-theme';
+  if (disabled) classes += ' discord-multiselect-disabled';
   const [showDropdown, setShowDropdown] = React.useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 

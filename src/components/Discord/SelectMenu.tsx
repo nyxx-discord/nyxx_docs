@@ -9,24 +9,24 @@ import {
   DiscordMessages,
   DiscordOptionsContext,
   _DiscordDefaultOptions,
-} from "@discord-message-components/react";
-import useIsBrowser from "@docusaurus/useIsBrowser";
-import useInterval from "@site/src/hooks/useInterval";
-import * as React from "react";
-import DiscordMultiSelect from "./DiscordMultiSelect";
+} from '@discord-message-components/react';
+import useIsBrowser from '@docusaurus/useIsBrowser';
+import useInterval from '@site/src/hooks/useInterval';
+import * as React from 'react';
+import DiscordMultiSelect from './DiscordMultiSelect';
 
 const options: _DiscordDefaultOptions = {
   ...DiscordDefaultOptions,
   profiles: {
     l7ssha: {
-      author: "l7ssha",
-      avatar: "https://i.imgur.com/KZmUYEt.png",
-      roleColor: "#5865f2",
+      author: 'l7ssha',
+      avatar: 'https://i.imgur.com/KZmUYEt.png',
+      roleColor: '#5865f2',
     },
     mycoolbot: {
-      author: "My Cool Bot",
-      avatar: "red",
-      roleColor: "rgb(235, 69, 158)",
+      author: 'My Cool Bot',
+      avatar: 'red',
+      roleColor: 'rgb(235, 69, 158)',
       bot: true,
     },
   },
@@ -48,16 +48,16 @@ export default function Component({
   commandContent?: string;
   content?: string;
   menuOptions?: string[];
-  buttonTypes?: DiscordButtonProps["type"][];
+  buttonTypes?: DiscordButtonProps['type'][];
   urls?: string[];
   disabled?: boolean;
   children?: React.ReactNode;
 }) {
   const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem("theme") === "light" : false;
+  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem("theme") === "light" : false);
+    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
   });
   return (
     <DiscordOptionsContext.Provider value={options}>
@@ -72,7 +72,11 @@ export default function Component({
             {commandContent}
           </DiscordInteraction>
           {content}
-          <DiscordMultiSelect disabled={!!disabled} lightTheme={light} options={menuOptions}>
+          <DiscordMultiSelect
+            disabled={!!disabled}
+            lightTheme={light}
+            options={menuOptions}
+          >
             {children}
           </DiscordMultiSelect>
         </DiscordMessage>
