@@ -33,10 +33,21 @@ interface ComponentProps {
 interface BaseCommandProps
   extends PropsWithChildren<Omit<ComponentProps, 'content'>> {
   author?: string;
+
   /**
    * Whether the command is a slash command (Yeah, I know.. very explicit)
    */
   isCommand?: boolean;
+
+  /**
+   * Whether to reply to the command.
+   */
+  reply?: boolean;
+
+  /**
+   * Whether mention the author on reply.
+   */
+  mention?: boolean;
 }
 
 export default function Component({
@@ -103,6 +114,8 @@ export function BaseCommand({
   buttonTypes = [],
   buttonsContent,
   urls,
+  reply = false,
+  mention = true,
 }: BaseCommandProps) {
   const browser = useIsBrowser();
   lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
@@ -118,12 +131,13 @@ export function BaseCommand({
         </If>
         <DiscordMessage profile="mycoolbot">
           {children}
-          {!!isCommand && (
+          {(!!isCommand || !!reply) && (
             <DiscordInteraction
               slot="interactions"
               ephemeral={!!ephemeral}
-              command={true}
+              command={!!isCommand}
               profile={author}
+              highlight={!!mention && !isCommand}
             >
               {commandContent}
             </DiscordInteraction>
