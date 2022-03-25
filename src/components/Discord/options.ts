@@ -25,7 +25,7 @@ const options: _DiscordDefaultOptions = {
     abitofevrything: {
       author: 'Abitofevrything',
       avatar: 'https://github.com/abitofevrything.png',
-      roleColor: '#f35959',
+      roleColor: '#48bebe',
     },
   },
 };
