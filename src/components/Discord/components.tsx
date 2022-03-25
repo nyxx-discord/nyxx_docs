@@ -13,7 +13,7 @@ import {
 } from '@discord-message-components/react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import useInterval from '@site/src/hooks/useInterval';
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 
 const options: _DiscordDefaultOptions = {
   ...DiscordDefaultOptions,
@@ -48,7 +48,8 @@ interface ComponentProps {
   disabled: boolean[];
 }
 
-interface BaseCommandProps extends PropsWithChildren<Omit<ComponentProps, 'content'>> {
+interface BaseCommandProps
+  extends PropsWithChildren<Omit<ComponentProps, 'content'>> {
   author?: string;
   isCommand?: boolean;
 }
@@ -101,6 +102,11 @@ export default function Component({
   );
 }
 
+const If = ({ condition, children }: { condition: boolean; children: any }) => {
+  if (condition) return children;
+  return null;
+};
+
 export function BaseCommand({
   lightTheme,
   ephemeral,
@@ -122,35 +128,21 @@ export function BaseCommand({
   return (
     <DiscordOptionsContext.Provider value={options}>
       <DiscordMessages lightTheme={light}>
-        {!isCommand && (
+        <If condition={!isCommand}>
           <DiscordMessage profile={author}>{commandContent}</DiscordMessage>
-        )}
+        </If>
         <DiscordMessage profile="mycoolbot">
-          {children ||
-            (isCommand && (
-                <DiscordInteraction
-                  slot="interactions"
-                  ephemeral={!!ephemeral}
-                  command={true}
-                  profile={author}
-                >
-                  {commandContent}
-                </DiscordInteraction>
-              ) &&
-              buttonsContent && (
-                <DiscordButtons>
-                  {buttonsContent.map((buttonContent, index) => (
-                    <DiscordButton
-                      disabled={disabled && disabled[index]}
-                      key={index}
-                      type={buttonTypes && (buttonTypes[index] as any)}
-                      url={urls && urls[index]}
-                    >
-                      {buttonContent}
-                    </DiscordButton>
-                  ))}
-                </DiscordButtons>
-              ))}
+          {children}
+          {!!isCommand && (
+            <DiscordInteraction
+              slot="interactions"
+              ephemeral={!!ephemeral}
+              command={true}
+              profile={author}
+            >
+              {commandContent}
+            </DiscordInteraction>
+          )}
         </DiscordMessage>
       </DiscordMessages>
     </DiscordOptionsContext.Provider>
