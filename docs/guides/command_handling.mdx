@@ -20,6 +20,7 @@ But don't worry, there's still a way to handle properly your commands, slash com
 ## Creation of client
 
 Let's setup a basic example, first, we need to create our client.
+
 ```dart
 //highlight-next-line
 import 'package:nyxx/nyxx.dart';
@@ -34,8 +35,10 @@ void main() {
   //highlight-end
 }
 ```
+
 Now, by convenience, we register the basic plugins.
 These aren't required for [`nyxx_commands`] to work
+
 ```dart
 import 'package:nyxx/nyxx.dart';
 
@@ -58,6 +61,7 @@ void main() {
 ## Creating our `CommandsPlugin`
 
 Ok, so now, we have client ready to be used, but we didn't used [`nyxx_commands`] after all. So let's get into it.
+
 ```dart
 import 'package:nyxx/nyxx.dart';
 //highlight-next-line
@@ -134,7 +138,7 @@ void main() {
 }
 ```
 
-## Registering  a command
+## Registering a command
 
 To register a command, we must first create an instance of the `Command` class.
 This class represents a single command, slash command or not, and once added to the bot will
@@ -145,14 +149,15 @@ For our first command, let's create the famous `ping` command that'll reply with
 The first parameter is the command name.
 Command names must obey certain rules, if they don't an error will be thrown.
 Generally, using lower case letters dashes (`-`) instead of spaces or undersoces will avoid any problems.
+
 <br />
-The second parameter is the command description.
-In traditional command frameworks, command descriptions aren't required. However, Discord
-requires that all slash commands have a description, so it is needed in nyxx_commands. 
+The second parameter is the command description. In traditional command frameworks,
+command descriptions aren't required. However, Discord requires that all slash commands
+have a description, so it is needed in nyxx_commands.
 <br />
 The third parameter is the function that will be executed when the command is ran.
 
-The first parameter to this function must be a `Context`. 
+The first parameter to this function must be a `Context`.
 
 A `Context` allows you to access various information about how the command was run: the user that executed it, the guild it was ran in and a few other useful pieces of information.
 `Context` also has a couple of methods that make it easier to respond to commands.
@@ -188,16 +193,86 @@ client
 ```
 
 ```dart
+ChatCommand ping = ChatCommand(
+  'ping',
+  'Checks if the bot\'s online',
+  (IContext context) {
+    // For a ping command, all we need to do is respond with `pong`.
+    // To do that, we can use the `Context`'s `respond` method which responds to the command with
+    // a message.
+    context.respond(MessageBuilder.content('pong!'));
+  },
+);
+
+//highlight-next-line
 commands.addCommand(ping);
 ```
 
 At this point, if you run this file, you should see a slash command named "ping" appear in
 Discord. Executing it should make the bot send `pong!` to the channel the command was executed
 in.
-You can also send a text message starting with `!ping` and  you should see a similar result.
+You can also send a text message starting with `!ping` and you should see a similar result.
 
-Here's an example:
-<!-- <BaseCommand commandContent="!ping" isCommand={true} author="rapougnac">pong!</BaseCommand> -->
+Here's an example with a legacy command:
 
+<BaseCommand commandContent={'!ping'} author={'abitofevrything'}>
+  pong!
+</BaseCommand>
+<br />
+Or with a slash command:
+<BaseCommand isCommand={true} commandContent={'ping'} author={'abitofevrything'}>
+  pong!
+</BaseCommand>
+
+## Registering a command group
+
+Command groups are a powerful tool that allow you to group commands together.
+As an example, we'll create a command group `throw` with two sub-commands: `coin` and `die` (
+the singular form of dice, not the verb).
+Our command structure will look like this once we're done (the ping command we made earlier is
+still there):
+
+```
+client
+┗━ ping
+┗━ throw
+   ┗━ coin
+   ┗━ die
+```
+
+Ok, so, let's create our first command group.
+
+Similarly to `ChatCommand`, the `ChatGroup` constructor's first two arguments are the group's name
+and description.
+
+However, there is no `execute` parameter; groups are not commands, and as such cannot be run,
+so it makes no sense to have a function to execute. `children` is an optional parameter that allows you to specify what commands are part of this
+group. It isn't the only way to add commands to a group though, so we'll add the `throw coin`
+method here and the `throw die` command later.
+
+```dart
+// We have to use the variable name `throwGroup` since `throw` is a reserved keyword. Note that
+// the variable name does not change how the group behaves at all though.
+ChatGroup throwGroup = ChatGroup(
+  'throw', 
+  'Throw an object',
+  children: [
+    // We create a command in the same way as we created the `ping` command earlier.
+    ChatCommand(
+      'coin',
+      'Throw a coin',
+      (ChatContext context) {
+        bool heads = Random().nextBool();
+
+        context.respond(
+          MessageBuilder.content('the coin landed on its ${heads ? 'head' : 'tail'}!'),
+        );
+      },
+    )
+  ],
+);
+```
+
+There's another way to add a command to a group.
 
 [`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands
