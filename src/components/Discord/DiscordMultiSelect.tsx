@@ -1,8 +1,6 @@
 import { PropsWithSlots } from '@discord-message-components/react';
-import React, { ReactElement } from 'react';
+import React from 'react';
 import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
-
-// import './style.module.css';
 
 interface DiscordMultiSelectProps extends PropsWithSlots {
   options: string[];

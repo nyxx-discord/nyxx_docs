@@ -11,23 +11,7 @@ import {
 } from '@discord-message-components/react';
 import '@discord-message-components/react/styles';
 import useIsBrowser from '@docusaurus/useIsBrowser';
-
-const options: _DiscordDefaultOptions = {
-  ...DiscordDefaultOptions,
-  profiles: {
-    l7ssha: {
-      author: 'l7ssha',
-      avatar: 'https://i.imgur.com/KZmUYEt.png',
-      roleColor: '#5865f2',
-    },
-    mycoolbot: {
-      author: 'My Cool Bot',
-      avatar: 'red',
-      roleColor: 'rgb(235, 69, 158)',
-      bot: true,
-    },
-  },
-};
+import options from './options';
 
 interface PingCommandProps {
   lightTheme?: boolean;

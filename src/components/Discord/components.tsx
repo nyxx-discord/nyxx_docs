@@ -14,28 +14,7 @@ import {
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import useInterval from '@site/src/hooks/useInterval';
 import React, { PropsWithChildren, ReactNode } from 'react';
-
-const options: _DiscordDefaultOptions = {
-  ...DiscordDefaultOptions,
-  profiles: {
-    l7ssha: {
-      author: 'l7ssha',
-      avatar: 'https://i.imgur.com/KZmUYEt.png',
-      roleColor: '#5865f2',
-    },
-    mycoolbot: {
-      author: 'My Cool Bot',
-      avatar: 'red',
-      roleColor: 'rgb(235, 69, 158)',
-      bot: true,
-    },
-    rapougnac: {
-      author: 'Rapougnac',
-      avatar: 'https://github.com/Rapougnac.png',
-      roleColor: '#f35959',
-    },
-  },
-};
+import options from './options';
 
 interface ComponentProps {
   lightTheme?: boolean;

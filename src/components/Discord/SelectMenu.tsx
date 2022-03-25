@@ -14,23 +14,7 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import useInterval from '@site/src/hooks/useInterval';
 import * as React from 'react';
 import DiscordMultiSelect from './DiscordMultiSelect';
-
-const options: _DiscordDefaultOptions = {
-  ...DiscordDefaultOptions,
-  profiles: {
-    l7ssha: {
-      author: 'l7ssha',
-      avatar: 'https://i.imgur.com/KZmUYEt.png',
-      roleColor: '#5865f2',
-    },
-    mycoolbot: {
-      author: 'My Cool Bot',
-      avatar: 'red',
-      roleColor: 'rgb(235, 69, 158)',
-      bot: true,
-    },
-  },
-};
+import options from './options';
 
 export default function Component({
   lightTheme,
