@@ -4,11 +4,11 @@ import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
 
 // import './style.module.css';
 
-type DiscordMultiSelectProps = {
+interface DiscordMultiSelectProps extends PropsWithSlots {
   options: string[];
   lightTheme?: boolean;
   disabled?: boolean;
-} & PropsWithSlots;
+}
 
 export default function DiscordMultiSelect({
   options,

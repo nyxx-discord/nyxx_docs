@@ -29,13 +29,22 @@ const options: _DiscordDefaultOptions = {
   },
 };
 
-export default function ({
-  lightTheme,
-  prefix = '!',
-}: {
+interface PingCommandProps {
   lightTheme?: boolean;
   prefix?: string;
-}) {
+}
+
+interface PingCommandRepliedProps extends PingCommandProps {
+  ping?: boolean;
+}
+
+interface PingCommandSlashProps extends Omit<PingCommandProps, 'prefix'> {
+  commandContent?: string;
+  content?: string;
+  ephemeral?: boolean;
+}
+
+export default function ({ lightTheme, prefix = '!' }: PingCommandProps) {
   const browser = useIsBrowser();
   lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
   const [light, setLight] = React.useState(lightTheme);
@@ -56,11 +65,7 @@ export function PingCommandReplied({
   ping,
   prefix = '!',
   lightTheme,
-}: {
-  ping?: boolean;
-  prefix?: string;
-  lightTheme?: boolean;
-}) {
+}: PingCommandRepliedProps) {
   const browser = useIsBrowser();
   lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
   const [light, setLight] = React.useState(lightTheme);
@@ -89,12 +94,7 @@ export function PingCommandSlash({
   content,
   lightTheme,
   ephemeral,
-}: {
-  commandContent?: string;
-  content?: string;
-  lightTheme?: boolean;
-  ephemeral?: boolean;
-}) {
+}: PingCommandSlashProps) {
   const browser = useIsBrowser();
   lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
   const [light, setLight] = React.useState(lightTheme);
