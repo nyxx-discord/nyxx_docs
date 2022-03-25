@@ -15,7 +15,7 @@ Because by creating a lot of commands, your code in your main file will start to
 
 Unlike many other languages, Dart does **not** have a way to dynamically — only known at runtime — import files.
 But don't worry, there's still a way to handle properly your commands, slash commands and legacy commands.
-[`nyxx_commands`][1] is a library that can handle commands for you.
+[`nyxx_commands`] is a library that can handle commands for you.
 
 ## Creation of client
 
@@ -35,7 +35,7 @@ void main() {
 }
 ```
 Now, by convenience, we register the basic plugins.
-These aren't required for [`nyxx_commands`][1] to work
+These aren't required for [`nyxx_commands`] to work
 ```dart
 import 'package:nyxx/nyxx.dart';
 
@@ -57,7 +57,7 @@ void main() {
 
 ## Creating our `CommandsPlugin`
 
-Ok, so now, we have client ready to be used, but we didn't used [`nyxx_commands`][1] after all. So let's get into it.
+Ok, so now, we have client ready to be used, but we didn't used [`nyxx_commands`] after all. So let's get into it.
 ```dart
 import 'package:nyxx/nyxx.dart';
 //highlight-next-line
@@ -197,7 +197,7 @@ in.
 You can also send a text message starting with `!ping` and  you should see a similar result.
 
 Here's an example:
-<BaseCommand commandContent="!ping" isCommand={true} author="rapougnac">pong!</BaseCommand>
+<!-- <BaseCommand commandContent="!ping" isCommand={true} author="rapougnac">pong!</BaseCommand> -->
 
 
-[1]: https://github.com/nyxx-discord/nyxx_commands
+[`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands
