@@ -7,7 +7,7 @@ import styles from './index.module.css';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -16,7 +16,8 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/docs/intro">
+            to="/docs/intro"
+          >
             Getting Started
           </Link>
         </div>
@@ -26,11 +27,12 @@ function HomepageHeader() {
 }
 
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={siteConfig.title}
-      description="Nyxx is a powerful dart library to easily interact with the Discord API.">
+      description="Nyxx is a powerful dart library to easily interact with the Discord API."
+    >
       <HomepageHeader />
       <main>
         <HomepageFeatures />
