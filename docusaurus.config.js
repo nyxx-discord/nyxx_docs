@@ -3,7 +3,7 @@
 const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
 const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
 const creationYear = 2016;
-const dev = process.env.NODE_ENV !== "dev";
+const dev = process.env.NODE_ENV === "dev";
 const url = dev ? "https://rapougnac.github.io/" : "https://nyxx.l7ssha.xyz/";
 
 /** @type {import('@docusaurus/types').Config} */
