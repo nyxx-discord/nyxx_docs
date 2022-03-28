@@ -2,6 +2,7 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
 const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
+const creationYear = 2016;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -97,7 +98,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Nyxx.\nBuilt with Docusaurus.`,
+        copyright: `Copyright © ${creationYear} - ${new Date().getFullYear()} Nyxx.`,
       },
       prism: {
         theme: lightCodeTheme,
