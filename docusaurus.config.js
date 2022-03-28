@@ -46,7 +46,7 @@ const config = {
         title: "Nyxx Docs",
         logo: {
           alt: "Nyxx Logo",
-          src: "img/dart_logo.svg",
+          src: "img/Nyxx_Logo.svg",
         },
         items: [
           {

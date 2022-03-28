@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import styles from "./styles.module.css";
-import ReactSvg from "@site/static/img/undraw_docusaurus_react.svg";
+import NyxxSvg from '@site/static/img/Nyxx_Logo.svg';
 import DartSvg from "@site/static/img/dart_logo.svg";
 
 type FeatureItem = {
@@ -22,7 +22,33 @@ const FeatureList: FeatureItem[] = [
       </>
     ),
   },
+  {
+    title: 'You can use it in your project',
+    Svg: NyxxSvg,
+    description: (
+      <>
+        Nyxx is open source and can be used in your project.
+      </>
+    ),
+  },
+  {
+    title: "It's easy to use",
+    Svg: NyxxSvg,
+    description: (
+      <>
+        Nyxx is easy to use and you can use it in your project.
+      </>
+    ),
+  },
 ];
+
+const FeatureItem = ({ title, Svg, description }: FeatureItem) => (
+  <div className={styles.featureItem}>
+    <Svg className={styles.featureItemIcon} />
+    <div className={styles.featureItemTitle}>{title}</div>
+    <div className={styles.featureItemDescription}>{description}</div>
+  </div>
+);
 
 function Feature({ title, Svg, description }: FeatureItem) {
   return (
