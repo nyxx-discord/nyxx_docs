@@ -74,7 +74,7 @@ export default function Component({
             slot="interactions"
             ephemeral={!!ephemeral}
             command={true}
-            profile="l7ssha"
+            profile="harryet"
           >
             {commandContent}
           </DiscordInteraction>

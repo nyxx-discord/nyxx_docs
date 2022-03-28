@@ -11,6 +11,16 @@ const options: _DiscordDefaultOptions = {
       avatar: 'https://i.imgur.com/KZmUYEt.png',
       roleColor: '#5865f2',
     },
+    harryet: {
+      author: 'HarryET',
+      avatar: 'https://github.com/HarryET.png',
+      roleColor: '#f2b749',
+    },
+    abitofevrything: {
+      author: 'Abitofevrything',
+      avatar: 'https://github.com/abitofevrything.png',
+      roleColor: '#48bebe',
+    },
     mycoolbot: {
       author: 'My Cool Bot',
       avatar: 'red',
@@ -21,11 +31,6 @@ const options: _DiscordDefaultOptions = {
       author: 'Rapougnac',
       avatar: 'https://github.com/Rapougnac.png',
       roleColor: '#f35959',
-    },
-    abitofevrything: {
-      author: 'Abitofevrything',
-      avatar: 'https://github.com/abitofevrything.png',
-      roleColor: '#48bebe',
     },
   },
 };
