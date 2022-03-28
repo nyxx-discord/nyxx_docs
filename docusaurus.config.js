@@ -1,43 +1,43 @@
 // @ts-check
 
-const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
-const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
+const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
+const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
-const dev = process.env.NODE_ENV === "dev";
-const url = dev ? "https://rapougnac.github.io/" : "https://nyxx.l7ssha.xyz/";
+const dev = process.env.NODE_ENV === 'dev';
+const url = dev ? 'https://rapougnac.github.io/' : 'https://nyxx.l7ssha.xyz/';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Nyxx Documentation",
-  tagline: "A documentation for the Nyxx Discord library",
+  title: 'Nyxx Documentation',
+  tagline: 'A documentation for the Nyxx Discord library',
   url: url,
-  baseUrl: "/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
-  organizationName: "nyxx-discord",
-  projectName: "nyxx",
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
+  favicon: 'img/favicon.ico',
+  organizationName: 'nyxx-discord',
+  projectName: 'nyxx',
 
   presets: [
     [
-      "classic",
+      'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve('./sidebars.js'),
 
           editUrl: `https://github.com/${
-            dev ? "Rapougnac/nyxx_docs" : "nyxx-discord/nyxx_docs"
-          }/tree/${dev ? "docusaurus" : "main"}/`,
+            dev ? 'Rapougnac/nyxx_docs' : 'nyxx-discord/nyxx_docs'
+          }/tree/${dev ? 'docusaurus' : 'main'}/`,
         },
         blog: {
           showReadingTime: true,
           editUrl: `https://github.com/${
-            dev ? "Rapougnac/nyxx_docs" : "nyxx-discord/nyxx_docs"
-          }/tree/${dev ? "docusaurus" : "main"}/`,
+            dev ? 'Rapougnac/nyxx_docs' : 'nyxx-discord/nyxx_docs'
+          }/tree/${dev ? 'docusaurus' : 'main'}/`,
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
@@ -48,70 +48,74 @@ const config = {
     ({
       metadata: [
         {
-          name: "keywords",
-          content: "discord, bot, bot-framework, nyxx",
+          name: 'keywords',
+          content: 'discord, bot, bot-framework, nyxx',
         },
         {
-          name: "language",
-          content: "EN",
+          name: 'language',
+          content: 'EN',
         },
         {
-          property: "og:image",
+          property: 'og:image',
           content: `${url}img/Nyxx_Logo.png`,
         },
       ],
       navbar: {
-        title: "Nyxx Docs",
+        title: 'Nyxx Docs',
         logo: {
-          alt: "Nyxx Logo",
-          src: "img/Nyxx_Logo.svg",
+          alt: 'Nyxx Logo',
+          src: 'img/Nyxx_Logo.svg',
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Tutorial",
+            type: 'doc',
+            docId: 'intro',
+            position: 'left',
+            label: 'Tutorial',
           },
-          { to: "/blog", label: "Blog", position: "left" },
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
-            href: "https://github.com/nyxx-discord/nyxx",
-            label: "GitHub",
-            position: "right",
+            href: 'https://github.com/nyxx-discord/nyxx',
+            label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
+            position: 'right',
           },
         ],
       },
       footer: {
-        style: "light",
+        style: 'light',
         links: [
           {
-            title: "Docs",
+            title: 'Docs',
             items: [
               {
-                label: "Tutorial",
-                to: "/docs/intro",
+                label: 'Tutorial',
+                to: '/docs/intro',
               },
             ],
           },
           {
-            title: "Community",
+            title: 'Community',
             items: [
               {
-                label: "Discord",
-                href: "https://discordapp.com/invite/nyxx",
+                label: 'Discord',
+                href: 'https://discordapp.com/invite/nyxx',
               },
             ],
           },
           {
-            title: "More",
+            title: 'More',
             items: [
               {
-                label: "Blog",
-                to: "/blog",
+                label: 'Blog',
+                to: '/blog',
               },
               {
-                label: "GitHub",
-                href: "https://github.com/nyxx-discord/nyxx",
+                label: 'GitHub',
+                href: 'https://github.com/nyxx-discord/nyxx',
               },
             ],
           },
@@ -121,9 +125,19 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ["dart"],
+        additionalLanguages: ['dart'],
       },
     }),
+
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'de', 'fr'],
+    localeConfigs: {
+      en: {
+        htmlLang: 'en-GB',
+      },
+    },
+  },
 };
 
 module.exports = config;
