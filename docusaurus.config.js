@@ -3,12 +3,14 @@
 const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
 const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
 const creationYear = 2016;
+const dev = process.env.NODE_ENV !== "dev";
+const url = dev ? "https://rapougnac.github.io/" : "https://nyxx.l7ssha.xyz/";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Nyxx Documentation",
   tagline: "A documentation for the Nyxx Discord library",
-  url: "https://nyxx.l7ssha.xyz/",
+  url: url,
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -24,13 +26,15 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
 
-          editUrl:
-            "https://github.com/nyxx-discord/nyxx_docs/tree/main/",
+          editUrl: `https://github.com/${
+            dev ? "Rapougnac/nyxx_docs" : "nyxx-discord/nyxx_docs"
+          }/tree/${dev ? "docusaurus" : "main"}/`,
         },
         blog: {
           showReadingTime: true,
-          editUrl:
-            "https://github.com/nyxx-discord/nyxx_docs/tree/main/",
+          editUrl: `https://github.com/${
+            dev ? "Rapougnac/nyxx_docs" : "nyxx-discord/nyxx_docs"
+          }/tree/${dev ? "docusaurus" : "main"}/`,
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -42,6 +46,20 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        {
+          name: "keywords",
+          content: "discord, bot, bot-framework, nyxx",
+        },
+        {
+          name: "language",
+          content: "EN",
+        },
+        {
+          property: "og:image",
+          content: `${url}img/Nyxx_Logo.png`,
+        },
+      ],
       navbar: {
         title: "Nyxx Docs",
         logo: {
