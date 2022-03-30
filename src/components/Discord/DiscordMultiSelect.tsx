@@ -40,10 +40,3 @@ export default function DiscordMultiSelect({
     </div>
   );
 }
-
-// export function DiscordMultiSelectOption({
-//   children,
-//   lightTheme,
-// }: PropsWithSlots & { lightTheme?: boolean }): ReactElement {
-//   return <div className="discord-multiselect-option">{children}</div>;
-// }

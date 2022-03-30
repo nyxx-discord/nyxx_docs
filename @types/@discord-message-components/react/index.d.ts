@@ -1,8 +1,5 @@
-declare module "@discord-message-components/react" {
-  // export * from './components';
-  // export * from './types';
-
-  import { ReactElement, PropsWithChildren, ReactNode, Context } from "react";
+declare module '@discord-message-components/react' {
+  import { ReactElement, PropsWithChildren, ReactNode, Context } from 'react';
 
   interface Avatars {
     blue: string;
@@ -22,14 +19,14 @@ declare module "@discord-message-components/react" {
 
   interface DiscordMessageOptions {
     avatars: Avatars;
-    defaultMode: "cozy" | "compact";
-    defaultTheme: "dark" | "light";
+    defaultMode: 'cozy' | 'compact';
+    defaultTheme: 'dark' | 'light';
     profiles: { [key: string]: Profile | undefined };
   }
 
   interface _DiscordDefaultOptions {
     avatars: Avatars & { default: string };
-    defaultMode: "cozy" | "compact";
+    defaultMode: 'cozy' | 'compact';
     profiles: { [key: string]: Profile | undefined };
   }
 
@@ -137,4 +134,4 @@ declare module "@discord-message-components/react" {
   export function DiscordReactions(props: PropsWithSlots): ReactElement;
 }
 
-declare module "@discord-message-components/react/styles" {}
+declare module '@discord-message-components/react/styles' {}
