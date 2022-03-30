@@ -4,7 +4,13 @@ const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
 const dev = process.env.NODE_ENV === 'dev';
-const url = dev ? 'https://rapougnac.github.io/' : 'https://nyxx.l7ssha.xyz/';
+const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
+const {
+  REPO_NAME_DEV: repoDev,
+  BRANCH_NAME_DEV: branchDev,
+  REPO_NAME_PROD: repoProd,
+  REPO_BRANCH_NAME: branchProd,
+} = process.env;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -26,15 +32,15 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
 
-          editUrl: `https://github.com/${
-            dev ? 'Rapougnac/nyxx_docs' : 'nyxx-discord/nyxx_docs'
-          }/tree/${dev ? 'docusaurus' : 'main'}/`,
+          editUrl: `https://github.com/${dev ? repoDev : repoProd}/tree/${
+            dev ? branchDev : branchProd
+          }/`,
         },
         blog: {
           showReadingTime: true,
-          editUrl: `https://github.com/${
-            dev ? 'Rapougnac/nyxx_docs' : 'nyxx-discord/nyxx_docs'
-          }/tree/${dev ? 'docusaurus' : 'main'}/`,
+          editUrl: `https://github.com/${dev ? repoDev : repoProd}/tree/${
+            dev ? branchDev : branchProd
+          }/`,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -128,16 +134,6 @@ const config = {
         additionalLanguages: ['dart'],
       },
     }),
-
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'de', 'fr'],
-    localeConfigs: {
-      en: {
-        htmlLang: 'en-GB',
-      },
-    },
-  },
 };
 
 module.exports = config;
