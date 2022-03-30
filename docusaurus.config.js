@@ -120,7 +120,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${creationYear} - ${new Date().getFullYear()} Nyxx.`,
+        copyright: `Copyright © ${creationYear} - ${new Date().getFullYear()} nyxx.`,
       },
       prism: {
         theme: lightCodeTheme,
