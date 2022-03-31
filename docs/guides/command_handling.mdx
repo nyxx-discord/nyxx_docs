@@ -31,7 +31,7 @@ void main() {
   final client = NyxxFactory.createNyxxWebsocket(
     '<TOKEN>',
     GatewayIntents.allUnprivileged | GatewayIntents.guildMembers,
-  )..connect();
+  );
   //highlight-end
 }
 ```
@@ -58,7 +58,7 @@ void main() {
 }
 ```
 
-## Creating our `CommandsPlugin`
+## Creating our [`CommandsPlugin`]
 
 Ok, so now, we have client ready to be used, but we didn't used [`nyxx_commands`] after all. So let's get into it.
 
@@ -181,7 +181,7 @@ ChatCommand ping = ChatCommand(
 //highlight-end
 ```
 
-### Adding a command to the `CommandsPlugin`
+### Adding a command to the [`CommandsPlugin`]
 
 Once we've created our command, we need to add it to our bot.
 
@@ -215,7 +215,7 @@ You can also send a text message starting with `!ping` and you should see a simi
 
 Here's an example with a legacy command:
 
-<BaseCommand commandContent={'!ping'} author={'abitofevrything'}>
+<BaseCommand commandContent={'!ping'} author={'abitofevrything'} reply={true}>
   pong!
 </BaseCommand>
 <br />
@@ -226,6 +226,18 @@ Or with a slash command:
   author={'abitofevrything'}
 >
   pong!
+</BaseCommand>
+<br />
+
+If you don't want to be mentionned, you can use the [`mention`] option in the [`MessageChatContext`]'s [`respond`]
+Like so:
+```dart
+//highlight-next-line
+context.respond('pong!', mention: false);
+```
+And it should be like this:
+<BaseCommand reply={true} mention={false} commandContent="!ping" author="abitofevrything">
+pong!
 </BaseCommand>
 
 ## Registering a command group
@@ -329,17 +341,6 @@ Slash commands:
   The die landed on the 2 number!
 </BaseCommand>
 
-If you don't want to be mentionned, you can use the [`mention`] option in the [`MessageChatContext`]'s [`respond`]
-Like so:
-```dart
-//highlight-next-line
-context.respond('The die landed on the $number number!', mention: false);
-```
-And it should be like this:
-<BaseCommand reply={true} mention={false} commandContent="!throw die" author="abitofevrything">
-The die landed on the 3 number!
-</BaseCommand>
-
 ## Using command arguments
 
 Command argumens are another powerful tool that allow you to get user input when using commands.
@@ -402,7 +403,7 @@ Will not work properly:
 <BaseCommand reply={true} author="abitofevrything" commandContent="!say hello, nyxx_commands!">hello,</BaseCommand>
 But,
 <BaseCommand reply={true} author="abitofevrything" commandContent={'!say "hello, nyxx commands"'}>hello, nyxx_commands!</BaseCommand>
-Will work
+Will work.
 :::
 
 
@@ -724,3 +725,4 @@ You just need to create a function or a class in a specific file, importing it, 
 [`int`]: https://api.dart.dev/stable/2.16.2/dart-core/int-class.html
 [`IMember`]: https://pub.dev/documentation/nyxx/latest/nyxx/IMember-class.html
 [`Converter`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/Converter-class.html
+[`CommandsPlugin`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/CommandsPlugin-class.html
