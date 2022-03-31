@@ -3,7 +3,7 @@ title: Creating a bot account
 author: One-Nub
 timestamp: 2021-09-22
 category: guides
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 ### Creating a bot account

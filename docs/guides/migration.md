@@ -1,6 +1,6 @@
 ---
 title: Migration to nyxx_* 3.x
-sidebar_position: 2
+sidebar_position: 3
 author: l7ssha
 timestamp: 2021-12-17
 category: guides

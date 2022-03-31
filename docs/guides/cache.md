@@ -3,7 +3,7 @@ title: Cache
 author: l7ssha
 timestamp: 2021-09-21
 category: guides
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 Caching in nyxx is managed automatically with internal wrappers around existing Dart features. Nyxx features a

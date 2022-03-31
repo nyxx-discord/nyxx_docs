@@ -3,7 +3,7 @@ title: Intents
 author: L7ssha
 timestamp: 2021-09-21
 category: guides
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 Gateway intents were introduced so bot developers could choose which events they want to receive. If you don't want

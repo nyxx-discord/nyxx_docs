@@ -1,0 +1,167 @@
+---
+title: Writing your first bot
+authors: l7ssha
+date: 2021-09-20
+category: guides
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import PingCommand, { PingCommandReplied } from '@site/src/components/Discord/pingCommand';
+
+### Creating project
+
+You can create a simple project using the built-in dart command `dart create`:
+<Tabs>
+<TabItem value="bash" label="Bash">
+
+```bash
+$ dart create -t console-simple your-project-name && cd ./your-project-name
+```
+
+</TabItem>
+<TabItem value="powershell" label="PowerShell">
+
+```ps1
+> (dart create -t console-simple your-project-name) -and (cd ./your-project-name)
+```
+
+</TabItem>
+</Tabs>
+
+Replace `your-project-name` with your desired name.
+
+This command will create few files that are needed to start a project. There will be a `pubspec.yaml` with basic project info and dependency declaration. There will also be a file created with name of your project in `bin` directory. This is the main file that you would have to run to start the bot.
+
+<!--truncate-->
+
+To add nyxx to your project, run `dart pub add nyxx`. Your `pubspec.yaml` file should then look similar to this:
+
+```yml title="./pubspec.yaml"
+name: test
+description: A simple command-line application.
+version: 1.0.0
+# homepage: https://www.example.com
+
+environment:
+  sdk: ">=2.14.2 <3.0.0"
+
+dependencies:
+# highlight-next-line
+  nyxx: ^3.0.0 # You may have a different version if you follow this guide 
+
+dev_dependencies:
+  lints: ^1.0.0
+```
+
+Now when if you execute the `dart pub get` command in the project's root directory, nyxx should be pulled from repos:
+
+```
+$ dart pub get
+Resolving dependencies...
++ async 2.8.2
++ charcode 1.3.1
++ collection 1.15.0
++ http 0.13.3
++ http_parser 4.0.0
++ logging 1.0.2
++ meta 1.7.0
++ nyxx 3.0.0
++ path 1.8.0
++ pedantic 1.11.1
++ source_span 1.8.1
++ string_scanner 1.1.0
++ term_glyph 1.2.0
++ typed_data 1.3.0
+Changed 14 dependencies!
+```
+
+### First code
+
+With everything set up, we can now start coding our bot, but let's start with something easy.
+This is simple bot which replies to `!ping` with `pong`.
+
+```dart title="./bin/your_project_name.dart"
+import 'package:nyxx/nyxx.dart';
+
+void main() {
+  //highlight-start
+  final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
+
+  bot.onMessageReceived.listen((event) {
+    if (event.message.content == "!ping") {
+      event.message.channel.sendMessage(MessageBuilder.content('Pong!'));
+    }
+  });
+  //highlight-end
+}
+```
+
+Let's explain what each line does:
+
+```dart title="./bin/your_project_name.dart"
+final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
+```
+
+Here we are creating and starting a new client with your token and desired gateway intents.
+In this case the bot will request all intents except privileged ones.
+
+```dart
+bot.onMessageReceived.listen((event) {
+    if (event.message.content == "!ping") {
+      event.message.channel.sendMessage(MessageBuilder.content("Pong!"));
+    }
+});
+```
+
+Here we are subscribing to the `onMessageReceived` stream which will 'deliver' new messages to the handler.
+The function is invoked with `MessageEvent` objects which contain `Message` objects for you to use.
+
+```dart title="./bin/your_project_name.dart"
+if (event.message.content == "!ping") {
+  event.message.channel.sendMessage(MessageBuilder.content("Pong!"));
+}
+```
+
+Here we check if the message's content is equal to `!ping` and if it is we'll send `pong` message to the same channel. To send messages we have to access the channel which is in form of a `Cacheable` object. This is because channel might not
+be cached inside client.
+
+So, let's try out:
+
+<PingCommand />
+
+See? Very easy.
+Now, let's look how to respond to a message.
+```dart title="./bin/your_project_name.dart"
+if (event.message.content == '!ping') {
+  //highlight-start
+  final replyBuilder = ReplyBuilder.fromMessage(event.message);
+
+  event.message.channel.sendMessage(MessageBuilder.content('Pong!')..replyBuilder = replyBuilder);
+  //highlight-end
+}
+```
+
+And the result should look like this:
+<PingCommandReplied ping={true} />
+
+But the bot is mentionning when it replies, so we'll need to use the `AllowedMentions` class
+```dart title="./bin/your_project_name.dart"
+if (event.message.content == '!ping') {
+  final replyBuilder = ReplyBuilder.fromMessage(event.message);
+  //highlight-next-line
+  final allowedMentions = AllowedMentions()..allow(reply: false);
+
+  //highlight-next-line
+  event.message.channel.sendMessage(MessageBuilder.content('Pong!')..replyBuilder = replyBuilder..allowedMentions = allowedMentions);
+}
+```
+And now, if you re-execute the command, you shouldn't be mentionned when the bot replies.
+Like so:
+
+<PingCommandReplied />
+
+<br />
+
+That's all you need to create your first command.
