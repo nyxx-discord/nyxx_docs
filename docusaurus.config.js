@@ -14,8 +14,8 @@ const {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Nyxx Documentation',
-  tagline: 'A documentation for the Nyxx Discord library',
+  title: 'nyxx Documentation',
+  tagline: 'A documentation for the nyxx Discord library',
   url: url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
