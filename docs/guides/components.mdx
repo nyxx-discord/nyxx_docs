@@ -15,7 +15,7 @@ Message components allow for interactivity between a message sent by a bot and t
 
 ## Interactions extension
 
-Before you use message components you have to instantiate new instance of the `Interactions` class, which is an extension for nyxx that provides slash command and message components functionality:
+Before you use message components you have to instantiate new instance of the [`IInteractions`] class, which is an extension for nyxx that provides slash command and message components functionality:
 
 ```dart
 final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
@@ -25,20 +25,20 @@ final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 
 <br />
 
-The `Interactions` class contains all the methods and utils needed to send and manage messages with components.
+The [`IInteractions`] class contains all the methods and utils needed to send and manage messages with components.
 
 <br />
 
 ### Components (buttons and select menus)
 
-Components (buttons and select menus at the moment) can be created on any message but button events can be listened only from the `Interactions` object.
+Components (buttons and select menus at the moment) can be created on any message but button events can be listened only from the [`IInteractions`] object.
 
 <br />
 
 ### Adding components to message
 
-Components can be created using the `ComponentMessageBuilder` class from the `nyxx_interactions` package. It extends the basic
-`MessageBuilder` from the `nyxx` package with an additional `addComponent` method which allows adding component rows and
+Components can be created using the [`ComponentMessageBuilder`] class from the [`nyxx_interactions`] package. It extends the basic
+[`MessageBuilder`] from the [`nyxx`] package with an additional [`addComponent`] method which allows adding component rows and
 components to a message.
 
 The following example shows how to create a message with buttons and select menus. These can be sent with any message
@@ -152,9 +152,9 @@ await event.respond(componentMessageBuilder);
 
 ### Listening to component events
 
-If your custom id doesn't hold specific data, you can use `Interactions.registerButtonHandler` or `Interactions.registerMultiselectHandler`
+If your custom id doesn't hold specific data, you can use [`IInteractions.registerButtonHandler`] or [`IInteractions.registerMultiselectHandler`]
 to listen for specific events. If your custom id for the component holds, for example, state data you can listen to
-`Interactions.onMultiselectEvent` or `Interactions.onButtonEvent` events and then handle the interaction yourself.
+[`IInteractions.events.onMultiselectEvent`] or [`IInteractions.events.onButtonEvent`] events and then handle the interaction yourself.
 
 ```dart
 // To handle button interaction you need need function that accepts
@@ -192,3 +192,14 @@ void main() {
     ..syncOnReady(); // This is needed if you want to sync commands on bot startup.
 }
 ```
+
+[`nyxx`]: https://github.com/nyxx-discord/nyxx
+[`nyxx_interactions`]: https://github.com/nyxx-discord/nyxx_interactions
+[`MessageBuilder`]: https://pub.dev/documentation/nyxx/latest/nyxx/MessageBuilder-class.html
+[`IInteractions`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteraction-class.html
+[`ComponentMessageBuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentMessageBuilder-class.html
+[`addComponent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentRowBuilder/addComponent.html
+[`IInteractions.registerButtonHandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerButtonHandler.html
+[`IInteractions.registerMultiselectHandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerMultiselectHandler.html
+[`IInteractions.events.onMultiselectEvent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onMultiselectEvent.html
+[`IInteractions.events.onButtonEvent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onButtonEvent.html
