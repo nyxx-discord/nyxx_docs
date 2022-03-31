@@ -3,13 +3,13 @@
 const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
-const dev = process.env.NODE_ENV === 'dev';
-const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
+const dev = process.env.NODE_ENV !== 'dev';
+const url = dev ? (process.env.DEV_URL ?? 'https://rapougnac.github.io/') : (process.env.PROD_URL ?? 'https://nyxx.l7ssha.xyz/');
 const {
-  REPO_NAME_DEV: repoDev,
-  BRANCH_NAME_DEV: branchDev,
-  REPO_NAME_PROD: repoProd,
-  REPO_BRANCH_NAME: branchProd,
+  REPO_NAME_DEV: repoDev = 'Rapougnac/nyxx_docs',
+  BRANCH_NAME_DEV: branchDev = 'docusaurus',
+  REPO_NAME_PROD: repoProd = 'nyxx-discord/nyxx_docs',
+  REPO_BRANCH_NAME: branchProd = 'main',
 } = process.env;
 
 /** @type {import('@docusaurus/types').Config} */
