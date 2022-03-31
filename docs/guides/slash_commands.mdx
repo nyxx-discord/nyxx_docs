@@ -15,7 +15,7 @@ Such commands provide visual feedback in the UI and are more tied to the platfor
 
 ## Interactions extension
 
-Before registering any commands you have to instantiate new instance of the `Interactions` class, which is an extension for
+Before registering any commands you have to instantiate new instance of the [`IInteractions`] class, which is an extension for
 nyxx that provides slash command and message components functionality.
 
 ```dart
@@ -25,7 +25,7 @@ final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 
 <br />
 
-The `Interactions` class contains all the methods and utils needed to register and handle slash commands.
+The [`IInteractions`] class contains all the methods and utils needed to register and handle slash commands.
 
 <br />
 
@@ -35,12 +35,12 @@ Nyxx provides an easy to use interface for registering commands to the Discord A
 
 <br />
 
-To register an command use the `registerSlashCommand` method which takes instance of the `SlashCommandBuilder` class.
-`SlashCommandBuilder` provides all the information needed for the framework and API about how to handle a given slash command.
+To register an command use the [`registerSlashCommand`] method which takes instance of the [`SlashCommandBuilder`] class.
+[`SlashCommandBuilder`] provides all the information needed for the framework and API about how to handle a given slash command.
 
 <br />
 
-`SlashCommandBuilder` allows you to build commands with the following properties:
+[`SlashCommandBuilder`] allows you to build commands with the following properties:
 
 ```dart
 /// Command name to be shown to the user in the Slash Command UI
@@ -90,18 +90,17 @@ final singleCommand = SlashCommandBuilder("ping", "Simple command that responds 
 
 <br />
 
-We specified the name of the command as `ping` and provided a short description so that the user would now what the command does. We also invoked the `registerHandler` method that registers an internal callback so that the command could be responded to by the bot. In that case we only respond with a `MessageBuilder` with a content of `Pong!`.
+We specified the name of the command as `ping` and provided a short description so that the user would now what the command does. We also invoked the [`registerHandler`] method that registers an internal callback so that the command could be responded to by the bot. In that case we only respond with a [`MessageBuilder`] with a content of `Pong!`.
 
 <br />
 
 #### Subcommands
 
-Subcommands are handled by adding instances of `CommandOptionBuilder` to `SlashCommandBuilder` via the `options` parameter
-in the constructor. In the Discord API, subcommands are just options in a base command and are handled in the same way.
+Subcommands are handled by adding instances of [`CommandOptionBuilder`] to [`SlashCommandBuilder`] via the [`options`] parameter in the constructor. In the Discord API, subcommands are just options in a base command and are handled in the same way.
 
-`CommandOptionBuilder` has a `registerHandler` method which allows you to register callback that will be invoked when client receives an interaction, just like the base slash command.
+[`CommandOptionBuilder`] has a [`registerHandler`] method which allows you to register callback that will be invoked when client receives an interaction, just like the base slash command.
 
-> Note that `registerHandler` cannot be executed on `CommandOptionBuilder` that has a type other than `CommandOptionType.subcommand`.
+> Note that [`registerHandler`] cannot be executed on [`CommandOptionBuilder`] that has a type other than [`CommandOptionType.subCommand`].
 
 <br />
 
@@ -132,18 +131,18 @@ final subCommandFlipGame = CommandOptionBuilder(CommandOptionType.subCommand, "c
 
 ### Syncing commands
 
-Registered commands need to be synced with Discord's API. After calling `Interactions#syncOnReady`, the `nyxx_interactions` framework will perform a bulk override of registered command which means that new commands will be added, existing commands will be updated, and commands that are missing will be erased from the API. Global commands have ~1h long caching span, so they will be available after approx. 1 hour and guild commands are available instantly.
+Registered commands need to be synced with Discord's API. After calling [`IInteractions#syncOnReady`], the [`nyxx_interactions`] framework will perform a bulk override of registered command which means that new commands will be added, existing commands will be updated, and commands that are missing will be erased from the API. Global commands have ~1h long caching span, so they will be available after approx. 1 hour and guild commands are available instantly.
 
 <br />
 
 #### Sync types inside nyxx
 
-Nyxx provides an interface to customise syncing logic. Classes implementing `ICommandsSync` can be passed to `Interactions#syncOnReady` to customise how syncing behaves. `nyxx_interactions` provides two options by default:
+Nyxx provides an interface to customise syncing logic. Classes implementing [`ICommandsSync`] can be passed to [`IInteractions#syncOnReady`] to customise how syncing behaves. [`nyxx_interactions`] provides two options by default:
 
-- `ManualCommandSync`: A `true`/`false` switch indicating whether commands should be synced;
-- `LockFileCommandSync`: Creates a lock file storing registered commands and only sync if significant changes have been made.
+- [`ManualCommandSync`]: A `true`/`false` switch indicating whether commands should be synced;
+- [`LockFileCommandSync`]: Creates a lock file storing registered commands and only sync if significant changes have been made.
 
-The default is `ManualCommandSync` and by default commands sync on each bot startup, so if you already registered your commands and you won't make any further changes to their properties you can pass `ManualCommandSync` instance with `false` and commands won't be synced with Discord to avoid API abuse.
+The default is [`ManualCommandSync`] and by default commands sync on each bot startup, so if you already registered your commands and you won't make any further changes to their properties you can pass [`ManualCommandSync`] instance with `false` and commands won't be synced with Discord to avoid API abuse.
 
 <br />
 
@@ -167,7 +166,7 @@ So, to properly handle the interaction from a code perspective you have to respo
 
 Messages can sent as ephemeral responses which means that the message will only be visible for the user that invoked the command in public chat, like `Clyde` in the Discord client.
 
-`acknowledge` and `respond` have an optional parameter `hidden` which allows to specify if the response should be ephermal or not:
+[`acknowledge`] and [`respond`] have an optional parameter `hidden` which allows to specify if the response should be ephermal or not:
 
 ```dart
 ..registerHandler((event) async {
@@ -178,3 +177,19 @@ Messages can sent as ephemeral responses which means that the message will only 
 ```
 
 <PingCommandSlash content={'Respond'} commandContent={'testcommand'} ephemeral={true}/>
+
+[`nyxx_interactions`]: https://github.com/nyxx-discord/nyxx_interactions
+[`IInteractions`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteraction-class.html
+[`registerSlashCommand`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerSlashCommand.html
+[`SlashCommandBuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/SlashCommandBuilder-class.html
+[`registerHandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/CommandOptionBuilder/registerHandler.html
+[`MessageBuilder`]: https://pub.dev/documentation/nyxx/latest/nyxx/MessageBuilder-class.html
+[`CommandOptionBuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/CommandOptionBuilder-class.html
+[`options`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/CommandOptionType-class.html
+[`CommandOptionType.subCommand`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/CommandOptionType/subCommand-constant.html
+[`IInteractions#syncOnReady`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/syncOnReady.html
+[`ICommandsSync`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ICommandsSync-class.html
+[`ManualCommandSync`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ManualCommandSync-class.html
+[`LockFileCommandSync`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/LockFileCommandSync-class.html
+[`acknowledge`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractionEventWithAcknowledge/acknowledge.html
+[`respond`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractionEventWithAcknowledge/respond.html

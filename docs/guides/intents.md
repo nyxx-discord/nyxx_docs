@@ -15,8 +15,7 @@ to receive certain events you can just omit its intent and they won't be sent to
 
 ### Specifying intents
 
-Since `nyxx` 2.x passing intents is required in nyxx constructor. You can pass the int value or you can pass
-constant values from `GatewayIntents` class combined with a binary OR (`|`):
+Since [`nyxx`] 2.x passing intents is required in nyxx constructor. You can pass the int value or you can pass constant values from [`GatewayIntents`] class combined with a binary OR (`|`):
 
 <br />
 
@@ -32,3 +31,7 @@ final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.guildMessage
 
 Discord Intents and Permissions are stored in integers and calculated using bitwise operations.
 If you want to dive deeper into what's happening behind the curtains, check the [Wikipedia page](https://en.wikipedia.org/wiki/Bit_field).
+
+
+[`nyxx`]: https://github.com/nyxx-discord/nyxx
+[`GatewayIntents`]: https://pub.dev/documentation/nyxx/latest/nyxx/GatewayIntents-class.html
