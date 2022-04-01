@@ -25,16 +25,24 @@ To get started with nyxx, you'll need a Discord bot account!
 
 ### Getting your bot's token
 
-_WARNING: Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your bot account to perform any bot actions - such as banning users and leaving guilds._
+:::danger
+Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your bot account to perform any bot actions - such as banning users and leaving guilds.
+:::
 
 - Once your bot account is made, on that same **Bot** tab, there will be a section labeled **Token**.
-- To get yours bot token, click on the "Regenerate" button. It will generate a new token so we can use it to run our bot.
-<!-- Insert renew screen -->
-- Next, click on "Yes, do it" to generate a new token.
-- If you have the two factor authentification, you may encounter this window. Enter your auth codes, **the backup codes given from Discord will not work**.
-<!-- Insert 2fa screen here -->
-- In the event you share your token, be sure to press the **Regenerate** button so the old token can't be used anymore.
-<!-- Insert last setp -->
+- To get your bot token, click on the **Reset** button. Discord will generate a new token so we can use it to run our bot.
+![Reset Token](../../static/img/tutorial/bot_token_reset.jpg)
+- Next, click on **Yes, do it!** button to generate a new token.
+![Yes do it button](../../static/img/tutorial/bot_token_yes_do_it.jpg)
+- If you enabled the two factor authentication, you should encounter this window. Enter your auth codes (there're are in an authenticator app (depends on which you chose)), **the backup codes given from Discord will not work**.
+![2Fa Codes](../../static/img/tutorial/bot_token_2fa.png)
+
+- Now you can finally copy your bot token.
+![Copy Bot Token](../../static/img/tutorial/copy_bot_token.jpg)
+
+:::tip
+In the event you share your token, be sure to press the **Reset** button so the old token can't be used anymore.
+:::
 
 ### Inviting your bot to a server
 
