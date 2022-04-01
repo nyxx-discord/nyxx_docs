@@ -28,8 +28,13 @@ To get started with nyxx, you'll need a Discord bot account!
 _WARNING: Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your bot account to perform any bot actions - such as banning users and leaving guilds._
 
 - Once your bot account is made, on that same **Bot** tab, there will be a section labeled **Token**.
-- For utilizing the token within nyxx, press the **Copy** button and paste it into your code where the token is stored, or any other place you may store it. ![Copy bot token button](../../static/img/tutorial/copy_bot_token.png)
+- To get yours bot token, click on the "Regenerate" button. It will generate a new token so we can use it to run our bot.
+<!-- Insert renew screen -->
+- Next, click on "Yes, do it" to generate a new token.
+- If you have the two factor authentification, you may encounter this window. Enter your auth codes, **the backup codes given from Discord will not work**.
+<!-- Insert 2fa screen here -->
 - In the event you share your token, be sure to press the **Regenerate** button so the old token can't be used anymore.
+<!-- Insert last setp -->
 
 ### Inviting your bot to a server
 
