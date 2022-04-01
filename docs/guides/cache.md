@@ -48,7 +48,7 @@ For now there are a few things you can do:
 This setting allows to specify when object are added to the cache:
 
 - `event`: Objects are cached from websocket events;
-- `objectConstructor`: Objects are cached from other object's constructors, for example `Member` objects from message payloads;
+- `objectConstructor`: Objects are cached from other object's constructors, for example `IMember` objects from message payloads;
 - `http`: Objects are added from HTTP API requests;
 - `other`: All other times an object could be cached.
 
@@ -84,7 +84,7 @@ CachePolicy<T> and(CachePolicy<T> other);
 static CachePolicy<S> any<S extends SnowflakeEntity>(List<CachePolicy<S>> policies);
 ```
 
-For example, this code would only cache `Member` objects who have roles:
+For example, this code would only cache `IMember` objects who have roles:
 
 ```dart
 Future<void> main() async {
