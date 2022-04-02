@@ -1,22 +1,24 @@
 import {
-  DiscordButton,
   DiscordButtonProps,
-  DiscordButtons,
-  DiscordDefaultOptions,
   DiscordInteraction,
-  DiscordMarkdown,
   DiscordMessage,
   DiscordMessages,
   DiscordOptionsContext,
-  _DiscordDefaultOptions,
 } from '@discord-message-components/react';
-import useIsBrowser from '@docusaurus/useIsBrowser';
 import useInterval from '@site/src/hooks/useInterval';
 import * as React from 'react';
 import DiscordMultiSelect from './DiscordMultiSelect';
 import options from './options';
+import { ComponentProps } from './components';
 
-export default function Component({
+interface SelectMenuProps extends React.PropsWithChildren<ComponentProps> {
+  /**
+   * The options to display in the menu.
+   */
+  menuOptions: string[];
+}
+
+export default function SelectMenu({
   lightTheme,
   ephemeral,
   commandContent,
@@ -26,22 +28,13 @@ export default function Component({
   urls,
   disabled,
   children,
-}: {
-  lightTheme?: boolean;
-  ephemeral?: boolean;
-  commandContent?: string;
-  content?: string;
-  menuOptions?: string[];
-  buttonTypes?: DiscordButtonProps['type'][];
-  urls?: string[];
-  disabled?: boolean;
-  children?: React.ReactNode;
-}) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
+}: SelectMenuProps) {
+  React.useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>

@@ -5,6 +5,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
 const dev = process.env.NODE_ENV === 'dev';
 const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
+// Note to self, urls should'nt be finished with a slash (/)
 const {
   REPO_NAME_DEV: repoDev,
   BRANCH_NAME_DEV: branchDev,
@@ -46,6 +47,10 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: 'img/Nyxx_Logo.png',
+      colorMode: {
+        defaultMode: 'dark',
+      },
       metadata: [
         {
           name: 'keywords',
@@ -54,10 +59,6 @@ const config = {
         {
           name: 'language',
           content: 'EN',
-        },
-        {
-          property: 'og:image',
-          content: `${url}img/Nyxx_Logo.png`,
         },
       ],
       navbar: {

@@ -1,11 +1,24 @@
 import { PropsWithSlots } from '@discord-message-components/react';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
 
-interface DiscordMultiSelectProps extends PropsWithSlots {
+interface DiscordMultiSelectProps {
+  /**
+   * The options to display in the menu.
+   */
   options: string[];
+
+  /**
+   * Whether use the light theme.
+   */
   lightTheme?: boolean;
+
+  /**
+   * Whether the select menu is disabled.
+   */
   disabled?: boolean;
+
+  children?: React.ReactNode;
 }
 
 export default function DiscordMultiSelect({

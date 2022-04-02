@@ -2,28 +2,57 @@ import {
   DiscordButton,
   DiscordButtonProps,
   DiscordButtons,
-  DiscordDefaultOptions,
   DiscordInteraction,
-  DiscordMarkdown,
-  DiscordMention,
   DiscordMessage,
   DiscordMessages,
   DiscordOptionsContext,
   _DiscordDefaultOptions,
 } from '@discord-message-components/react';
-import useIsBrowser from '@docusaurus/useIsBrowser';
 import useInterval from '@site/src/hooks/useInterval';
-import React, { PropsWithChildren, ReactNode } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import options from './options';
 
-interface ComponentProps {
+export interface ComponentProps {
+  /**
+   * Whether use the light theme.
+   */
   lightTheme?: boolean;
+
+  /**
+   * Whether the command is ephemeral.
+   */
   ephemeral?: boolean;
+
+  /**
+   * The content of the command.
+   * Example: `"Author" used /ping`
+   */
   commandContent?: string;
+
+  /**
+   * The content of the message.
+   */
   content?: string;
+
+  /**
+   * The content of the buttons.
+   */
   buttonsContent?: string[];
+
+  /**
+   * The types of the buttons.
+   * `'link' | 'success' | 'danger' | 'primary' | 'secondary'`
+   */
   buttonTypes?: DiscordButtonProps['type'][];
+
+  /**
+   * The urls of the buttons if the button type is `'link'`.
+   */
   urls?: string[];
+
+  /**
+   * Whether the buttons are disabled.
+   */
   disabled: boolean[];
 }
 
@@ -32,6 +61,9 @@ interface ComponentProps {
  */
 interface BaseCommandProps
   extends PropsWithChildren<Omit<ComponentProps, 'content'>> {
+  /**
+   * The name of the author that used the command.
+   */
   author?: string;
 
   /**
@@ -60,11 +92,12 @@ export default function Component({
   urls,
   disabled,
 }: ComponentProps) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
+  useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>
@@ -117,11 +150,12 @@ export function BaseCommand({
   reply = false,
   mention = true,
 }: BaseCommandProps) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
+  useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>

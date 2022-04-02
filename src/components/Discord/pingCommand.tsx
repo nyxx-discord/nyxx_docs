@@ -1,7 +1,6 @@
 import * as React from 'react';
 import useInterval from '../../hooks/useInterval';
 import {
-  DiscordDefaultOptions,
   DiscordMessage,
   DiscordMessages,
   DiscordOptionsContext,
@@ -10,7 +9,6 @@ import {
   _DiscordDefaultOptions,
 } from '@discord-message-components/react';
 import '@discord-message-components/react/styles';
-import useIsBrowser from '@docusaurus/useIsBrowser';
 import options from './options';
 
 interface PingCommandProps {
@@ -29,11 +27,12 @@ interface PingCommandSlashProps extends Omit<PingCommandProps, 'prefix'> {
 }
 
 export default function ({ lightTheme, prefix = '!' }: PingCommandProps) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
+  React.useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>
@@ -50,11 +49,12 @@ export function PingCommandReplied({
   prefix = '!',
   lightTheme,
 }: PingCommandRepliedProps) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : false;
+  React.useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>
@@ -79,11 +79,12 @@ export function PingCommandSlash({
   lightTheme,
   ephemeral,
 }: PingCommandSlashProps) {
-  const browser = useIsBrowser();
-  lightTheme ??= browser ? localStorage.getItem('theme') === 'light' : true;
+  React.useEffect(() => {
+    lightTheme ??= localStorage.getItem('theme') === 'light';
+  });
   const [light, setLight] = React.useState(lightTheme);
   useInterval(() => {
-    setLight(browser ? localStorage.getItem('theme') === 'light' : false);
+    setLight(localStorage.getItem('theme') === 'light');
   });
   return (
     <DiscordOptionsContext.Provider value={options}>

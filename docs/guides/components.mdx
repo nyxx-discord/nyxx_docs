@@ -6,8 +6,8 @@ category: guides
 sidebar_position: 5
 ---
 
-import Component from "@site/src/components/Discord/components";
-import SelectMenu from "@site/src/components/Discord/SelectMenu";
+import Component from '@site/src/components/Discord/components';
+import SelectMenu from '@site/src/components/Discord/SelectMenu';
 
 Message components allow for interactivity between a message sent by a bot and the user receiving it. You can add buttons, links, select menus & multiselects.
 
@@ -21,7 +21,6 @@ Before you use message components you have to instantiate new instance of the [`
 final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
 final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 ```
-
 
 <br />
 
@@ -58,9 +57,6 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
     // Here we are focusing on regular button that we can respond to.
     // Label is what user will see on button, customId is id that we ca use later to
     // catch button event and respond to, and style is what kind of button we want create.
-    //
-    // Adding selects is as easy as adding buttons. Use MultiselectBuilder with custom id
-    // and list of multiselect options.
     final componentRow = ComponentRowBuilder()
       ..addComponent(ButtonBuilder("This is button label", "thisisid", ButtonStyle.success))
       ..addComponent(ButtonBuilder("This is another button", "thisisid2", ButtonStyle.success))
@@ -76,17 +72,16 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
 ```
 
 <Component
-  commandContent={"help"}
-  content={"Hey, I got buttons!"}
+  commandContent={'help'}
+  content={'Hey, I got buttons!'}
   buttonsContent={[
-    "This is button label",
-    "This is another button",
-    "This is a disabled button",
+    'This is button label',
+    'This is another button',
+    'This is a disabled button',
   ]}
-  buttonTypes={["success", "success", "danger"]}
+  buttonTypes={['success', 'success', 'danger']}
   disabled={[false, false, true]}
 />
-
 Of course, you can do this with a select menu.
 
 ```dart
@@ -96,12 +91,6 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
     // from main nyxx package. This new builder allows to create message with components.
     final componentMessageBuilder = ComponentMessageBuilder();
 
-    // There are two types of button - regular ones that can be responded to an interaction
-    // and url button that only redirects to specified url.
-    // Here we are focusing on regular button that we can respond to.
-    // Label is what user will see on button, customId is id that we ca use later to
-    // catch button event and respond to, and style is what kind of button we want create.
-    //
     // Adding selects is as easy as adding buttons. Use MultiselectBuilder with custom id
     // and list of multiselect options.
     final componentRow = ComponentRowBuilder()
@@ -117,9 +106,9 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
 ```
 
 <SelectMenu
-  commandContent={"help"}
-  content={"Hey, I got a select menu!"}
-  menuOptions={["example option 1", "example option 2", "example option 3"]}
+  commandContent={'help'}
+  content={'Hey, I got a select menu!'}
+  menuOptions={['example option 1', 'example option 2', 'example option 3']}
 >
   Make a selection
 </SelectMenu>
@@ -141,9 +130,9 @@ await event.respond(componentMessageBuilder);
 ```
 
 <SelectMenu
-  commandContent={"help"}
-  content={"Hey, I got a select menu!"}
-  menuOptions={["example option 1", "example option 2", "example option 3"]}
+  commandContent={'help'}
+  content={'Hey, I got a select menu!'}
+  menuOptions={['example option 1', 'example option 2', 'example option 3']}
 >
   A custom placeholder
 </SelectMenu>
@@ -195,11 +184,11 @@ void main() {
 
 [`nyxx`]: https://github.com/nyxx-discord/nyxx
 [`nyxx_interactions`]: https://github.com/nyxx-discord/nyxx_interactions
-[`MessageBuilder`]: https://pub.dev/documentation/nyxx/latest/nyxx/MessageBuilder-class.html
-[`IInteractions`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteraction-class.html
-[`ComponentMessageBuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentMessageBuilder-class.html
-[`addComponent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentRowBuilder/addComponent.html
-[`IInteractions.registerButtonHandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerButtonHandler.html
-[`IInteractions.registerMultiselectHandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerMultiselectHandler.html
-[`IInteractions.events.onMultiselectEvent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onMultiselectEvent.html
-[`IInteractions.events.onButtonEvent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onButtonEvent.html
+[`messagebuilder`]: https://pub.dev/documentation/nyxx/latest/nyxx/MessageBuilder-class.html
+[`iinteractions`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteraction-class.html
+[`componentmessagebuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentMessageBuilder-class.html
+[`addcomponent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/ComponentRowBuilder/addComponent.html
+[`iinteractions.registerbuttonhandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerButtonHandler.html
+[`iinteractions.registermultiselecthandler`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerMultiselectHandler.html
+[`iinteractions.events.onmultiselectevent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onMultiselectEvent.html
+[`iinteractions.events.onbuttonevent`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IEventController/onButtonEvent.html
