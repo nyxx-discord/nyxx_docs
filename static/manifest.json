@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+    "name": "Nyxx Docs",
+    "short_name": "Nyxx Docs",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#5a65f3",
+    "description": "Nyxx is a powerful dart library to easily interact with the Discord API.",
+    "icons": [
+        {
+            "src": "/img/Nyxx_Logo@3_192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/img/Nyxx_Logo@3_512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

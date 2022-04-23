@@ -42,7 +42,7 @@ const docusaurusSearchLocalOptions = {
 const config = {
   title: 'nyxx Documentation',
   tagline: 'A documentation for the nyxx Discord library',
-  url: url,
+  url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -56,6 +56,24 @@ const config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       docusaurusSearchLocalOptions,
     ],
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          }
+        ]
+      }
+    ]
   ],
 
   presets: [
@@ -97,6 +115,10 @@ const config = {
           name: 'language',
           content: 'EN',
         },
+        {
+          name: 'theme-color',
+          content: '#5a65f3',
+        }
       ],
       navbar: {
         title: 'nyxx Docs',
