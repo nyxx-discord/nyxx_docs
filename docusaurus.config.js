@@ -69,6 +69,8 @@ const config = {
           editUrl: `https://github.com/${dev ? repoDev : repoProd}/tree/${
             dev ? branchDev : branchProd
           }/`,
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve('./src/css/global.css'),
