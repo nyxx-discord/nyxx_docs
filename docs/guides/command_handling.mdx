@@ -170,7 +170,7 @@ client.connect();
 //highlight-start
 ChatCommand ping = ChatCommand(
   'ping',
-  'Checks if the bot\'s online',
+  "Checks if the bot's online",
   (IContext context) {
     // For a ping command, all we need to do is respond with `pong`.
     // To do that, we can use the `Context`'s `respond` method which responds to the command with
@@ -195,7 +195,7 @@ client
 ```dart
 ChatCommand ping = ChatCommand(
   'ping',
-  'Checks if the bot\'s online',
+  "Checks if the bot's online",
   (IContext context) {
     // For a ping command, all we need to do is respond with `pong`.
     // To do that, we can use the `Context`'s `respond` method which responds to the command with
@@ -239,6 +239,12 @@ And it should be like this:
 <BaseCommand reply={true} mention={false} commandContent="!ping" author="abitofevrything">
 pong!
 </BaseCommand>
+
+<br />
+
+:::info
+You must check if the context is a [`MessageChatContext`] to apply the [`mention`] parameter.
+:::
 
 ## Registering a command group
 
@@ -389,7 +395,7 @@ error is thrown in your console. This is because you didn't provide a value for 
 argument.
 Sending `!say hi` will result in the bot sending a message `hi` as expected.
 
-:::caution
+:::caution Warning
 Sending `!say hello, nyxx_commands!` will only make the bot send
 a message with `hello,`. This is because the string parser assumes that one word = one
 argument. To avoid this, put quotes around your argument to tell nyxx_commands that until the
@@ -423,12 +429,12 @@ type, and [nyxx_commands] will determine which [`Converter`] to use for that arg
 As an example, let's create a `nick` command that changes a user's nickname.
 
 ```dart
-Command nick = Command(
+ChatCommand nick = ChatCommand(
   'nick',
   "Change a user's nickname",
   // Setting the type of the `target` parameter to `IMember` will make nyxx_commands convert user
   // input to instances of `IMember`.
-  (Context context, IMember target, String newNick) async {
+  (IContext context, IMember target, String newNick) async {
     try {
       await target.edit(nick: newNick);
     } on IHttpResponseError {
@@ -596,10 +602,10 @@ will fail with an error.
 
 Optional argument allow you to allow the user to input something while providing a default
 value.
-Like converters, optional arguments are easy to use: just make the parameter in your `execute`
+Like converters, optional arguments are easy to use; just make the parameter in your [`execute`]
 function optional.
 
-You must use optional parameters and not named parameters in the `execute` function as the
+You must use optional parameters and not named parameters in the [`execute`] function as the
 order matters when using text commands. Note that when using slash commands, users can specify
 optional arguments in any order and can omit certain optional arguments. nyxx_commands will fix
 the ordering of the arguments, however you are not guaranteed to receive all optional arguments
@@ -613,10 +619,10 @@ In this case, `b` having a value does not guarantee `a` has a value. As such, it
 
 ```dart
 // As an example for using optional arguments, let's create a command with an optional argument:
-Command favouriteFruit = Command(
+ChatCommand favouriteFruit = ChatCommand(
   'favourite-fruit',
   'Outputs your favourite fruit',
-  (Context context, [String favourite = 'apple']) {
+  (IContext context, [String favourite = 'apple']) {
     context.respond(MessageBuilder.content('Your favourite fruit is $favourite!'));
   },
 );
@@ -646,10 +652,10 @@ integrate with Discord's slash command permissions, and a special cooldown check
 
 As an example, we'll create a command with a cooldown:
 ```dart
-Command alphabet = Command(
+ChatCommand alphabet = ChatCommand(
   'alphabet',
   'Outputs the alphabet',
-  (Context context) {
+  (IContext context) {
     context.respond(MessageBuilder.content('ABCDEFGHIJKLMNOPQRSTUVWXYZ'));
   },
   // Since this command is spammy, we can use a cooldown to restrict it's usage:
@@ -680,11 +686,11 @@ To counter this, let's create a converter that only allows non-empty strings:
 // You can see the implementation of `filterInput` at the bottom of this file.
 const Converter<String> nonEmptyStringConverter = CombineConverter(stringConverter, filterInput);
 
-Command betterSay = Command(
+ChatCommand betterSay = ChatCommand(
   'better-say',
   'A better version of the say command',
   (
-    Context context,
+    IContext context,
     @UseConverter(nonEmptyStringConverter) String input,
   ) {
     context.respond(MessageBuilder.content(input));
@@ -705,8 +711,8 @@ At this point, if you run the file, a new command `better-say` will have been ad
 Attempting to invoke it with an empty string (`!better-say  ""`) will cause the argument to
 fail parsing.
 
-That's all!
-You just need to create a function or a class in a specific file, importing it, and register the function.
+That's all! Well done, you've reached the end of this guide. You're now able to go and create your own bot on your side.
+Remember; You just need to create a function or a class in a specific file, importing it, and register the function.
 
 
 [`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands/tree/main
