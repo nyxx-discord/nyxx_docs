@@ -1,6 +1,7 @@
-import { PropsWithSlots } from '@discord-message-components/react';
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
+import DiscordMultiSelectCss from './DiscordMultiselect.module.css';
+import clsx from 'clsx';
 
 interface DiscordMultiSelectProps {
   /**
@@ -27,24 +28,35 @@ export default function DiscordMultiSelect({
   lightTheme,
   disabled,
 }: DiscordMultiSelectProps) {
-  let classes = 'discord-multiselect';
-  if (lightTheme) classes += ' discord-light-theme';
-  if (disabled) classes += ' discord-multiselect-disabled';
+  const classes = clsx('discord-multiselect', {
+    'discord-light-theme': lightTheme,
+    'discord-multiselect-disabled': disabled,
+  })
+    .split(' ')
+    .map((c) => DiscordMultiSelectCss[c])
+    .join(' ');
+
   const [showDropdown, setShowDropdown] = React.useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
 
   return (
     <div className={classes}>
-      <div className="discord-text">
-        <span onClick={toggleDropdown} className="discord-placeholder">
+      <div className={DiscordMultiSelectCss['discord-text']}>
+        <span
+          onClick={toggleDropdown}
+          className={DiscordMultiSelectCss['discord-placeholder']}
+        >
           {children}
         </span>
         <OutboundMultiSelectChevron rotate={showDropdown && !disabled} />
       </div>
       {!disabled && showDropdown && (
-        <div className="discord-multiselect-options">
+        <div className={DiscordMultiSelectCss['discord-multiselect-options']}>
           {options.map((option, index) => (
-            <div key={index} className="discord-multiselect-option">
+            <div
+              key={index}
+              className={DiscordMultiSelectCss['discord-multiselect-option']}
+            >
               {option}
             </div>
           ))}
