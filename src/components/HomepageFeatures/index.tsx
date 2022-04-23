@@ -1,19 +1,19 @@
-import React from "react";
-import clsx from "clsx";
-import styles from "./styles.module.css";
-import NyxxSvg from '@site/static/img/Nyxx_Logo.svg';
-import DartSvg from "@site/static/img/dart_logo.svg";
+import React from 'react';
+import clsx from 'clsx';
+import styles from './styles.module.css';
+import NyxxSvg from '@site/static/img/Nyxx_Logo@3.svg';
+import DartSvg from '@site/static/img/dart_logo.svg';
 
 type FeatureItem = {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<"svg">>;
+  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
   description: JSX.Element;
 };
 
 // Willl fill this in later
 const FeatureList: FeatureItem[] = [
   {
-    title: "The power of Dart",
+    title: 'The power of Dart',
     Svg: DartSvg,
     description: (
       <>
@@ -27,22 +27,30 @@ const FeatureList: FeatureItem[] = [
     Svg: NyxxSvg,
     description: (
       <>
-        Nyxx is open source and can be used in your project.
+        Nyxx is{' '}
+        <a
+          href="https://github.com/nyxx-discord/nyxx"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          open source
+        </a>{' '}
+        and can be used in your project.
       </>
     ),
   },
   {
     title: "It's easy to use",
     Svg: NyxxSvg,
-    description: (
-      <>
-        Nyxx is easy to use and you can use it in your project.
-      </>
-    ),
+    description: <>Nyxx is very powerful and easy to use.</>,
   },
 ];
 
-const FeatureItem = ({ title, Svg, description }: FeatureItem) => (
+const FeatureItem: (items: FeatureItem) => React.ReactElement<FeatureItem> = ({
+  title,
+  Svg,
+  description,
+}) => (
   <div className={styles.featureItem}>
     <Svg className={styles.featureItemIcon} />
     <div className={styles.featureItemTitle}>{title}</div>
@@ -50,9 +58,9 @@ const FeatureItem = ({ title, Svg, description }: FeatureItem) => (
   </div>
 );
 
-function Feature({ title, Svg, description }: FeatureItem) {
+function Feature({ title, Svg, description }: FeatureItem): JSX.Element {
   return (
-    <div className={clsx("col col--4")}>
+    <div className={clsx('col col--4')}>
       <div className="text--center">
         <Svg className={styles.featureSvg} role="img" />
       </div>
