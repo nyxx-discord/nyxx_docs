@@ -72,8 +72,8 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
 ```
 
 <Component
-  commandContent={'help'}
-  content={'Hey, I got buttons!'}
+  commandContent="help"
+  content="Hey, I got buttons!"
   buttonsContent={[
     'This is button label',
     'This is another button',
@@ -82,6 +82,8 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
   buttonTypes={['success', 'success', 'danger']}
   disabled={[false, false, true]}
 />
+
+<br />
 Of course, you can do this with a select menu.
 
 ```dart
@@ -106,13 +108,14 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
 ```
 
 <SelectMenu
-  commandContent={'help'}
-  content={'Hey, I got a select menu!'}
+  commandContent="help"
+  content="Hey, I got a select menu!"
   menuOptions={['example option 1', 'example option 2', 'example option 3']}
 >
   Make a selection
 </SelectMenu>
 
+<br />
 Or add a custom placeholder:
 
 ```dart
@@ -121,8 +124,10 @@ final componentRow = ComponentRowBuilder()
         MultiselectOptionBuilder("example option 1", "option1"),
         MultiselectOptionBuilder("example option 2", "option2"),
         MultiselectOptionBuilder("example option 3", "option3"),
-        // Use the setter `placeholder` to set a custom placeholder
-      ])..placeholder = "A custom placeholder",
+      ])
+      // Use the setter `placeholder` to set a custom placeholder
+      //highlight-next-line
+      ..placeholder = "A custom placeholder",
   );
 
 componentMessageBuilder.addComponentRow(componentRow..content = 'Hey, I got a select menu!');
@@ -130,11 +135,39 @@ await event.respond(componentMessageBuilder);
 ```
 
 <SelectMenu
-  commandContent={'help'}
-  content={'Hey, I got a select menu!'}
+  commandContent="help"
+  content="Hey, I got a select menu!"
   menuOptions={['example option 1', 'example option 2', 'example option 3']}
 >
   A custom placeholder
+</SelectMenu>
+
+<br />
+You can even disable the select menu:
+
+```dart
+final componentRow = ComponentRowBuilder()
+      ..addComponent(MultiselectBuilder("customId", [
+        MultiselectOptionBuilder("example option 1", "option1"),
+        MultiselectOptionBuilder("example option 2", "option2"),
+        MultiselectOptionBuilder("example option 3", "option3"),
+      ])
+      // Use the setter `disabled` to disable the select menu
+      //highlight-next-line
+      ..disabled = true,
+  );
+
+componentMessageBuilder.addComponentRow(componentRow..content = 'Hey, I got a select menu!');
+await event.respond(componentMessageBuilder);
+```
+
+<SelectMenu
+  commandContent="help"
+  content="Hey, I got a select menu!"
+  menuOptions={['example option 1', 'example option 2', 'example option 3']}
+  disabled
+>
+  Make a selection
 </SelectMenu>
 
 <br />
