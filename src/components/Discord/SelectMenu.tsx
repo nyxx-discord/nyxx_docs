@@ -24,8 +24,6 @@ export default function SelectMenu({
   commandContent,
   content,
   menuOptions,
-  buttonTypes,
-  urls,
   disabled,
   children,
 }: SelectMenuProps) {
@@ -43,7 +41,7 @@ export default function SelectMenu({
           <DiscordInteraction
             slot="interactions"
             ephemeral={!!ephemeral}
-            command={true}
+            command
             profile="harryet"
           >
             {commandContent}

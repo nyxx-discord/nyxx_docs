@@ -106,7 +106,7 @@ export default function Component({
           <DiscordInteraction
             slot="interactions"
             ephemeral={!!ephemeral}
-            command={true}
+            command
             profile="harryet"
           >
             {commandContent}

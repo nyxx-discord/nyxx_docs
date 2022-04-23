@@ -1,5 +1,5 @@
 declare module '@discord-message-components/react' {
-  import { ReactElement, PropsWithChildren, ReactNode, Context } from 'react';
+  import type { ReactElement, PropsWithChildren, ReactNode, Context } from 'react';
 
   interface Avatars {
     blue: string;

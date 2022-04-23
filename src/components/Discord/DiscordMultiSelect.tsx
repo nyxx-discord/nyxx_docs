@@ -3,7 +3,7 @@ import OutboundMultiSelectChevron from './OutboundMultiSelectChevron';
 import DiscordMultiSelectCss from './DiscordMultiselect.module.css';
 import clsx from 'clsx';
 
-interface DiscordMultiSelectProps {
+interface DiscordMultiSelectProps extends React.PropsWithChildren<{}> {
   /**
    * The options to display in the menu.
    */
@@ -18,8 +18,6 @@ interface DiscordMultiSelectProps {
    * Whether the select menu is disabled.
    */
   disabled?: boolean;
-
-  children?: React.ReactNode;
 }
 
 export default function DiscordMultiSelect({

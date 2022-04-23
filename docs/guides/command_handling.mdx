@@ -215,13 +215,13 @@ You can also send a text message starting with `!ping` and you should see a simi
 
 Here's an example with a legacy command:
 
-<BaseCommand commandContent={'!ping'} author={'abitofevrything'} reply={true}>
+<BaseCommand commandContent={'!ping'} author={'abitofevrything'} reply>
   pong!
 </BaseCommand>
 <br />
 Or with a slash command:
 <BaseCommand
-  isCommand={true}
+  isCommand
   commandContent={'ping'}
   author={'abitofevrything'}
 >
@@ -236,7 +236,7 @@ Like so:
 context.respond('pong!', mention: false);
 ```
 And it should be like this:
-<BaseCommand reply={true} mention={false} commandContent="!ping" author="abitofevrything">
+<BaseCommand reply mention commandContent="!ping" author="abitofevrything">
 pong!
 </BaseCommand>
 
@@ -329,10 +329,10 @@ You can also send a text message starting with `!throw coin` or `!throw die` to 
 commands. See examples below.
 
 Message commands:
-<BaseCommand reply={true} author="abitofevrything" commandContent="!throw coin">
+<BaseCommand reply author="abitofevrything" commandContent="!throw coin">
   The coin landed on its head!
 </BaseCommand>
-<BaseCommand reply={true} author="abitofevrything" commandContent="!throw die">
+<BaseCommand reply author="abitofevrything" commandContent="!throw die">
   The die landed on the 4 number!
 </BaseCommand>
 
@@ -340,10 +340,10 @@ Message commands:
 Slash commands:
 <br />
 <br />
-<BaseCommand author="abitofevrything" commandContent="throw" isCommand={true}>
+<BaseCommand author="abitofevrything" commandContent="throw" isCommand>
   The coin landed on its tail!
 </BaseCommand>
-<BaseCommand author="abitofevrything" commandContent="throw" isCommand={true}>
+<BaseCommand author="abitofevrything" commandContent="throw" isCommand>
   The die landed on the 2 number!
 </BaseCommand>
 
@@ -403,12 +403,12 @@ next quote, all characters should be treated as a single argument (escaping quot
 supported).
 Running `!say "hello, nyxx_commands!"` results in `hello, nyxx_commands!` being sent as expected.
 Will work as expected:
-<BaseCommand reply={true} author="abitofevrything" commandContent="!say hi">hi</BaseCommand>
+<BaseCommand reply author="abitofevrything" commandContent="!say hi">hi</BaseCommand>
 <br />
 Will not work properly:
-<BaseCommand reply={true} author="abitofevrything" commandContent="!say hello, nyxx_commands!">hello,</BaseCommand>
+<BaseCommand reply author="abitofevrything" commandContent="!say hello, nyxx_commands!">hello,</BaseCommand>
 But,
-<BaseCommand reply={true} author="abitofevrything" commandContent={'!say "hello, nyxx commands"'}>hello, nyxx_commands!</BaseCommand>
+<BaseCommand reply author="abitofevrything" commandContent={'!say "hello, nyxx commands"'}>hello, nyxx_commands!</BaseCommand>
 Will work.
 :::
 
@@ -629,8 +629,8 @@ ChatCommand favouriteFruit = ChatCommand(
 
 commands.addCommand(favouriteFruit);
 ```
-<BaseCommand author="abitofevrything" reply={true} commandContent="!fruit">Your favourite fruit is apple!</BaseCommand>
-<BaseCommand author="abitofevrything" reply={true} commandContent="!fruit banana">Your favourite fruit is banana!</BaseCommand>
+<BaseCommand author="abitofevrything" reply commandContent="!fruit">Your favourite fruit is apple!</BaseCommand>
+<BaseCommand author="abitofevrything" reply commandContent="!fruit banana">Your favourite fruit is banana!</BaseCommand>
 <br />
 
 At this point, if you run the file you will be able to use the `favourite-fruit` command. Once

@@ -93,7 +93,7 @@ export function PingCommandSlash({
           <DiscordInteraction
             slot="interactions"
             ephemeral={!!ephemeral}
-            command={true}
+            command
             profile="l7ssha"
           >
             {commandContent}
