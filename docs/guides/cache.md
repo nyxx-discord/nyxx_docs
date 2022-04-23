@@ -55,7 +55,7 @@ This setting allows to specify when object are added to the cache:
 As an example, this code would only cache `IMember` objects from websocket events and http API requests:
 
 ```dart
-Future<void> main() async {
+void main() {
   final cacheOptions = CacheOptions()
     ..memberCachePolicyLocation = (
         CachePolicyLocation()
@@ -87,7 +87,7 @@ static CachePolicy<S> any<S extends SnowflakeEntity>(List<CachePolicy<S>> polici
 For example, this code would only cache `IMember` objects who have roles:
 
 ```dart
-Future<void> main() async {
+void main() {
   final cacheOptions = CacheOptions()
     ..memberCachePolicy = CachePolicy<IMember>((member) => member.roles.isNotEmpty);
 
