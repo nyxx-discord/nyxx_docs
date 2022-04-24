@@ -13,7 +13,8 @@ type FeatureItem = {
 // Willl fill this in later
 const FeatureList: FeatureItem[] = [
   {
-    title: 'The power of Dart',
+    // https://dart.dev/brand
+    title: 'The power of Dart\u2122',
     Svg: DartSvg,
     description: (
       <>

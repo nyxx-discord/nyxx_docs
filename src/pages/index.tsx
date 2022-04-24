@@ -31,7 +31,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={siteConfig.title}
-      description="Nyxx is a powerful dart library to easily interact with the Discord API."
+      description="Nyxx is a powerful Dart library to easily interact with the Discord API."
     >
       <HomepageHeader />
       <main>
