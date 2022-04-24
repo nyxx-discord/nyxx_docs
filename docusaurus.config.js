@@ -120,7 +120,7 @@ const config = {
         {
           name: 'theme-color',
           content: '#5a65f3',
-        }
+        },
       ],
       navbar: {
         title: 'nyxx Docs',
