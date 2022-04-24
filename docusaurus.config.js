@@ -1,5 +1,6 @@
 // @ts-check
 
+//#region Types
 /**
  * @typedef DocusaurusSearchLocalOptions
  * @property {boolean} [indexDocs=true] Whether to index docs.
@@ -18,6 +19,7 @@
  * @property {{[key: string]: string}} [translations] Set translations of this theme.
  * @property {string|RegExp|(string | RegExp)[]} [ignoreFiles] Set the match rules to ignore some files.
  */
+//#endregion
 
 const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
@@ -38,6 +40,23 @@ const docusaurusSearchLocalOptions = {
   indexBlog: false,
 };
 
+/**@type {Partial<import('@docusaurus/plugin-pwa').PluginOptions>} */
+const docusaurusPwaOptions = {
+  debug: dev,
+  offlineModeActivationStrategies: [
+    'appInstalled',
+    'standalone',
+    'queryString',
+  ],
+  pwaHead: [
+    {
+      tagName: 'link',
+      rel: 'manifest',
+      href: '/manifest.json',
+    },
+  ],
+};
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'nyxx Documentation',
@@ -56,24 +75,7 @@ const config = {
       require.resolve('@easyops-cn/docusaurus-search-local'),
       docusaurusSearchLocalOptions,
     ],
-    [
-      '@docusaurus/plugin-pwa',
-      {
-        debug: dev,
-        offlineModeActivationStrategies: [
-          'appInstalled',
-          'standalone',
-          'queryString',
-        ],
-        pwaHead: [
-          {
-            tagName: 'link',
-            rel: 'manifest',
-            href: '/manifest.json',
-          }
-        ]
-      }
-    ]
+    ['@docusaurus/plugin-pwa', docusaurusPwaOptions],
   ],
 
   presets: [
