@@ -17,5 +17,22 @@
             "sizes": "512x512",
             "type": "image/png"
         }
+    ],
+    "lang": "en-US",
+    "shortcuts": [
+        {
+            "name": "Search",
+            "short_name": "Search",
+            "description": "Open the search page",
+            "url": "/search",
+            "icons": [
+                {
+                    "src": "/img/search_icon.png",
+                    "sizes": "512x512",
+                    "type": "image/png",
+                    "purpose": "maskable any"
+                }
+            ]
+        }
     ]
 }
