@@ -91,7 +91,7 @@ void main() {
   //highlight-start
   final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
 
-  bot.onMessageReceived.listen((event) {
+  bot.eventsWs.onMessageReceived.listen((event) {
     if (event.message.content == "!ping") {
       event.message.channel.sendMessage(MessageBuilder.content('Pong!'));
     }
@@ -110,7 +110,7 @@ Here we are creating and starting a new client with your token and desired gatew
 In this case the bot will request all intents except privileged ones.
 
 ```dart
-bot.onMessageReceived.listen((event) {
+bot.eventsWs.onMessageReceived.listen((event) {
     if (event.message.content == "!ping") {
       event.message.channel.sendMessage(MessageBuilder.content("Pong!"));
     }
@@ -146,7 +146,7 @@ if (event.message.content == '!ping') {
 ```
 
 And the result should look like this:
-<PingCommandReplied ping={true} />
+<PingCommandReplied ping />
 
 But the bot is mentionning when it replies, so we'll need to use the `AllowedMentions` class
 ```dart title="./bin/your_project_name.dart"
