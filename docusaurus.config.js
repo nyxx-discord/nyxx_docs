@@ -41,7 +41,7 @@ const config = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/icons/favicon.ico',
   organizationName: 'nyxx-discord',
   projectName: 'nyxx',
   deploymentBranch: 'main',
@@ -101,7 +101,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/Nyxx_Logo.png',
+      image: 'img/Nyxx_Squared.png',
       colorMode: {
         defaultMode: 'dark',
       },
@@ -123,7 +123,7 @@ const config = {
         title: 'nyxx Docs',
         logo: {
           alt: 'Nyxx Logo',
-          src: 'img/Nyxx_Logo@3.svg',
+          src: 'img/Nyxx_Squared.svg',
         },
         items: [
           {

@@ -1,6 +1,6 @@
 {
     "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-    "name": "Nyxx Docs",
+    "name": "Nyxx Documentation",
     "short_name": "Nyxx Docs",
     "start_url": "/",
     "display": "standalone",
@@ -8,14 +8,16 @@
     "description": "Nyxx is a powerful dart library to easily interact with the Discord API.",
     "icons": [
         {
-            "src": "/img/Nyxx_Logo@3_192x192.png",
+            "src": "/img/icons/android-chrome-192x192.png",
             "sizes": "192x192",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
-            "src": "/img/Nyxx_Logo@3_512x512.png",
+            "src": "/img/icons/android-chrome-512x512.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ],
     "lang": "en-US",

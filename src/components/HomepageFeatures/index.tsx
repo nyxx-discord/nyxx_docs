@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.css';
-import NyxxSvg from '@site/static/img/Nyxx_Logo@3.svg';
-import DartSvg from '@site/static/img/dart_logo.svg';
+import NyxxSvg from '@site/static/img/Nyxx_Banner.svg';
+import DartSvg from '@site/static/img/Dart_Logo.svg';
 
 type FeatureItem = {
   title: string;
