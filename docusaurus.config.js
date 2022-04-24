@@ -33,30 +33,6 @@ const {
   REPO_BRANCH_NAME: branchProd,
 } = process.env;
 
-/** @type {DocusaurusSearchLocalOptions & { id?: string; }} */
-const docusaurusSearchLocalOptions = {
-  hashed: true,
-  language: ['en'],
-  indexBlog: false,
-};
-
-/**@type {Partial<import('@docusaurus/plugin-pwa').PluginOptions>} */
-const docusaurusPwaOptions = {
-  debug: dev,
-  offlineModeActivationStrategies: [
-    'appInstalled',
-    'standalone',
-    'queryString',
-  ],
-  pwaHead: [
-    {
-      tagName: 'link',
-      rel: 'manifest',
-      href: '/manifest.json',
-    },
-  ],
-};
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'nyxx Documentation',
@@ -72,10 +48,31 @@ const config = {
 
   plugins: [
     [
-      require.resolve('@easyops-cn/docusaurus-search-local'),
-      docusaurusSearchLocalOptions,
+      '@easyops-cn/docusaurus-search-local',
+      /**@type {DocusaurusSearchLocalOptions} */ ({
+        hashed: true,
+        language: ['en'],
+        indexBlog: false,
+      }),
     ],
-    ['@docusaurus/plugin-pwa', docusaurusPwaOptions],
+    [
+      '@docusaurus/plugin-pwa',
+      /**@type {Partial<import('@docusaurus/plugin-pwa').PluginOptions & {  id: string }>} */ ({
+        debug: dev,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+        ],
+      }),
+    ],
   ],
 
   presets: [
