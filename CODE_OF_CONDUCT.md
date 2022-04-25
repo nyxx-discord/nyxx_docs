@@ -28,17 +28,15 @@ community include:
 Examples of unacceptable behavior include:
 
 * The use of sexualized language or imagery, and sexual attention or
-  advances of any kind;
+  advances of any kind, posting or displaying sexually explicit or violent material;
 * Trolling, insulting or derogatory comments, and personal or political attacks;
 * Public or private harassment;
 * Publishing others' private information, such as a physical or email
-  address, without their explicit permission;
+  address, without their explicit permission ("doxing");
 * Other conduct which could reasonably be considered inappropriate in a
   professional setting;
 * Violence, threats of violence or violent language directed against another person;
 * Sexist, racist, homophobic, transphobic, ableist or otherwise discriminatory jokes and language;
-* Posting or displaying sexually explicit or violent material;
-* Posting or threatening to post other people's personally identifying information ("doxing");
 * Personal insults, particularly those related to gender, sexual orientation, race, religion, or disability.
 
 ## Enforcement Responsibilities
