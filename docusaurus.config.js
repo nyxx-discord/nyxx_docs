@@ -25,8 +25,6 @@ const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
 const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
-// Note to self, urls should'nt be finished with a slash (/)
-const url = dev
 const {
   BRANCH_NAME_DEV: branchDev,
   REPO_NAME_PROD: repoProd,
