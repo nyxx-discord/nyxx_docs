@@ -5,10 +5,10 @@ Nyxx is free and open-source project, and all contributions are welcome and high
 ## Writing docs
 Docs are written in markdown format and compiled with the [docusaurus](https://docusaurus.io) package.
 
-Our environement is Nodejs for SSR (server side rendering)\* TypeScript React to render components; so you need to understand the fundamentals of typescript and React.
+Our environement is Nodejs for SSR (Server side rendering)\* TypeScript React to render components; so you need to understand the fundamentals of typescript and React.
 We're also using [pnpm](https://pnpm.io) as the package manager for this project, you can simply install it by executing `npm i -g pnpm`.
 
-You can compile the documentation by executing `pnpm build`; the execute `pnpm serve` to navigate trough your compiled docs.
+You can compile the documentation by executing `pnpm build`; then execute `pnpm serve` to navigate trough the compiled docs.
 
 If you're developing, use the `pnpm start` command that will render instantanly the changes you've made in the markdown docs or the components.
 
