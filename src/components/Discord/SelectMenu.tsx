@@ -1,17 +1,16 @@
 import {
-  DiscordButtonProps,
   DiscordInteraction,
   DiscordMessage,
   DiscordMessages,
   DiscordOptionsContext,
 } from '@discord-message-components/react';
 import useInterval from '@site/src/hooks/useInterval';
-import * as React from 'react';
+import React, { type PropsWithChildren }from 'react';
 import DiscordMultiSelect from './DiscordMultiSelect';
 import options from './options';
 import { ComponentProps } from './components';
 
-interface SelectMenuProps extends React.PropsWithChildren<ComponentProps> {
+interface SelectMenuProps extends PropsWithChildren<ComponentProps> {
   /**
    * The options to display in the menu.
    */

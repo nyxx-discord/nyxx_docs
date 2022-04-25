@@ -6,7 +6,6 @@ import {
   DiscordOptionsContext,
   DiscordInteraction,
   DiscordMarkdown,
-  _DiscordDefaultOptions,
 } from '@discord-message-components/react';
 import '@discord-message-components/react/styles';
 import options from './options';
