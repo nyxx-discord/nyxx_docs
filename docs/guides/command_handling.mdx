@@ -157,10 +157,10 @@ have a description, so it is needed in nyxx_commands.
 <br />
 The third parameter is the function that will be executed when the command is ran.
 
-The first parameter to this function must be a [`IContext`].
+The first parameter to this function must be a [`IChatContext`].
 
-A [`IContext`] allows you to access various information about how the command was run: the user that executed it, the guild it was ran in and a few other useful pieces of information.
-[`IContext`] also has a couple of methods that make it easier to respond to commands.
+A [`IChatContext`] allows you to access various information about how the command was run: the user that executed it, the guild it was ran in and a few other useful pieces of information.
+[`IChatContext`] also has a couple of methods that make it easier to respond to commands.
 Since a ping command doesn't have any other arguments, we don't add any other parameters to the function.
 
 ```dart
@@ -171,7 +171,7 @@ client.connect();
 ChatCommand ping = ChatCommand(
   'ping',
   "Checks if the bot's online",
-  (IContext context) {
+  (IChatContext context) {
     // For a ping command, all we need to do is respond with `pong`.
     // To do that, we can use the `Context`'s `respond` method which responds to the command with
     // a message.
@@ -196,7 +196,7 @@ client
 ChatCommand ping = ChatCommand(
   'ping',
   "Checks if the bot's online",
-  (IContext context) {
+  (IChatContext context) {
     // For a ping command, all we need to do is respond with `pong`.
     // To do that, we can use the `Context`'s `respond` method which responds to the command with
     // a message.
@@ -220,24 +220,23 @@ Here's an example with a legacy command:
 </BaseCommand>
 <br />
 Or with a slash command:
-<BaseCommand
-  isCommand
-  commandContent={'ping'}
-  author={'abitofevrything'}
->
+<BaseCommand isCommand commandContent={'ping'} author={'abitofevrything'}>
   pong!
 </BaseCommand>
 <br />
 
 If you don't want to be mentionned, you can use the [`mention`] option in the [`MessageChatContext`]'s [`respond`]
 Like so:
+
 ```dart
 //highlight-next-line
 context.respond('pong!', mention: false);
 ```
+
 And it should be like this:
+
 <BaseCommand reply mention commandContent="!ping" author="abitofevrything">
-pong!
+  pong!
 </BaseCommand>
 
 <br />
@@ -329,6 +328,7 @@ You can also send a text message starting with `!throw coin` or `!throw die` to 
 commands. See examples below.
 
 Message commands:
+
 <BaseCommand reply author="abitofevrything" commandContent="!throw coin">
   The coin landed on its head!
 </BaseCommand>
@@ -352,6 +352,7 @@ Slash commands:
 Command argumens are another powerful tool that allow you to get user input when using commands.
 Adding arguments to your commands in nyxx_commands is simple, just add the argument as a
 parameter to your [`execute`] function and nyxx_commands will do the rest, including:
+
 - Converting the parameter name to a Discord-friendly name;
 - Converting user input to the correct type;
 - Inferring the best Discord slash command argument type to use for that argument
@@ -396,6 +397,7 @@ argument.
 Sending `!say hi` will result in the bot sending a message `hi` as expected.
 
 :::caution Warning
+
 Sending `!say hello, nyxx_commands!` will only make the bot send
 a message with `hello,`. This is because the string parser assumes that one word = one
 argument. To avoid this, put quotes around your argument to tell nyxx_commands that until the
@@ -403,15 +405,30 @@ next quote, all characters should be treated as a single argument (escaping quot
 supported).
 Running `!say "hello, nyxx_commands!"` results in `hello, nyxx_commands!` being sent as expected.
 Will work as expected:
-<BaseCommand reply author="abitofevrything" commandContent="!say hi">hi</BaseCommand>
+
+<BaseCommand reply author="abitofevrything" commandContent="!say hi">
+  hi
+</BaseCommand>
 <br />
 Will not work properly:
-<BaseCommand reply author="abitofevrything" commandContent="!say hello, nyxx_commands!">hello,</BaseCommand>
+<BaseCommand
+  reply
+  author="abitofevrything"
+  commandContent="!say hello, nyxx_commands!"
+>
+  hello,
+</BaseCommand>
 But,
-<BaseCommand reply author="abitofevrything" commandContent={'!say "hello, nyxx commands"'}>hello, nyxx_commands!</BaseCommand>
-Will work.
-:::
+<BaseCommand
+  reply
+  author="abitofevrything"
+  commandContent={'!say "hello, nyxx commands"'}
+>
+  hello, nyxx_commands!
+</BaseCommand>
+Will work. 
 
+:::
 
 ## Using converters
 
@@ -434,7 +451,7 @@ ChatCommand nick = ChatCommand(
   "Change a user's nickname",
   // Setting the type of the `target` parameter to `IMember` will make nyxx_commands convert user
   // input to instances of `IMember`.
-  (IContext context, IMember target, String newNick) async {
+  (IChatContext context, IMember target, String newNick) async {
     try {
       await target.edit(nick: newNick);
     } on IHttpResponseError {
@@ -486,10 +503,10 @@ target user for this command to succeed.
 
 Custom converters allow you to specify a custom way of converting user input to a specific type
 that you can then use in your commands. You can define a custom converter in a few ways:
+
 - By creating your own converter from scratch;
 - By extending an existing converter;
 - By combining existing converters
-
 
 As an example, we will create converters for two enums defined at the bottom of this file:
 `Shape` and `Dimension`.
@@ -552,7 +569,6 @@ Converter<Shape> shapeConverter = Converter<Shape>(
 commands.addConverter(shapeConverter);
 ```
 
-
 ### Using assembled converters
 
 For our `Dimension` converter, we can extend an existing converter: all `Dimension`s are
@@ -612,9 +628,11 @@ the ordering of the arguments, however you are not guaranteed to receive all opt
 up to the last one positionally.
 
 As an example:
+
 ```dart
 (IChatContext context, [String? a, String? b, String? c]) {}
 ```
+
 In this case, `b` having a value does not guarantee `a` has a value. As such, it is always better to provide a default for your optional parameters instead of making them nullable.
 
 ```dart
@@ -622,15 +640,20 @@ In this case, `b` having a value does not guarantee `a` has a value. As such, it
 ChatCommand favouriteFruit = ChatCommand(
   'favourite-fruit',
   'Outputs your favourite fruit',
-  (IContext context, [String favourite = 'apple']) {
+  (IChatContext context, [String favourite = 'apple']) {
     context.respond(MessageBuilder.content('Your favourite fruit is $favourite!'));
   },
 );
 
 commands.addCommand(favouriteFruit);
 ```
-<BaseCommand author="abitofevrything" reply commandContent="!fruit">Your favourite fruit is apple!</BaseCommand>
-<BaseCommand author="abitofevrything" reply commandContent="!fruit banana">Your favourite fruit is banana!</BaseCommand>
+
+<BaseCommand author="abitofevrything" reply commandContent="!fruit">
+  Your favourite fruit is apple!
+</BaseCommand>
+<BaseCommand author="abitofevrything" reply commandContent="!fruit banana">
+  Your favourite fruit is banana!
+</BaseCommand>
 <br />
 
 At this point, if you run the file you will be able to use the `favourite-fruit` command. Once
@@ -651,11 +674,12 @@ Command checks allow you to restrict a command's usage. There are a few built-in
 integrate with Discord's slash command permissions, and a special cooldown check.
 
 As an example, we'll create a command with a cooldown:
+
 ```dart
 ChatCommand alphabet = ChatCommand(
   'alphabet',
   'Outputs the alphabet',
-  (IContext context) {
+  (IChatContext context) {
     context.respond(MessageBuilder.content('ABCDEFGHIJKLMNOPQRSTUVWXYZ'));
   },
   // Since this command is spammy, we can use a cooldown to restrict it's usage:
@@ -680,6 +704,7 @@ because it cannot send an empty message. This is because the string [`Converter`
 interpreted it as an empty string - which the bot then tried to send.
 
 To counter this, let's create a converter that only allows non-empty strings:
+
 ```dart
 // Since the converter is going to be passed into a decorator, it must be `const`. As such, any
 // functions used must either be static methods or top-level functions.
@@ -690,7 +715,7 @@ ChatCommand betterSay = ChatCommand(
   'better-say',
   'A better version of the say command',
   (
-    IContext context,
+    IChatContext context,
     @UseConverter(nonEmptyStringConverter) String input,
   ) {
     context.respond(MessageBuilder.content(input));
@@ -708,21 +733,22 @@ String? filterInput(String input, Context context) {
 ```
 
 At this point, if you run the file, a new command `better-say` will have been added to the bot.
-Attempting to invoke it with an empty string (`!better-say  ""`) will cause the argument to
+Attempting to invoke it with an empty string (`!better-say ""`) will cause the argument to
 fail parsing.
 
 That's all! Well done, you've reached the end of this guide. You're now able to go and create your own bot on your side.
 Remember; You just need to create a function or a class in a specific file, importing it, and register the function.
 
-
+<!-- Prettier format in lower-case named hidden links, so we need to ignore this -->
+<!-- prettier-ignore-start -->
 [`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands/tree/main
 [nyxx_commands]: https://github.com/nyxx-discord/nyxx_commands/tree/main
-[`chatcommand`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatCommand-class.html
-[`chatgroup`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatGroup-class.html
-[`icontext`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/IContext-class.html
+[`ChatCommand`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatCommand-class.html
+[`ChatGroup`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatGroup-class.html
+[`IChatContext`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/IChatContext-class.html
 [`execute`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatCommand/execute.html
 [`children`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatGroup/children.html
-[`addcommand`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatGroup/addCommand.html
+[`addCommand`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/ChatGroup/addCommand.html
 [`MessageChatContext`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/MessageChatContext-class.html
 [`respond`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/MessageChatContext/respond.html
 [`mention`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/MessageChatContext/respond.html
@@ -732,3 +758,4 @@ Remember; You just need to create a function or a class in a specific file, impo
 [`IMember`]: https://pub.dev/documentation/nyxx/latest/nyxx/IMember-class.html
 [`Converter`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/Converter-class.html
 [`CommandsPlugin`]: https://pub.dev/documentation/nyxx_commands/latest/nyxx_commands/CommandsPlugin-class.html
+<!-- prettier-ignore-end -->
