@@ -34,7 +34,7 @@ Do NOT share or publish this token anywhere publically. If you do, anyone will b
 ![Reset Token](../../static/img/tutorial/bot_token_reset.jpg)
 - Next, click on **Yes, do it!** button to generate a new token.
 ![Yes do it button](../../static/img/tutorial/bot_token_yes_do_it.jpg)
-- If you enabled the two factor authentication, you should encounter this window. Enter your auth codes (there're are in an authenticator app (depends on which you chose)), **the backup codes given from Discord will not work**.
+- If you enabled the two factor authentication, you should encounter this window. Enter your auth codes (there are in an authenticator app (depends on which you chose)), **the backup codes given from Discord will not work**.
 ![2Fa Codes](../../static/img/tutorial/bot_token_2fa.png)
 
 - Now you can finally copy your bot token.
