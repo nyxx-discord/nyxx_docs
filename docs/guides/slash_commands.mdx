@@ -6,6 +6,27 @@ category: guides
 sidebar_position: 7
 ---
 
+:::info Notice
+
+While [`nyxx_interactions`] was the original way to create slash commands, it can be very easily replaced by [`nyxx_commands`] which itself depends on `nyxx_interactions` but provides a way to create both text-and-slash commands.
+
+Use `nyxx_interactions` if:
+
+  - You don't want to be limited from `nyxx_commands`;
+  - You want to go beyond for the possibilities of base slash commands.
+
+Don't use it if:
+
+  - You want create simple (and complicated too) slash commands;
+  - You want new features from `nyxx_interactions`:
+      - There are fastly implemented in `nyxx_commands`.
+
+Look [here](./command_handling.mdx) for more informations.
+
+:::
+
+<br />
+
 import { PingCommandSlash } from '@site/src/components/Discord/pingCommand';
 
 Slash commands are a new way of interacting with bots via chat using commands registered on the Discord API.
@@ -179,6 +200,7 @@ Messages can sent as ephemeral responses which means that the message will only 
 <PingCommandSlash content={'Respond'} commandContent={'testcommand'} ephemeral />
 
 [`nyxx_interactions`]: https://github.com/nyxx-discord/nyxx_interactions
+[`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands
 [`IInteractions`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteraction-class.html
 [`registerSlashCommand`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/IInteractions/registerSlashCommand.html
 [`SlashCommandBuilder`]: https://pub.dev/documentation/nyxx_interactions/latest/nyxx_interactions/SlashCommandBuilder-class.html
