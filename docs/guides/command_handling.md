@@ -6,8 +6,6 @@ category: guides
 sidebar_position: 8
 ---
 
-import { BaseCommand } from '@site/src/components/Discord/components';
-
 # Command handling
 
 Command handling is, by definition, a way to handle commands in multiple files.
@@ -213,16 +211,6 @@ Discord. Executing it should make the bot send `pong!` to the channel the comman
 in.
 You can also send a text message starting with `!ping` and you should see a similar result.
 
-Here's an example with a legacy command:
-
-<BaseCommand commandContent={'!ping'} author={'abitofevrything'} reply>
-  pong!
-</BaseCommand>
-<br />
-Or with a slash command:
-<BaseCommand isCommand commandContent={'ping'} author={'abitofevrything'}>
-  pong!
-</BaseCommand>
 <br />
 
 If you don't want to be mentionned, you can use the [`mention`] option in the [`MessageChatContext`]'s [`respond`]
@@ -232,12 +220,6 @@ Like so:
 //highlight-next-line
 context.respond('pong!', mention: false);
 ```
-
-And it should be like this:
-
-<BaseCommand reply mention commandContent="!ping" author="abitofevrything">
-  pong!
-</BaseCommand>
 
 <br />
 
@@ -325,27 +307,8 @@ At this point, if you run this file, a new command should have appeared in the s
 outcome!
 
 You can also send a text message starting with `!throw coin` or `!throw die` to execute the
-commands. See examples below.
+commands. 
 
-Message commands:
-
-<BaseCommand reply author="abitofevrything" commandContent="!throw coin">
-  The coin landed on its head!
-</BaseCommand>
-<BaseCommand reply author="abitofevrything" commandContent="!throw die">
-  The die landed on the 4 number!
-</BaseCommand>
-
-<br />
-Slash commands:
-<br />
-<br />
-<BaseCommand author="abitofevrything" commandContent="throw" isCommand>
-  The coin landed on its tail!
-</BaseCommand>
-<BaseCommand author="abitofevrything" commandContent="throw" isCommand>
-  The die landed on the 2 number!
-</BaseCommand>
 
 ## Using command arguments
 
@@ -404,29 +367,6 @@ argument. To avoid this, put quotes around your argument to tell nyxx_commands t
 next quote, all characters should be treated as a single argument (escaping quotes is
 supported).
 Running `!say "hello, nyxx_commands!"` results in `hello, nyxx_commands!` being sent as expected.
-Will work as expected:
-
-<BaseCommand reply author="abitofevrything" commandContent="!say hi">
-  hi
-</BaseCommand>
-<br />
-Will not work properly:
-<BaseCommand
-  reply
-  author="abitofevrything"
-  commandContent="!say hello, nyxx_commands!"
->
-  hello,
-</BaseCommand>
-But,
-<BaseCommand
-  reply
-  author="abitofevrything"
-  commandContent={'!say "hello, nyxx commands"'}
->
-  hello, nyxx_commands!
-</BaseCommand>
-Will work. 
 
 :::
 
@@ -648,12 +588,6 @@ ChatCommand favouriteFruit = ChatCommand(
 commands.addCommand(favouriteFruit);
 ```
 
-<BaseCommand author="abitofevrything" reply commandContent="!fruit">
-  Your favourite fruit is apple!
-</BaseCommand>
-<BaseCommand author="abitofevrything" reply commandContent="!fruit banana">
-  Your favourite fruit is banana!
-</BaseCommand>
 <br />
 
 At this point, if you run the file you will be able to use the `favourite-fruit` command. Once

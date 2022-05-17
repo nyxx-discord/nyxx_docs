@@ -6,9 +6,6 @@ category: guides
 sidebar_position: 5
 ---
 
-import Component from '@site/src/components/Discord/components';
-import SelectMenu from '@site/src/components/Discord/SelectMenu';
-
 Message components allow for interactivity between a message sent by a bot and the user receiving it. You can add buttons, links, select menus & multiselects.
 
 <br />
@@ -71,18 +68,6 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
   });
 ```
 
-<Component
-  commandContent="help"
-  content="Hey, I got buttons!"
-  buttonsContent={[
-    'This is button label',
-    'This is another button',
-    'This is a disabled button',
-  ]}
-  buttonTypes={['success', 'success', 'danger']}
-  disabled={[false, false, true]}
-/>
-
 <br />
 Of course, you can do this with a select menu.
 
@@ -107,14 +92,6 @@ final singleCommand = SlashCommandBuilder("help", "This is example help command"
     await event.respond(componentMessageBuilder);
 ```
 
-<SelectMenu
-  commandContent="help"
-  content="Hey, I got a select menu!"
-  menuOptions={['example option 1', 'example option 2', 'example option 3']}
->
-  Make a selection
-</SelectMenu>
-
 <br />
 Or add a custom placeholder:
 
@@ -134,14 +111,6 @@ componentMessageBuilder.addComponentRow(componentRow..content = 'Hey, I got a se
 await event.respond(componentMessageBuilder);
 ```
 
-<SelectMenu
-  commandContent="help"
-  content="Hey, I got a select menu!"
-  menuOptions={['example option 1', 'example option 2', 'example option 3']}
->
-  A custom placeholder
-</SelectMenu>
-
 <br />
 You can even disable the select menu:
 
@@ -160,15 +129,6 @@ final componentRow = ComponentRowBuilder()
 componentMessageBuilder.addComponentRow(componentRow..content = 'Hey, I got a select menu!');
 await event.respond(componentMessageBuilder);
 ```
-
-<SelectMenu
-  commandContent="help"
-  content="Hey, I got a select menu!"
-  menuOptions={['example option 1', 'example option 2', 'example option 3']}
-  disabled
->
-  Make a selection
-</SelectMenu>
 
 <br />
 

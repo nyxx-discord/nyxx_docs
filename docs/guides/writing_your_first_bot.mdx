@@ -10,7 +10,6 @@ hide_table_of_contents: true
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import PingCommand, { PingCommandReplied } from '@site/src/components/Discord/pingCommand';
 
 ### Creating project
 
@@ -35,8 +34,6 @@ $ dart create -t console-simple your-project-name && cd ./your-project-name
 Replace `your-project-name` with your desired name.
 
 This command will create few files that are needed to start a project. There will be a `pubspec.yaml` with basic project info and dependency declaration. There will also be a file created with name of your project in `bin` directory. This is the main file that you would have to run to start the bot.
-
-<!--truncate-->
 
 To add nyxx to your project, run `dart pub add nyxx`. Your `pubspec.yaml` file should then look similar to this:
 
@@ -131,8 +128,6 @@ be cached inside client.
 
 So, let's try out:
 
-<PingCommand />
-
 See? Very easy.
 Now, let's look how to respond to a message.
 ```dart title="./bin/your_project_name.dart"
@@ -145,10 +140,7 @@ if (event.message.content == '!ping') {
 }
 ```
 
-And the result should look like this:
-<PingCommandReplied ping />
-
-But the bot is mentionning when it replies, so we'll need to use the `AllowedMentions` class
+But the bot is mentionning us when it replies, so we'll need to use the `AllowedMentions` class
 ```dart title="./bin/your_project_name.dart"
 if (event.message.content == '!ping') {
   final replyBuilder = ReplyBuilder.fromMessage(event.message);
@@ -160,10 +152,6 @@ if (event.message.content == '!ping') {
 }
 ```
 And now, if you re-execute the command, you shouldn't be mentionned when the bot replies.
-Like so:
-
-<PingCommandReplied />
-
 <br />
 
 That's all you need to create your first command.
