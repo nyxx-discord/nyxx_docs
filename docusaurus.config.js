@@ -24,6 +24,7 @@
 const lightCodeTheme = require('prism-react-renderer/themes/vsLight');
 const darkCodeTheme = require('prism-react-renderer/themes/vsDark');
 const creationYear = 2016;
+const dev = process.env.NODE_ENV === 'dev';
 const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
 const {
   BRANCH_NAME_DEV: branchDev,
