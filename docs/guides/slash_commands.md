@@ -21,7 +21,7 @@ Don't use it if:
   - You want new features from `nyxx_interactions`:
       - There are fastly implemented in `nyxx_commands`.
 
-Look [here](./command_handling.mdx) for more informations.
+Look [here](./command_handling.md) for more informations.
 
 :::
 
@@ -190,8 +190,6 @@ Messages can sent as ephemeral responses which means that the message will only 
   await event.respond(MessageBuilder.content("Respond"), hidden: true);
 });
 ```
-
-<PingCommandSlash content={'Respond'} commandContent={'testcommand'} ephemeral />
 
 [`nyxx_interactions`]: https://github.com/nyxx-discord/nyxx_interactions
 [`nyxx_commands`]: https://github.com/nyxx-discord/nyxx_commands
