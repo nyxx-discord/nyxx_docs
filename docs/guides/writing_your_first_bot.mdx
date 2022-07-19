@@ -85,7 +85,7 @@ This is simple bot which replies to `!ping` with `pong`.
 import 'package:nyxx/nyxx.dart';
 
 void main() {
-  //highlight-start
+  // highlight-start
   final bot = NyxxFactory.createNyxxWebsocket("TOKEN", GatewayIntents.allUnprivileged);
 
   bot.eventsWs.onMessageReceived.listen((event) {
@@ -93,7 +93,9 @@ void main() {
       event.message.channel.sendMessage(MessageBuilder.content('Pong!'));
     }
   });
-  //highlight-end
+
+  bot.connect();
+  // highlight-end
 }
 ```
 
@@ -125,6 +127,11 @@ if (event.message.content == "!ping") {
 
 Here we check if the message's content is equal to `!ping` and if it is we'll send `pong` message to the same channel. To send messages we have to access the channel which is in form of a `Cacheable` object. This is because channel might not
 be cached inside client.
+
+```dart title="./bin/your_project_name.dart"
+bot.connect();
+```
+Here, we simply request our application to connect via Websocket to Discord.
 
 So, let's try out:
 
