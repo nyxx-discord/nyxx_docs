@@ -163,7 +163,7 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://discordapp.com/invite/nyxx',
+                href: 'https://discord.gg/nyxx',
               },
             ],
           },
