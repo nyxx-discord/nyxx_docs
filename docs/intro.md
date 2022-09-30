@@ -1,12 +1,13 @@
 ---
-title: nyxx library docs
+title: Getting Started
 author: HarryET
+sidebar_position: 1
 timestamp: 2021-08-26
 ---
 
-# [nyxx](https://github.com/nyxx-discord/nyxx) documentation
+# [nyxx] documentation
 
-Documentation and guides for the [nyxx](https://github.com/nyxx-discord/nyxx) Discord api library.
+Documentation and guides for the [nyxx] Discord api library.
 
 ## Info
 
@@ -21,3 +22,5 @@ This repo contains documentation and guides to help people with learning dart an
 
 If you're interested in contributing to the documentation or guides, you should check out our [GitHub Projects](https://github.com/nyxx-discord/nyxx-docs/projects) page 
 or [open issues](https://github.com/nyxx-discord/nyxx-docs/issues).
+
+[nyxx]: https://github.com/nyxx-discord/nyxx
