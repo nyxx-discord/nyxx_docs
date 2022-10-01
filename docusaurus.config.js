@@ -27,9 +27,10 @@ const creationYear = 2016;
 const dev = process.env.NODE_ENV === 'dev';
 const url = dev ? process.env.DEV_URL : process.env.PROD_URL;
 const {
+  REPO_NAME_DEV: repoDev,
   BRANCH_NAME_DEV: branchDev,
   REPO_NAME_PROD: repoProd,
-  REPO_BRANCH_NAME: branchProd,
+  REPO_BRANCH_PROD: branchProd,
 } = process.env;
 
 /** @type {import('@docusaurus/types').Config} */
