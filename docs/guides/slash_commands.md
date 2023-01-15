@@ -8,34 +8,42 @@ sidebar_position: 7
 
 :::info Notice
 
-While [`nyxx_interactions`] was the original way to create slash commands, it can be very easily replaced by [`nyxx_commands`] which itself depends on `nyxx_interactions` but provides a way to create both text-and-slash commands.
+While [`nyxx_interactions`] was the original way to create slash commands, but it can be very easily replaced by [`nyxx_commands`] which itself is a dependent of `nyxx_interactions` but provides a way to create both text and slash commands.
 
 Use `nyxx_interactions` if:
 
   - You don't want to be limited from `nyxx_commands`;
-  - You want to go beyond for the possibilities of base slash commands.
+  - You want to go beyond the possibilities of base slash commands.
 
 Don't use it if:
 
   - You want create simple (and complicated too) slash commands;
   - You want new features from `nyxx_interactions`:
-      - There are fastly implemented in `nyxx_commands`.
+      - There are quickly implemented in `nyxx_commands`.
 
-Look [here](./command_handling.md) for more informations.
+Look [here](./command_handling.md) for more information.
 
 :::
 
 <br />
 
 Slash commands are a new way of interacting with bots via chat using commands registered on the Discord API.
-Such commands provide visual feedback in the UI and are more tied to the platform than classic text based commands.
+These commands provide visual feedback through the UI and are more connected to the platform than classic text based commands. 
+Slash commands can narrow down options to different types such as numbers, users, and roles. 
 
 <br />
 
 ## Interactions extension
 
 Before registering any commands you have to instantiate new instance of the [`IInteractions`] class, which is an extension for
-nyxx that provides slash command and message components functionality.
+nyxx that provides slash command and message components functionality. 
+
+```dart
+import 'package:nyxx/nyxx.dart';
+import 'package:nyxx_interactions/nyxx_interactions.dart';
+```
+
+Make sure you have imported `nyxx_interactions` or `nyxx_commands` before you proceed. 
 
 ```dart
 final bot = NyxxFactory.createNyxxWebsocket("<TOKEN>", GatewayIntents.allUnprivileged);
@@ -90,6 +98,7 @@ SlashCommandType type;
 This example registers a `ping` command that responds with `"pong"`:
 
 ```dart
+final interactions = IInteractions.create(WebsocketInteractionBackend(bot));
 // Creates instance of slash command builder with name, description and sub options.
 // Its used to synchronise commands with discord and also to be able to respond to them.
 // SlashCommandBuilder allows to register handler for slash command that you will be able
@@ -103,6 +112,11 @@ final singleCommand = SlashCommandBuilder("ping", "Simple command that responds 
     // that interaction.
     await event.respond(MessageBuilder.content("Pong!"));
   });
+// This is for people using nyxx_interactions.
+interactions
+    ..registerSlashCommand(singleCommand)
+    // Synchronises the command so it can be deployed.
+    ..syncOnReady();
 ```
 
 <br />
