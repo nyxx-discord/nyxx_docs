@@ -112,10 +112,10 @@ final singleCommand = SlashCommandBuilder("ping", "Simple command that responds 
     // that interaction.
     await event.respond(MessageBuilder.content("Pong!"));
   });
-// Register the command with the interaction to deploy it!
+// This is for people using nyxx_interactions.
 interactions
     ..registerSlashCommand(singleCommand)
-    // Synchronises the command so it can be used.
+    // Synchronises the command so it can be deployed.
     ..syncOnReady();
 ```
 
