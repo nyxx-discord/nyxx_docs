@@ -1,0 +1,74 @@
+---
+title: Caching
+author: Abitofevrything
+timestamp: 2023-09-27
+category: guides
+sidebar_position: 2
+---
+
+Nyxx implements caching as is recommended by Discord. This guide lists cache features and pitfalls
+in the library.
+
+## Cache locations
+
+Caches in nyxx are represented as instances of the `Cache` type, which is effectively a `Map` with
+extra features.
+
+Most managers will have a cache for the type of entity they manage, such as `client.users.cache` or
+`channel.messages.cache`. Some managers have extra caches for other related entity types, such as
+`guild.commands.permissionsCache`.
+
+If you ever want to inspect all the cached entities for a given client, the `Cache.cachesFor` method
+will return a view of all cached entities. Note that modifying the returned map does not affect the
+caches themselves.
+
+## Cache configuration
+
+Caches in nyxx can be configured using the `CacheConfig` class which is passed to the
+`ClientOptions` when creating your client. For entity types that have multiple caches, such as
+`Message`s (one cache per `TextChannel`), the config applies to each cache individually.
+
+You can also manage caches imperatively by calling the `Map` methods on the cache - `cache.clear()`
+will clear a cache, `cache.removeWhere` can be used for filtering and any other `Map` method works
+as expected.
+
+## Cache usage
+
+Nyxx provides partial entities that manage most of the caching for you - the `SnowflakeEntity.get()`
+method first tries to fetch the entity from its cache before fetching it from the Discord API.
+
+If you want to manually access a cache's entries, the entities in the cache are mapped by their ID.
+
+:::caution
+Entities may be unexpectedly removed from a cache during a cache filter, so we recommend extracting
+an entity from the cache as early as possible and storing it in a local variable to avoid losing it
+and needing to re-fetch it.
+:::
+
+## Cache population
+
+Caches can be populated in two different ways:
+
+1. Making HTTP requests using a `Manager` will cache entities returned from the API.
+
+   For example, using `client.channels.fetch()` will place the returned channel into
+   `client.channels.cache`.
+
+2. Entities received over the Gateway will be cached in the relevant manager's cache.
+
+   For example, receiving a `MessageCreateEvent` will place the message into
+   `channel.messages.cache` for the message's channel. `XXXUpdateEvent`s will also update the entity
+   in the cache.
+
+:::caution
+Since the cache relies on Gateway `XXXUpdateEvent`s to stay up to date, entities are not removed
+from the cache based on how long they have been in it - there is no cache expiry.
+
+If you are using a client that does not connect to the Gateway (e.g `NyxxRest`) or have disabled the
+intent associated with events for a certain entity type, you might want to set the
+`CacheConfig.maxSize` for that entity to 0 (effectively disabling the cache), since entities in the
+cache will not be updated.
+
+If you do not disable the cache, keep in mind that the cache contents may not be up to date, and use
+methods that bypass cache checks if an up to date version of the entity is needed.
+:::
