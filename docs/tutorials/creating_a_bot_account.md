@@ -30,7 +30,7 @@ To get started with nyxx, you'll need a Discord bot account!
 ### Getting your bot's token
 
 :::danger
-Do NOT share or publish this token anywhere publically. If you do, anyone will be able to use your
+Do NOT share or publish this token anywhere publicly. If you do, anyone will be able to use your
 bot account to perform any bot actions - such as banning users and leaving guilds.
 :::
 
