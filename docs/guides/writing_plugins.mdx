@@ -1,0 +1,132 @@
+---
+title: Writing plugins
+author: Abitofevrything
+timestamp: 2023-10-16
+category: guides
+sidebar_position: 3
+---
+
+Plugins in nyxx are a way to create modular functionality that can be easily added or removed from
+clients. There are some offical plugins - including `logging` and `cliIntegration` in the `nyxx`
+package, but also `CommandsPlugin` from `nyxx_commands` or `Pagination` from `nyxx_extensions` - but
+you can also create your own plugins for your own functionality.
+
+## Using plugins
+
+Plugins can be added to a client by passing them to the `plugins` list in `ClientOptions` when
+creating your client. For example, this client registers the `logging` plugin, the `cliIntegration`
+plugin, the `PluginA()` plugin and the `PluginB()` plugin:
+```dart
+final client = await Nyxx.connectGateway(
+  'TOKEN',
+  GatewayIntents.allUnprivileged,
+  options: GatewayClientOptions(plugins: [
+    logging,
+    cliIntegration,
+    PluginA(),
+    PluginB(),
+  ]),
+);
+```
+
+Plugins can be easily enabled or disabled by adding or removing them from this list, allowing you to
+quickly enable or disable certain features of your bot.
+
+Some plugins in the official nyxx packages provide a ready-to-use instance. This is the case with
+the `logging` and `cliIntegration` plugins above. You can always create your own instances of the
+`Logging` or `CliIntegation` classes instead.
+
+## Plugin basics
+
+The easiest way to create a plugin is to extend the `NyxxPlugin` class. The type argument allows you
+to specify which client types your plugin can be added to.
+
+A simple plugin that logs messages received from clients it is added to would look like this:
+```dart
+class LogMessages extends NyxxPlugin<NyxxGateway> {
+  @override
+  void afterConnect(NyxxGateway client) {
+    client.onMessageCreate.listen((event) {
+      final message = event.message;
+
+      // logger is provided by the plugin interface.
+      logger.info('${message.id} sent by ${message.author.id} in ${message.channelId}!');
+    });
+  }
+}
+```
+
+Plugins can override the `beforeConnect`, `afterConnect`, `beforeClose` and `afterClose` methods to
+run code at different moments in the client's lifecycle. These methods can be async and will pause
+the associated method on the client until the returned future completes.
+
+`beforeConnect` and `afterConnect` run during calls to the `Nyxx.connectXXX` methods.
+- `beforeConnect` runs before the client establishes any connections to Discord, so it's a good idea
+  to put any plugin initialisation here.
+- `afterConnect` runs once the client has opened a connection to Discord. This is the first time
+  your plugin will be able to access the client, so any setup requiring the client (e.g listening to
+  events) should go here.
+
+:::caution
+Putting plugin initialisation in `afterConnect` will cause any events received during the plugin's
+initialisation to be dropped. The client is only returned to the caller after the call to
+`afterConnect` completes.
+:::
+
+`beforeClose` and `afterClose` run during calls to `client.close()`.
+- `beforeClose` runs before the client has disconnected from Discord. Put any cleanup that requires
+  the client here.
+- `afterClose` runs once the client has completely disconnected from Discord. Since the client is
+  disconnected, it can no longer be used and will not be passed to your plugin.
+
+## Plugin states
+
+By default, plugins can be added to multiple clients at once, and the same plugin instance will
+manage multiple client. Plugin states are a way for your plugins to create a state for each client
+they are attached to.
+
+You can create a state for your plugin by implementing the `NyxxPluginState` class and overriding
+the `createState` method in your plugin. Any functionality that should be run in a separate instance
+for each client should then be moved into the state class, which has the same methods as the main
+plugin class: `beforeConnect`, `afterConnect`, `beforeClose` and `afterClose`.
+
+:::caution
+The methods in the state class should call the super-method to ensure that the main plugin class'
+methods are also called.
+
+Whether the method is called before or after your own code doesn't matter,
+:::
+
+For example, this plugin creates a timer for each client that periodically logs the client's guild
+cache size:
+```dart
+class LogGuildCache extends NyxxPlugin<NyxxRest> {
+  @override
+  NyxxPluginState<NyxxRest, LogGuildCache> createState() => LogGuildCacheState(this);
+}
+
+class LogGuildCacheState extends NyxxPluginState<NyxxRest, LogGuildCache> {
+  LogGuildCacheState(super.plugin);
+
+  late final Timer timer;
+
+  @override
+  void afterConnect(NyxxRest client) {
+    super.afterConnect(client);
+
+    timer = Timer.periodic(const Duration(seconds: 5), (timer) {
+      logger.info('Guild cache size: ${client.guilds.cache.length}');
+    });
+  }
+
+  @override
+  void afterClose() {
+    super.afterClose();
+
+    timer.cancel();
+  }
+}
+```
+
+Each client this plugin is added to will have its own instance of `LogGuildCacheState`, so different
+clients will have a different timer.

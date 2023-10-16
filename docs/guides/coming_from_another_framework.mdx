@@ -1,0 +1,211 @@
+---
+title: Coming from another framework
+author: Abitofevrything
+timestamp: 2023-09-23
+category: guides
+sidebar_position: 1
+---
+
+:::caution
+This guide assumes you already know how the Discord API and Discord bots work. If you don't, check
+out [Writing your first bot](../tutorials/writing_your_first_bot.mdx)
+:::
+
+This guide explains how to perform common actions using nyxx. You can read through it in order, or
+use the sidebar on the right to jump to a section you want to read.
+
+## Connecting to the API
+
+To connect to the Discord API, call one of the static methods on the `Nyxx` class. These methods
+come in pairs: a `Nyxx.connectXXX` method and a `Nyxx.connectXXXWithOptions`. The `connectXXX`
+methods are simply a shorter way to call `connectXXXWithOptions`.
+
+Calling `Nyxx.connectXXX` allows you to create a connected client that uses the default API
+configuration. If you want to configure API options, call `connectXXXWithOptions`.
+
+There are several method pairs for different client types:
+ - `Nyxx.connectRest` and `Nyxx.connectRestWithOptions` create a client that performs only HTTP
+   requests using a bot token for authentication.
+ - `Nyxx.connectGateway` and `Nyxx.connectGatewayWithOptions` create a client that performs HTTP 
+   requests and receives events from Discord's Gateway using a bot token for authentication.
+ - `Nyxx.connectOAuth2` and `Nyxx.connectOAuth2WithOptions` create a client that performs only HTTP
+   requests using OAuth2 credentials for authentication.
+
+For example, most bots will want to connect to the Gateway:
+```dart
+import 'package:nyxx/nyxx.dart';
+
+void main() async {
+  final client = await Nyxx.connectGateway('TOKEN', GatewayIntents.allUnprivileged);
+}
+```
+
+All the connection methods also allow you to specify client options that allow you to add plugins to
+your client and control caching. We recommend adding the `logging` and `cliIntegration` plugins to
+all bots using nyxx:
+
+```dart
+import 'package:nyxx/nyxx.dart';
+
+void main() async {
+  final client = await Nyxx.connectGateway(
+    'TOKEN',
+    GatewayIntents.allUnprivileged,
+    options: GatewayClientOptions(plugins: [logging, cliIntegration]),
+  );
+}
+```
+
+## Making API requests
+
+To make requests to Discord's API, nyxx exposes methods on many of the different entity types.
+Making an API request using them is as simple as calling that method:
+```dart
+final TextChannel channel = /* Get a channel from somewhere */;
+
+// Send a message to that channel
+await channel.sendMessage(MessageBuilder(content: 'Hello!'));
+```
+
+If you cannot get an instance of an entity or want to avoid an HTTP request that would be needed to
+fetch it, nyxx allows you to make API requests using `Partial`s or `Manager`s:
+
+```dart
+final NyxxRest client = /* Your client */;
+final Snowflake guildId = /* The ID of the guild */;
+
+// List the guild's bans using a partial
+await client.guilds[guildId].listBans();
+
+// List the guild's bans using the client's guild manager
+await client.guilds.listBans(guildId);
+```
+
+Using partials also allows you to access managers that aren't directly available on the client. For
+example, listing the application (slash) commands in a guild using a partial is much more elegant
+than using the manager directly:
+
+```dart
+final NyxxRest client = /* Your client */;
+final Snowflake guildId = /* The ID of the guild */;
+
+// List the guild's commands using a partial
+await client.guilds[guildId].commands.list();
+
+// List the guild's commands by creating a manager
+await GuildApplicationCommandManager(
+  client.options.applicationCommandConfig,
+  client,
+  applicationId: client.application.id,
+  guildId: guildId,
+  permissionsConfig: client.commandPermissionsConfig,
+).list();
+```
+
+### Partial text channels
+
+Partials are mostly simple to understand, but there is one exception to this rule:
+`PartialTextChannel`s.
+
+The `NyxxRest.channels` manager only provides access to `PartialChannel`s, which don't expose an
+easy way to send messages to that channel - as it might not be a text channel. Additionally, there
+is no method in `ChannelManager` that allows you to send a message to a channel as sending messages
+is handled by `MessageManager`.
+
+If we didn't treat this case specially, you'd have to write this to send a message to a channel
+(without fetching it first):
+
+```dart
+await MessageManager(
+  client.messageCacheConfig,
+  client,
+  channelId: channelId,
+).create(MessageBuilder(content: 'Hello!'));
+```
+
+Therefore, nyxx exceptionally allows you to **cast the `PartialChannel` returned by the
+`ChannelManager` to a `PartialTextChannel`**:
+
+```dart
+await (client.channels[channelId] as PartialTextChannel).sendMessage(
+  MessageBuilder(content: 'Hello!'),
+);
+```
+
+:::caution
+Only do this if you are certain the channel is a text channel, or calling `sendMessage` will result
+in an error.
+:::
+
+## Listening to events
+
+To listen to events from Discord's Gateway (websocket API), first ensure your client is a
+`NyxxGateway` by calling `Nyxx.connectGateway` or `Nyxx.connectGatewayWithOptions` when connecting
+to the API.
+
+Then, listen to any of the `onXXX` streams on the client objects to run your callback when that
+event is omitted:
+
+```dart
+final client = await Nyxx.connectGateway(...);
+
+client.onMessageCreate.listen((event) {
+  final message = event.message;
+
+  print('Received message in ${message.channelId} by ${message.author.id}');
+});
+```
+
+:::info
+Most events emitted on these streams (subtypes of [`DispatchEvent`](https://pub.dev/documentation/nyxx/latest/nyxx/DispatchEvent-class.html))
+contain the object relevant to the event (e.g `MessageCreateEvent.message`) and/or several
+additional fields with extra information (e.g `MessageCreateEvent.mentions`).
+
+Most `XXXUpdateEvent`s will also contain the previously cached object if possible.
+:::
+
+You can also leverage Dart's powerful `Stream` API or use them in `await for` loops:
+
+```dart
+final client = await Nyxx.connectGateway(...);
+
+await for (final MessageCreateEvent(:message) in client.onMessageCreate) {
+  print('Received message in ${message.channelId} by ${message.author.id}');
+}
+```
+
+### Advanced events
+
+To listen for events other than `DispatchEvent`s, listen to `Gateway.messages`. This is a stream of
+`ShardMessage`s - control messages sent by Gateway shard connections running in separate isolates
+back to the main client.
+
+The `EventReceived` message is sent when an event is received on the Gateway of any type, including
+heartbeak acks and any other gateway event:
+
+```dart
+final client = await Nyxx.connectGateway(...);
+
+client.gateway.messages.listen((message) {
+  if (message is! EventReceived) return;
+
+  final event = message.event;
+
+  print('Received event ${event.opcode.value} (${event.opcode.name})');
+});
+```
+
+:::caution
+`EventReceived.event` will never be an instance of `DispatchEvent` as the parsing of dispatch events
+only takes place once the client has processed them.
+
+Instead, `RawDispatchEvent`s are emitted containing the raw event payload.
+:::
+
+## Command framework
+
+Some Discord libraries come with an in-built commands framework. While nyxx does have a commands
+framework, it lives in a separate package: [`nyxx_commands`](https://pub.dev/packages/nyxx_commands)
+
+There is a tutorial for using nyxx_commands [here](../tutorials/using_nyxx_commands).
+

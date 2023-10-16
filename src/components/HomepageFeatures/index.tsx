@@ -10,21 +10,24 @@ type FeatureItem = {
   description: JSX.Element;
 };
 
-// Willl fill this in later
 const FeatureList: FeatureItem[] = [
   {
     // https://dart.dev/brand
-    title: 'The power of Dart\u2122',
+    title: 'Powered by Dart\u2122',
     Svg: DartSvg,
     description: (
       <>
-        Nyxx is a Dart library that provides a way to easily interact with the
-        Discord API.
+        Nyxx uses Dart, a fast and modern language by Google used by millions.
       </>
     ),
   },
   {
-    title: 'You can use it in your project',
+    title: "Simple & easy to use",
+    Svg: NyxxSvg,
+    description: <>Nyxx is designed with ease of use in mind and exposes powerful APIs built in to the library.</>,
+  },
+  {
+    title: 'Open source',
     Svg: NyxxSvg,
     description: (
       <>
@@ -36,14 +39,9 @@ const FeatureList: FeatureItem[] = [
         >
           open source
         </a>{' '}
-        and can be used in your project.
+        and can be used for projects of any size, for free.
       </>
     ),
-  },
-  {
-    title: "It's easy to use",
-    Svg: NyxxSvg,
-    description: <>Nyxx is very powerful and easy to use.</>,
   },
 ];
 

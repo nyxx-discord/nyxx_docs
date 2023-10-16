@@ -35,8 +35,8 @@ const {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'nyxx Documentation',
-  tagline: 'A documentation for the nyxx Discord library',
+  title: 'nyxx',
+  tagline: 'Documentation for the nyxx project, a Dart wrapper around the Discord API',
   url,
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -108,7 +108,7 @@ const config = {
       metadata: [
         {
           name: 'keywords',
-          content: 'discord, bot, bot-framework, nyxx',
+          content: 'discord, bot, bot-framework, nyxx, dart',
         },
         {
           name: 'language',
@@ -126,12 +126,6 @@ const config = {
           src: 'img/Nyxx_Squared.svg',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
-          },
           {
             href: 'https://github.com/nyxx-discord/nyxx',
             label: 'GitHub',
@@ -154,7 +148,7 @@ const config = {
                 to: '/docs/intro',
               },
               {
-                label: 'Pub Docs',
+                label: 'API documentation',
                 href: 'https://pub.dev/documentation/nyxx/latest',
               },
             ],
@@ -176,16 +170,12 @@ const config = {
                 href: 'https://github.com/nyxx-discord/nyxx',
               },
               {
-                label: 'nyxx_interactions',
-                href: 'https://github.com/nyxx-discord/nyxx_interactions',
-              },
-              {
                 label: 'nyxx_commands',
-                href: 'https://github.com/nyxx-discord/nyxx_commands',
+                href: 'https://pub.dev/packages/nyxx_commands',
               },
               {
-                label: 'nyxx_sharding',
-                href: 'https://github.com/nyxx-discord/nyxx_sharding',
+                label: 'nyxx_extensions',
+                href: 'https://pub.dev/packages/nyxx_extensions',
               },
             ],
           },

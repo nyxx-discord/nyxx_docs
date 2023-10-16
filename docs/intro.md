@@ -5,22 +5,16 @@ sidebar_position: 1
 timestamp: 2021-08-26
 ---
 
-# [nyxx] documentation
+# Getting Started
 
-Documentation and guides for the [nyxx] Discord api library.
+### Creating a bot
+- [This is my first Discord bot](tutorials/writing_your_first_bot)
+- [I've already written bots in other languages](guides/coming_from_another_framework)
 
-## Info
+Tutorials for other topics are available in the sidebar. We also have a list of
+[external Dart resources](dart_resources) if you need to learn Dart first.
 
-This repo contains documentation and guides to help people with learning dart and creating Discord bots with nyxx. Many subjects are covered such as:
-- How to create a bot account
-- Setting up a basic hello world project
-- Picking your message intents
-- Using interactions
-- and more...
+### Community
 
-## Contributing
-
-If you're interested in contributing to the documentation or guides, you should check out our [GitHub Projects](https://github.com/nyxx-discord/nyxx-docs/projects) page 
-or [open issues](https://github.com/nyxx-discord/nyxx-docs/issues).
-
-[nyxx]: https://github.com/nyxx-discord/nyxx
+Need extra help that isn't listed on this website? Join [our Discord server](https://discord.gg/nyxx)
+or reach out to us [on GitHub](https://github.com/nyxx-discord/nyxx).
