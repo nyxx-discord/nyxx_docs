@@ -8,11 +8,11 @@ timestamp: 2021-08-26
 # Getting Started
 
 ### Creating a bot
-- [This is my first Discord bot](tutorials/writing_your_first_bot)
-- [I've already written bots in other languages](guides/coming_from_another_framework)
+- [This is my first Discord bot](tutorials/writing_your_first_bot.mdx)
+- [I've already written bots in other languages](guides/coming_from_another_framework.mdx)
 
 Tutorials for other topics are available in the sidebar. We also have a list of
-[external Dart resources](dart_resources) if you need to learn Dart first.
+[external Dart resources](dart_resources.md) if you need to learn Dart first.
 
 ### Community
 
