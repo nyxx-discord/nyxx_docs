@@ -39,9 +39,9 @@ jobs:
           context: .
           push: true
           build-args: |
-            PROD_URL: ${{ secrets.PROD_URL }}
-            REPO_NAME_PROD: ${{ secrets.REPO_NAME_PROD }}
-            REPO_BRANCH_NAME: ${{ secrets.REPO_BRANCH_NAME }}
+            PROD_URL=${{ secrets.PROD_URL }}
+            REPO_NAME_PROD=${{ secrets.REPO_NAME_PROD }}
+            REPO_BRANCH_NAME=${{ secrets.REPO_BRANCH_NAME }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
