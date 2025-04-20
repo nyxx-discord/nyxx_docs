@@ -1,0 +1,59 @@
+# Git repository files
+.git/
+.gitignore
+.gitattributes
+
+# Node.js dependencies - These should be installed INSIDE the container
+node_modules/
+
+# Docusaurus build artifacts and cache
+build/
+.docusaurus/
+.cache/
+
+# Package manager lock files (optional, depends on your strategy)
+# If you run `npm install` or `yarn install` inside the Dockerfile,
+# you might want to copy the lock file IN, so don't ignore it.
+# If you are copying node_modules from a builder stage, you might ignore these.
+# Generally, it's better to COPY the lock file and run install in the container.
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment variables - Should be injected at runtime, not built into the image
+.env*
+!.env.example # Often useful to keep example env files
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE configuration
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Test reports and coverage data
+coverage/
+junit.xml
+test-results.xml
+
+# Docker specific files
+Dockerfile
+.dockerignore
+
+# Temporary files or directories
+tmp/
+temp/
+
+# Add any other project-specific files or directories that shouldn't be in the final image
+# e.g., specific build outputs, local configuration overrides, etc.

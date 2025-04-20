@@ -1,49 +1,52 @@
-name: deploy docs
+name: Create and publish a Docker image
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types:
+      - created
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  docs-deploy:
-    name: Deploy docs to webpage
+  build-and-push-image:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.8]
-    env:
-      NODE_ENV: production
-      PROD_URL: ${{ secrets.PROD_URL }}
-      REPO_NAME_PROD: ${{ secrets.REPO_NAME_PROD }}
-      REPO_BRANCH_NAME: ${{ secrets.REPO_BRANCH_NAME }}
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v4
 
-      - name: Pnpm
-        uses: pnpm/action-setup@v2.4.0
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
         with:
-          version: 8.9.0
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.TOKEN_PUSH_IMAGE }}
 
-      - name: Use Nodejs ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: pnpm
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          target: prod
+          push: true
+          build-args: |
+            PROD_URL: ${{ secrets.PROD_URL }}
+            REPO_NAME_PROD: ${{ secrets.REPO_NAME_PROD }}
+            REPO_BRANCH_NAME: ${{ secrets.REPO_BRANCH_NAME }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Build project
-        run: pnpm build
-
-      - name: Deploy nyxx dev docs
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_SERVER_KEY }}
-          ARGS: '-rltDzvO'
-          SOURCE: 'build/'
-          REMOTE_HOST: ${{ secrets.DEPLOY_REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.DEPLOY_REMOTE_USER }}
-          TARGET: '${{ secrets.DEPLOY_REMOTE_TARGET }}/'
+      # - name: Redeploy portainer
+      #   uses: muinmomin/webhook-action@v1.0.0
+      #   with:
+      #     url: ${{ secrets.ROD_PORTAINER_WEBHOOK }}

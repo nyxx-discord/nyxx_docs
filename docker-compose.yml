@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        PROD_URL: http://localhost:3000/
+        REPO_NAME_PROD: nyxx_docs
+        REPO_BRANCH_NAME: main
+    ports:
+      - "8089:80"
