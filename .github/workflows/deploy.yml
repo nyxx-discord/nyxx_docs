@@ -37,7 +37,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          target: prod
           push: true
           build-args: |
             PROD_URL: ${{ secrets.PROD_URL }}
