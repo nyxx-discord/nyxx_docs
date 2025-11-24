@@ -6,10 +6,6 @@ on:
       - next
   pull_request:
 
-env:
-  CF_ACCOUNT_ID: 3bc1aa6788d40843da356b67a4f49b4b
-  PAGES_PROJECT_NAME: nyxx-docs
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -53,34 +49,35 @@ jobs:
           name: build-jaspr
           path: build/jaspr
 
-      - name: Deploy preview
+      - name: Deploy Preview (Pull Request)
         if: ${{ github.event_name == 'pull_request' }}
-        uses: tomjschuster/cloudflare-pages-deploy-action@v0
+        uses: cloudflare/wrangler-action@v3
         with:
-          account-id: "${{ env.CF_ACCOUNT_ID }}"
-          project-name: "${{ env.PAGES_PROJECT_NAME }}"
-          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
-          email: "${{ secrets.CF_EMAIL }}"
-          preview: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy next
-        if: ${{ contains(fromJson('["refs/heads/next"]'), github.ref) && github.event_name == 'push' }}
-        uses: tomjschuster/cloudflare-pages-deploy-action@v0
-        with:
-          account-id: "${{ env.CF_ACCOUNT_ID }}"
-          project-name: "${{ env.PAGES_PROJECT_NAME }}"
-          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
-          email: "${{ secrets.CF_EMAIL }}"
-          branch: ${{ github.ref_name }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: pages deploy build/jaspr --project-name nyxx-docs
+          secrets: |
+            CLOUDFLARE_API_TOKEN
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
 
-      - name: Deploy production
-        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
-        uses: tomjschuster/cloudflare-pages-deploy-action@v0
+      - name: Deploy Next (Staging)
+        if: ${{ github.ref == 'refs/heads/next' && github.event_name == 'push' }}
+        uses: cloudflare/wrangler-action@v3
         with:
-          account-id: "${{ env.CF_ACCOUNT_ID }}"
-          project-name: "${{ env.PAGES_PROJECT_NAME }}"
-          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
-          email: "${{ secrets.CF_EMAIL }}"
-          production: true
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: pages deploy build/jaspr --project-name nyxx-docs --branch next
+          secrets: |
+            CLOUDFLARE_API_TOKEN
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+
+      - name: Deploy Production
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          command: pages deploy build/jaspr --project-name nyxx-docs
+          secrets: |
+            CLOUDFLARE_API_TOKEN
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
