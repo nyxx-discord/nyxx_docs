@@ -8,7 +8,7 @@ on:
 
 env:
   CF_ACCOUNT_ID: 3bc1aa6788d40843da356b67a4f49b4b
-  PAGES_PROJECT_NAME: nyxx-docs-preview
+  PAGES_PROJECT_NAME: nyxx-docs
 
 jobs:
   build:
