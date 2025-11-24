@@ -97,7 +97,7 @@ void main() async {
     if (event.mentions.contains(botUser)) {
       await event.message.channel.sendMessage(MessageBuilder(
         content: 'Hi There!',
-        replyId: event.message.id,
+        referencedMesssage: .reply(messageId: event.message.id),
       ));
     }
   });
@@ -159,7 +159,7 @@ client.onMessageCreate.listen((event) async {
   if (event.mentions.contains(botUser)) {
     await event.message.channel.sendMessage(MessageBuilder(
       content: 'Hi There!',
-      replyId: event.message.id,
+      referencedMessage: .reply(event.message.id),
     ));
   }
 });
@@ -180,13 +180,13 @@ If it does, then we want to send a message to the same channel the message was s
 ```dart
 await event.message.channel.sendMessage(MessageBuilder(
   content: 'Hi There!',
-  replyId: event.message.id,
+  referencedMessage: .reply(event.message.id),
 ));
 ```
 
 The `sendMessage` method takes a `MessageBuilder` that describes the message that will be sent. In
-this case, we specify the content of our message and a `replyId`.
+this case, we specify the content of our message and a `referencedMessage`.
 
-The `replyId` parameter allows us to reply to a message (here, the message that mentioned the bot)
+The `referencedMessage` parameter allows us to reply to a message (here, the message that mentioned the bot)
 by giving its ID. Most entities - messages included - have an ID on Discord, which we access with
 `message.id`.
