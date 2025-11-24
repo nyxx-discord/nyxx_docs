@@ -159,7 +159,7 @@ client.onMessageCreate.listen((event) async {
   if (event.mentions.contains(botUser)) {
     await event.message.channel.sendMessage(MessageBuilder(
       content: 'Hi There!',
-      referencedMessage: .reply(event.message.id),
+      referencedMessage: .reply(messageId: event.message.id),
     ));
   }
 });
