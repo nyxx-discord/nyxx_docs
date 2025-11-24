@@ -1,4 +1,2 @@
-{
-    "name": "nyxx-docs",
-    "account_id": "3bc1aa6788d40843da356b67a4f49b4b"
-}
+name = "nyxx_docs"
+account_id = "3bc1aa6788d40843da356b67a4f49b4b"
