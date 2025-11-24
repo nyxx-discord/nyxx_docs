@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "esbenp.prettier-vscode",
+        "Dart-Code.dart-code",
+        "schultek.jaspr-code",
     ]
 }

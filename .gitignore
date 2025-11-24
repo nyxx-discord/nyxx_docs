@@ -1,26 +1,30 @@
-/dist
-.idea/
-.vscode/*
-!.vscode/
-!.vscode/extensions.json
-node_modules/
-package-lock.json
-/base/generated_styles.css
-# Prodution
-build/
+# Files and directories created by pub.
+**/doc/api/
+.dart_tool/
+.packages
 
-# Generated files
-.docusaurus
-.cache-loader
+# Conventional directory for build output.
+/build/
 
-# Misc
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/

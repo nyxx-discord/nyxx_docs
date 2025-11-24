@@ -1,0 +1,8 @@
+# Site Configuration
+titleBase: Documentation
+favicon: favicon.ico
+
+# Social media links
+social:
+  - name: Github
+    url: https://github.com/nyxx-discord
