@@ -1,51 +1,86 @@
-name: Create and publish a Docker image
-
+name: Deploy Docs
 on:
-  release:
-    types:
-      - created
+  push:
+    branches:
+      - main
+      - next
+  pull_request:
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  CF_ACCOUNT_ID: 3bc1aa6788d40843da356b67a4f49b4b
+  PAGES_PROJECT_NAME: nyxx-docs-preview
 
 jobs:
-  build-and-push-image:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
+      - name: Set up Dart SDK
+        uses: dart-lang/setup-dart@v1
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.TOKEN_PUSH_IMAGE }}
+          sdk: stable
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
+      - name: Cache Dart packages
+        uses: actions/cache@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pub-
+      - name: Install dependencies
+        run: dart pub get
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+      - name: Build documentation
+        run: dart run jaspr_cli:jaspr build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          context: .
-          push: true
-          build-args: |
-            PROD_URL=${{ secrets.PROD_URL }}
-            REPO_NAME_PROD=${{ secrets.REPO_NAME_PROD }}
-            REPO_BRANCH_NAME=${{ secrets.REPO_BRANCH_NAME }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          name: build-jaspr
+          path: build/jaspr
 
-      # - name: Redeploy portainer
-      #   uses: muinmomin/webhook-action@v1.0.0
-      #   with:
-      #     url: ${{ secrets.ROD_PORTAINER_WEBHOOK }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-jaspr
+          path: build/jaspr
+
+      - name: Deploy preview
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: tomjschuster/cloudflare-pages-deploy-action@v0
+        with:
+          account-id: "${{ env.CF_ACCOUNT_ID }}"
+          project-name: "${{ env.PAGES_PROJECT_NAME }}"
+          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
+          email: "${{ secrets.CF_EMAIL }}"
+          preview: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy next
+        if: ${{ contains(fromJson('["refs/heads/next"]'), github.ref) && github.event_name == 'push' }}
+        uses: tomjschuster/cloudflare-pages-deploy-action@v0
+        with:
+          account-id: "${{ env.CF_ACCOUNT_ID }}"
+          project-name: "${{ env.PAGES_PROJECT_NAME }}"
+          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
+          email: "${{ secrets.CF_EMAIL }}"
+          branch: ${{ github.ref_name }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy production
+        if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
+        uses: tomjschuster/cloudflare-pages-deploy-action@v0
+        with:
+          account-id: "${{ env.CF_ACCOUNT_ID }}"
+          project-name: "${{ env.PAGES_PROJECT_NAME }}"
+          api-key: "${{ secrets.CF_GLOBAL_APIKEY }}"
+          email: "${{ secrets.CF_EMAIL }}"
+          production: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
