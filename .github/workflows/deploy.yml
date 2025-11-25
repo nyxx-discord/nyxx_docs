@@ -59,6 +59,7 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ env.CF_ACCOUNT_ID }}
           wranglerVersion: ${{ env.WRANGLER_VERSION }}
           command: pages deploy build/jaspr --project-name nyxx-docs
         env:
@@ -115,6 +116,7 @@ jobs:
         with:
           wranglerVersion: ${{ env.WRANGLER_VERSION }}
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ env.CF_ACCOUNT_ID }}
           command: pages deploy build/jaspr --project-name nyxx-docs --branch next
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
@@ -126,6 +128,7 @@ jobs:
         with:
           wranglerVersion: ${{ env.WRANGLER_VERSION }}
           apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ env.CF_ACCOUNT_ID }}
           command: pages deploy build/jaspr --project-name nyxx-docs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
