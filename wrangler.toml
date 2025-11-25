@@ -1,3 +1,5 @@
 name = "nyxx_docs"
+compatibility_date = "2025-11-24"
 account_id = "3bc1aa6788d40843da356b67a4f49b4b"
 pages_build_output_dir = "build/jaspr"
+assets.directory = "build/jaspr"

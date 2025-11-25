@@ -50,6 +50,7 @@ jobs:
           path: build/jaspr
 
       - name: Deploy Preview (Pull Request)
+        id: deploy
         if: ${{ github.event_name == 'pull_request' }}
         uses: cloudflare/wrangler-action@v3
         with:
@@ -59,6 +60,50 @@ jobs:
             CLOUDFLARE_API_TOKEN
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+      - name: Add PR comment
+        if: ${{ steps.deploy.outcome == 'success' }}
+        uses: actions/github-script@v8
+        env:
+          STEPS: ${{ toJson(steps) }}
+        with:
+          script: |
+            const steps = JSON.parse(process.env.STEPS);
+            const prNumber = context.issue.number;
+            const commentTag = '<!-- docs-preview-url -->';
+
+            const output = steps.deploy.outputs['command-output'];
+            const urlRegex = /Version Preview Alias URL:\s+(https:\/\/[^\s]+)/;
+            const match = output?.match(urlRegex);
+            const previewUrl = match ? match[1] : null;
+
+            const body = previewUrl
+              ? `${commentTag}\n🌙 Docs Preview available at: ${previewUrl}`
+              : `${commentTag}\n⚠️ Could not determine preview URL.`;
+
+            const { data: comments } = await github.issues.listComments({
+              ...context.repo,
+              issue_number: prNumber,
+            });
+
+            const existingComment = comments.find(comment =>
+              comment.body.includes(commentTag)
+            );
+
+            if (existingComment) {
+              await github.issues.updateComment({
+                ...context.repo,
+                comment_id: existingComment.id,
+                body,
+              });
+            } else {
+              await github.issues.createComment({
+                ...context.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
+
+            console.log('Preview URL comment added/updated.');
 
       - name: Deploy Next (Staging)
         if: ${{ github.ref == 'refs/heads/next' && github.event_name == 'push' }}
