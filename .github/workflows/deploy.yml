@@ -7,7 +7,8 @@ on:
   pull_request:
 
 env:
-  WRANGLER_VERSION: '4.50.0'
+  WRANGLER_VERSION: "4.50.0"
+  CF_ACCOUNT_ID: "a0fd0b38598331045fc0c76fadadbe29"
 
 jobs:
   build:
@@ -62,6 +63,7 @@ jobs:
           command: pages deploy build/jaspr --project-name nyxx-docs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CF_ACCOUNT_ID }}
       - name: Add PR comment
         if: ${{ steps.deploy.outcome == 'success' }}
         uses: actions/github-script@v8
@@ -116,6 +118,7 @@ jobs:
           command: pages deploy build/jaspr --project-name nyxx-docs --branch next
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CF_ACCOUNT_ID }}
 
       - name: Deploy Production
         if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }}
@@ -126,3 +129,4 @@ jobs:
           command: pages deploy build/jaspr --project-name nyxx-docs
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ env.CF_ACCOUNT_ID }}
