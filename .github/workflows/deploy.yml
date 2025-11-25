@@ -77,7 +77,7 @@ jobs:
             const commentTag = '<!-- docs-preview-url -->';
 
             const output = steps.deploy.outputs['command-output'];
-            const urlRegex = /Version Preview Alias URL:\s+(https:\/\/[^\s]+)/;
+            const urlRegex = /Deployment alias URL:\s+(https:\/\/[^\s]+)/;
             const match = output?.match(urlRegex);
             const previewUrl = match ? match[1] : null;
 
