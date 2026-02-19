@@ -1,6 +1,6 @@
 import 'package:jaspr/jaspr.dart';
 import 'package:jaspr_content/jaspr_content.dart';
-import 'package:nyxx_docs/main.dart';
+import 'package:nyxx_docs/main.server.dart';
 
 class OgTagsExtension implements PageExtension {
   const OgTagsExtension();

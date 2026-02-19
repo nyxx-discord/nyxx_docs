@@ -5,7 +5,7 @@ import 'package:jaspr_content/components/sidebar.dart';
 import 'package:jaspr_content/jaspr_content.dart';
 import 'package:jaspr_og/jaspr_og.dart';
 import 'package:nyxx_docs/components/og_image.dart';
-import 'package:nyxx_docs/main.dart';
+import 'package:nyxx_docs/main.server.dart';
 
 typedef SidebarFrontMatter = ({
   String title,

@@ -12,7 +12,7 @@ import 'package:jaspr_content/theme.dart';
 import 'package:nyxx_docs/extension/og_tags_extension.dart';
 import 'package:nyxx_docs/util.dart';
 
-import 'jaspr_options.dart';
+import 'main.server.options.dart';
 
 const docsLocation = 'docs';
 const dataLocation = '$docsLocation/_data';
@@ -23,12 +23,13 @@ const domain = 'https://${isPreview ? 'preview.' : ''}nyxx.org';
 
 void main() async {
   Jaspr.initializeApp(
-    options: defaultJasprOptions,
+    options: defaultServerOptions,
   );
 
   final (frontMatter, categories) = await readFrontMatterAndCategories();
 
   final app = ContentApp.custom(
+    eagerlyLoadAllPages: true,
     loaders: [
       FilesystemLoader(docsLocation),
       MemoryLoader(

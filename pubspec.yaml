@@ -7,58 +7,20 @@ environment:
   sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
-  jaspr: ^0.21.7
+  jaspr: ^0.22.3
   jaspr_content: ^0.4.4
   jaspr_router: ^0.8.0
-  jaspr_cli:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr_cli
+  jaspr_cli: ^0.22.3
   jaspr_og:
-    git:
-      url: https://github.com/Lexedia/jaspr_og.git
-      ref: fix/use-jaspr-bindings
+    hosted: https://pub.lexedia.moe
+    version: ^0.0.1-dev.5
 
 dev_dependencies:
-  build_runner: ^2.10.4
-  build_web_compilers: ^4.4.3
-  jaspr_builder: ^0.21.7
-  jaspr_lints: ^0.5.1
+  build_runner: ^2.11.1
+  build_web_compilers: ^4.4.12
+  jaspr_builder: ^0.22.3
+  jaspr_lints: ^0.6.0
   lints: ^6.0.0
-
-dependency_overrides:
-  jaspr_builder:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr_builder
-  jaspr:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr
-  jaspr_lints:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr_lints
-  jaspr_router:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr_router
-  jaspr_content:
-    git:
-      url: https://github.com/schultek/jaspr.git
-      ref: next
-      path: packages/jaspr_content
-  build_modules:
-    git:
-      url: https://github.com/Markzipan/build.git
-      ref: module_builder_fix
-      path: build_modules
-  
 
 jaspr:
   mode: static

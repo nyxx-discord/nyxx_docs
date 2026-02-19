@@ -1,3 +1,4 @@
+import 'package:jaspr/dom.dart';
 import 'package:jaspr/server.dart';
 import 'package:nyxx_docs/util.dart';
 
@@ -30,44 +31,48 @@ class OgImage extends StatelessComponent {
         alignItems: .center,
         color: Color('#ffffff'),
         backgroundColor: Color('#0c0c0c'),
-        raw: {'background-image': 'linear-gradient(135deg, #1f2937 0%, #111827 100%), noise-v1(opacity(0.1))'},
+        raw: {
+          'background-image': 'linear-gradient(135deg, #1f2937 0%, #111827 100%), noise-v1(opacity(0.1))',
+          // Vibrant Nyxx blue accent border at the top
+          'border-top': '1rem solid #3EC4FF',
+        },
       ),
       [
+        // Featured centered logo
         div(
           styles: Styles(
             display: .flex,
-            position: .absolute(top: .5.rem, left: .5.rem),
-            width: 5.rem,
-            height: 5.rem,
-            justifyContent: .center,
-            alignItems: .center,
+            width: 8.rem,
+            height: 8.rem,
+            margin: .only(bottom: 2.rem),
+            raw: {
+              // Optional: Add a subtle glow behind the logo
+              'filter': 'drop-shadow(0px 0px 40px rgba(62, 196, 255, 0.4))',
+            },
           ),
-          [
-            div(
-              styles: Styles(
-                width: 100.percent,
-                height: 100.percent,
-              ),
-              [logo],
-            ),
-          ],
+          [logo],
         ),
 
         div(
           styles: Styles(
             margin: .only(bottom: 1.rem),
-            fontSize: 4.rem,
+            fontSize: 5.5.rem,
             fontWeight: .bold,
+            textAlign: .center,
+            color: Color('#ffffff'),
           ),
-          [text(title)],
+          [.text(title)],
         ),
+
         if (description != null)
           div(
             styles: Styles(
-              color: Color('#8b949e'),
-              fontSize: 2.rem,
+              color: Color('#94a3b8'),
+              fontSize: 2.5.rem,
+              textAlign: .center,
+              raw: {'max-width': '80%'}, // Prevent text from hitting image edges
             ),
-            [text(description!)],
+            [.text(description!)],
           ),
       ],
     );
