@@ -1,5 +1,6 @@
 ---
 title: Creating a bot account
+description: How to create and setup a Discord bot
 author: One-Nub
 timestamp: 2021-09-22
 category: tutorials
@@ -16,47 +17,47 @@ To get started with nyxx, you'll need a Discord bot account!
   [applications](https://discord.com/developers/applications) page.
 - Look towards to the top right and click the **New Application** button.
 
-  ![Application button icon](../../static/img/tutorial/new_application_button.png)
+  ![Application button icon](/images/tutorial/new_application_button.png)
 - Type in a name for the application, this will be the initial name of your bot account. Then click
   **Done**.
 
-  ![New application menu](../../static/img/tutorial/create_application_page.png)
+  ![New application menu](/images/tutorial/create_application_page.png)
 - On the left menu, select the **Bot** tab, then look to the right and click the **Add Bot** button.
 
-  ![Add bot page](../../static/img/tutorial/add_bot_page.png)
+  ![Add bot page](/images/tutorial/add_bot_page.png)
 - You will be presented with a menu asking if you _really_ want to add a bot, which we do so click
   **Yes, do it!**
 
 ### Getting your bot's token
 
-:::danger
+<Error>
 Do NOT share or publish this token anywhere publicly. If you do, anyone will be able to use your
 bot account to perform any bot actions - such as banning users and leaving guilds.
-:::
+</Error>
 
 - Once your bot account is made, on that same **Bot** tab, there will be a section labeled
   **Token**.
 - To get your bot token, click on the **Reset** button. Discord will generate a new token so we can
   use it to run our bot.
   
-  ![Reset Token](../../static/img/tutorial/bot_token_reset.jpg)
+  ![Reset Token](/images/tutorial/bot_token_reset.jpg)
 - Next, click on **Yes, do it!** button to generate a new token.
   
-  ![Yes do it button](../../static/img/tutorial/bot_token_yes_do_it.jpg)
+  ![Yes do it button](/images/tutorial/bot_token_yes_do_it.jpg)
 - If you enabled the two factor authentication, you should encounter this window. Enter your auth
   codes (there are in an authenticator app (depends on which you chose)), **the backup codes given
   from Discord will not work**.
   
-  ![2Fa Codes](../../static/img/tutorial/bot_token_2fa.png)
+  ![2Fa Codes](/images/tutorial/bot_token_2fa.png)
 
 - Now you can finally copy your bot token.
 
-  ![Copy Bot Token](../../static/img/tutorial/copy_bot_token.jpg)
+  ![Copy Bot Token](/images/tutorial/copy_bot_token.jpg)
 
-:::tip
+<Info>
 In the event you share your token, be sure to press the **Reset** button so the old token can't be
 used anymore.
-:::
+</Info>
 
 ### Inviting your bot to a server
 
@@ -67,13 +68,13 @@ actually test commands in!
 - Then scroll down to the OAuth2 URL Generator and select the **bot** checkbox under the **scopes**
   section. If you wish to use slash commands as well, check the **application.commands** scope.
   
-  ![OAuth2 Scopes with bot and application.commands checked](../../static/img/tutorial/select_bot_scopes.png)
+  ![OAuth2 Scopes with bot and application.commands checked](/images/tutorial/select_bot_scopes.png)
 - Scroll down some more so you can see the **Bot Permissions** section. This is where you get to
   select which permissions your bot has when it joins a server. For basic usage, select the **View
   Channels and Send Messages** permissions, and then scroll up to the generated URL and click the
   **Copy** button on the right.
 
-  ![Bot permissions with send messages and view channels checked](../../static/img/tutorial/select_bot_permissions.png)
+  ![Bot permissions with send messages and view channels checked](/images/tutorial/select_bot_permissions.png)
 - Finally, head to that URL in your browser and add your bot!
 
 ### Making your bot public (or private)
@@ -81,7 +82,7 @@ actually test commands in!
 - Head to the **Bot** tab found in the left menu on your bot's application page.
 - Under the **Authorization Flow** section, find the **Public Bot** toggle.
 
-  ![Public bot toggle button](../../static/img/tutorial/make_bot_public.png)
+  ![Public bot toggle button](/images/tutorial/make_bot_public.png)
 - To make your bot public so anyone can add it to their server, change the toggle to the right (so
   it's blurple); and do the inverse to make it private so only you can add the bot to servers. By
   default your bot should be public.
@@ -109,5 +110,5 @@ To toggle these intents:
 - Head to the **Bot** tab found in the left menu on your bot's application page.
 - Find the **Privileged Gateway Intents** section.
 
-  ![Priviliged gateway intents section](../../static/img/tutorial/priv_gw_intents.png)
+  ![Priviliged gateway intents section](/images/tutorial/priv_gw_intents.png)
 - Toggle the intents as necessary for your bot.

@@ -1,16 +1,15 @@
-# [nyxx](https://github.com/nyxx-discord/nyxx) Documentation
+# nyxx_docs
 
-Documentation and guides for the [nyxx](https://github.com/nyxx-discord/nyxx) discord api library
+A documentation site built with Jaspr
 
-## Info
+## Running the project
 
-This repo contains documentation and guide to help people with learning dart and creating discord bots with nyxx. Many subjects are cover such as:
-- How to create a bot account
-- Setting up a basic hello world project
-- Picking your message intents
-- Using interactions
-- and more.
+Run your project using `jaspr serve`.
 
-## Contributing
+The development server will be available on `http://localhost:8080`.
 
-If you're interested in contributing to the documentation or guides, you should check out our [GitHub Projects](https://github.com/nyxx-discord/nyxx-docs/projects) page or [open issues](https://github.com/nyxx-discord/nyxx-docs/issues). There's a [contribution guide](./CONTRIBUTING.md) you should read once you decide on what you want to contribute.
+## Building the project
+
+Build your project using `jaspr build`.
+
+The output will be located inside the `build/jaspr/` directory.

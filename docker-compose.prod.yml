@@ -1,7 +1,0 @@
-services:
-  nyxx_docs:
-    image: ghcr.io/nyxx-discord/nyxx_docs:0.1
-    container_name: nyxx_docs
-    restart: unless-stopped
-    ports:
-      - "44344:80"
